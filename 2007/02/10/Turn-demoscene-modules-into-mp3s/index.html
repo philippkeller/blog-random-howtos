@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Turn demoscene modules into mp3s | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
+  
+  <meta name="description" content="If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &amp;hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won&amp;rsquo;t have read that far anyway..">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="Turn demoscene modules into mp3s"/>
+  <meta property="og:site_name" content="Random Howtos"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2007-02-10T18:39:00.000Z">2007-02-10</time>
+    </div>
+    
+  
+    <h1 class="title">Turn demoscene modules into mp3s</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p><img src="https://lh3.googleusercontent.com/-31kHXDajZUM/UMZL5kXClbI/AAAAAAAALXE/S26QsfTYpHs/s498/itunes_purple_motion.png" alt="iTunes screenshot of purple motions tracks"></p>
+<p>If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won&rsquo;t have read that far anyway..</p>
+<a id="more"></a>
+<h2 id="short-version-for-the-impatient"><a href="#short-version-for-the-impatient" class="headerlink" title="short version for the impatient"></a>short version for the impatient</h2><p>download <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHucXNKdUVlUGsyaGs" target="_blank" rel="external">downloadmod.py</a> and <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHubk9CdDFCdnJXNkE" target="_blank" rel="external">mod2mp3.py</a> into /usr/local/bin/</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install xmp adplay unrar lame</span><br><span class="line">mkdir ~/modules/</span><br><span class="line">downloadmod.py ~/modules/ &quot;Purple Motion&quot;</span><br><span class="line">mod2mp3.py ~/modules/</span><br></pre></td></tr></table></figure>
+<h3 id="First-get-those-modules"><a href="#First-get-those-modules" class="headerlink" title="First, get those modules"></a>First, get those modules</h3><p>The first task is to get those modules onto your computer (as you most certainly deleted them - either per accident or when you were in needed of some space on your hard drive back when hard drives where small and expensive)</p>
+<p>Afaik the most complete module resource is <a href="ftp://ftp.modland.com" target="_blank" rel="external">modland</a>. The crux is that it&rsquo;s just an ftp site with deep directory structure and without a search facility. All it has got is a complete list of all the modules in a RAR file (which is kept up to date by a cron job) that holds a text file with all the available modules and their path.</p>
+<p>To download all modules of a certain artist, I wrote a little <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHucXNKdUVlUGsyaGs" target="_blank" rel="external">python script</a> that downloads the module list, unrars it, caches it for further search requests, searches for the artist and downloads all modules of that particular artist.</p>
+<p><code>downloadmod.py ~/modules/ &quot;Michael Land&quot;</code> downloads all Adlib songs of Michael Land and places them into ~/modules/Michael Land/ and writes some artist/album meta information into those newly created directories.</p>
+<p>Alternatively you can adapt a quick and dirty <a href="http://pastie.org/private/nszifsjxnw5obz8bai3ng" target="_blank" rel="external">bash function</a>. It uses wget and is quite messy but it should do the task as well. You have to download and unpack the module list before you call the shell function.</p>
+<h3 id="Then-convert-those-modules-into-mp3-files"><a href="#Then-convert-those-modules-into-mp3-files" class="headerlink" title="Then, convert those modules into mp3 files"></a>Then, convert those modules into mp3 files</h3><p>To convert the modules into mp3 files you usually take a module player and call with some special parameters in order to &ldquo;play&rdquo; the module into a wav-File and convert that wav into an mp3 file.</p>
+<p>On linux, I&rsquo;d suggest to install this module players (both exist as debian packages and work without hassle on my ubuntu installation)</p>
+<ul>
+<li><a href="http://xmp.sourceforge.net/" target="_blank" rel="external">xmp</a> is *nix &ldquo;native&rdquo;</li>
+<li><a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> supports many adlib formats</li>
+</ul>
+<p>I wrote a <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHubk9CdDFCdnJXNkE" target="_blank" rel="external">python script</a> that converts the downloaded modules into mp3s using the just mentioned module players. You need at least xmp or adplay. If you install both, you&rsquo;d be able to play about 90% of all modules.</p>
+<p>Just call <code>mod2mp3.py</code> with your root module directory as argument and the script creates a mp3 file for each module that is convertible and isn&rsquo;t already converted. If you downloaded the modules with my download script, this script will use the meta information of the first script to write the id3 tags of the mp3s.</p>
+<p>If everything worked, you now should have mp3 files with correct id3 tags that can be imported into your amarok/itunes library.</p>
+<h3 id="What-about-us-windows-users"><a href="#What-about-us-windows-users" class="headerlink" title="What about us windows users?"></a>What about us windows users?</h3><p>Sorry guys. I&rsquo;ve got to let you down. One whole evening I tried to get any module player writing it&rsquo;s output to a wave file from the command line. I tried <a href="http://www.modplug.com/playerinfo.html" target="_blank" rel="external">modplug</a> and <a href="http://www.winamp.com" target="_blank" rel="external">Winamp</a> with a <a href="http://www.winamp.com/plugins/details.php?id=132367" target="_blank" rel="external">module player plugin</a> but without luck. If you succeed, let me know. Up to then, just take a linux box, copy/download all modules there and let the box convert your modules over night and import it back into your iTunes player. That&rsquo;s what I did.</p>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/python/">python</a>, <a href="/tags/demoscene/">demoscene</a>, <a href="/tags/music/">music</a>, <a href="/tags/modules/">modules</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/10/Turn-demoscene-modules-into-mp3s/" data-addthis-title="Turn demoscene modules into mp3s">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2007/02/18/set-timeout-for-a-shell-command-in-python/">
+          Next
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Comments</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 Philipp Keller
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'randomhowtos';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>

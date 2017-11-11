@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   
-  <title>set timeout for a shell command in python | Hexo</title>
-  <meta name="author" content="John Doe">
+  <title>Set timeout for a shell command in python | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
   
   <meta name="description" content="I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (adplay that was, sometimes it simply hangs).Update: the “task” module of Rob Hooft seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.">
   
@@ -12,8 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="generator" content="Hexo 2.6.0"/>
 
-  <meta property="og:title" content="set timeout for a shell command in python"/>
-  <meta property="og:site_name" content="Hexo"/>
+  <meta property="og:title" content="Set timeout for a shell command in python"/>
+  <meta property="og:site_name" content="Random Howtos"/>
 
   
     <meta property="og:image" content=""/>
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
   
 
-  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
   <link href="/css/site.css" rel="stylesheet">
   <script type="text/javascript" src="/js/jquery.min.js"></script>
@@ -49,7 +49,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><span class="text-primary">Hexo</span></a>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
     </div>
     <div class="collapse navbar-collapse navbar-right">
       <ul class="nav navbar-nav">
@@ -79,13 +79,19 @@
     </div>
     
   
-    <h1 class="title">set timeout for a shell command in python</h1>
+    <h1 class="title">Set timeout for a shell command in python</h1>
   
 
   
   <div class="post-content">
     
-      <p><br>      I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (<a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> that was, sometimes it simply hangs).<br><br><strong>Update:</strong> <a href="http://www.python.net/crew/hooft/" target="_blank" rel="external">the “task” module of Rob Hooft</a> seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.<br><br><br></p><br><a id="more"></a><br><pre class="linenum"><br>  def timeout_command(command, timeout):<br>    “””call shell-command and either return its output or kill it<br>    if it doesn’t normally exit within timeout seconds and return None”””<br>    import subprocess, datetime, os, time, signal<br>    start = datetime.datetime.now()<br>    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)<br>    while process.poll() is None:<br>      time.sleep(0.1)<br>      now = datetime.datetime.now()<br>      if (now - start).seconds&gt; timeout:<br>        os.kill(process.pid, signal.SIGKILL)<br>        os.waitpid(-1, os.WNOHANG)<br>        return None<br>    return process.stdout.read()<br></pre><br><p>Note especially lines 6, 11 and 12.<br>Usage:</p><br><pre><br>  &gt;&gt;&gt; output = timeout_command([“sleep”, “10”], 2)<br>  None<br>  &gt;&gt;&gt; output = timeout_command([“sleep”, “1”], 2)<br></pre><br><p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
+      <p>I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (<a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> that was, sometimes it simply hangs).<br><br><strong>Update:</strong> <a href="http://www.python.net/crew/hooft/" target="_blank" rel="external">the “task” module of Rob Hooft</a> seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.<br><br></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def timeout_command(command, timeout):</span><br><span class="line">  &quot;&quot;&quot;call shell-command and either return its output or kill it</span><br><span class="line">  if it doesn&apos;t normally exit within timeout seconds and return None&quot;&quot;&quot;</span><br><span class="line">  import subprocess, datetime, os, time, signal</span><br><span class="line">  start = datetime.datetime.now()</span><br><span class="line">  process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</span><br><span class="line">  while process.poll() is None:</span><br><span class="line">    time.sleep(0.1)</span><br><span class="line">    now = datetime.datetime.now()</span><br><span class="line">    if (now - start).seconds&amp;gt; timeout:</span><br><span class="line">      os.kill(process.pid, signal.SIGKILL)</span><br><span class="line">      os.waitpid(-1, os.WNOHANG)</span><br><span class="line">      return None</span><br><span class="line">  return process.stdout.read()</span><br></pre></td></tr></table></figure>
+<p>Note especially lines 6, 11 and 12.<br>Usage:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;10&quot;], 2)</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;1&quot;], 2)</span><br></pre></td></tr></table></figure>
+<p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
+
     
   </div>
   
@@ -99,7 +105,7 @@
 
   
   <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/02/18/set-timeout-for-a-shell-command-in-python/" data-addthis-title="set timeout for a shell command in python">
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/18/set-timeout-for-a-shell-command-in-python/" data-addthis-title="Set timeout for a shell command in python">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
@@ -110,17 +116,22 @@ addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/02/18/set-timeou
   
     <ul class="next_prev">
       
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2007/02/10/Turn-demoscene-modules-into-mp3s/">
+          Prev
+        </a></li>
+      
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/">
-          Вперед
+          Next
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Комментарии</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -134,11 +145,11 @@ addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/02/18/set-timeou
   <div class="widget">
   	  <form action=""
     method="get"
-    data-action="https://google.com.br/search?q=site:yoursite.com"
+    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
     accept-charset="utf-8"
     data-js="google-search-form">
   <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Поиск" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">
         <span class="glyphicon glyphicon-search"></span> 
@@ -157,7 +168,7 @@ addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/02/18/set-timeou
   <div class="container">
     <p class="navbar-center navbar-text">
       
-      &copy; 2017 John Doe
+      &copy; 2017 Philipp Keller
       
     </p>
   </div>
