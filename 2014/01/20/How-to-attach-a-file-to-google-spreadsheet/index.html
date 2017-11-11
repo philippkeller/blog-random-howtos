@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to attach a file to google spreadsheet | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="The following setup lets you
+
+choose a file from your computer to upload
+upload it to a defined folder on google drive
+inserts the link to the current cell">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="How to attach a file to google spreadsheet"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Hexo</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2014-01-20T15:06:00.000Z">2014-01-20</time>
+    </div>
+    
+  
+    <h1 class="title">How to attach a file to google spreadsheet</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p><img src="http://i.imgur.com/UnohuzJ.png" alt="asdf"></p>
+<p>The following setup lets you</p>
+<ul>
+<li>choose a file from your computer to upload</li>
+<li>upload it to a defined folder on google drive</li>
+<li>inserts the link to the current cell</li>
+</ul>
+<a id="more"></a>
+<p>To get it working:</p>
+<ol>
+<li>find out the id of the google drive folder you want your attachments be saved (in the example below this is <code>0B0uw1JCogWHuc29FWFJMWmc3Z1k</code>)</li>
+<li>in the spreadsheet where you want to upload the file: do Tools→Script Editor.. and paste the script below. Be sure to replace the id with your folders id</li>
+</ol>
+<p><strong>Update 2014</strong>: Made it working with <a href="http://googleblog.blogspot.ch/2013/12/new-google-sheets-faster-more-powerful.html" target="_blank" rel="external">the new sheets</a><br><strong>Update 2016-05</strong> Fixed the script thanks to the comments by Fede and Dov (DocsList.getFolderId was not working any more)</p>
+<pre><code>  // upload document into google spreadsheet
+  // and put link to it into current cell
+
+  function onOpen(e) {
+    var ss = SpreadsheetApp.getActiveSpreadsheet()
+    var menuEntries = [];
+    menuEntries.push({name: &quot;File...&quot;, functionName: &quot;doGet&quot;});
+    ss.addMenu(&quot;Attach ...&quot;, menuEntries);
+  }
+
+  function doGet(e) {
+    var app = UiApp.createApplication().setTitle(&quot;upload attachment into Google Drive&quot;);
+    SpreadsheetApp.getActiveSpreadsheet().show(app);
+    var form = app.createFormPanel().setId(&apos;frm&apos;).setEncoding(&apos;multipart/form-data&apos;);
+    var formContent = app.createVerticalPanel();
+    form.add(formContent);  
+    formContent.add(app.createFileUpload().setName(&apos;thefile&apos;));
+
+    // these parameters need to be passed by form
+    // in doPost() these cannot be found out anymore
+    formContent.add(app.createHidden(&quot;activeCell&quot;, SpreadsheetApp.getActiveRange().getA1Notation()));
+    formContent.add(app.createHidden(&quot;activeSheet&quot;, SpreadsheetApp.getActiveSheet().getName()));
+    formContent.add(app.createHidden(&quot;activeSpreadsheet&quot;, SpreadsheetApp.getActiveSpreadsheet().getId()));
+    formContent.add(app.createSubmitButton(&apos;Submit&apos;));
+    app.add(form);
+    SpreadsheetApp.getActiveSpreadsheet().show(app);
+    return app;
+  }
+
+  function doPost(e) {
+    var app = UiApp.getActiveApplication();
+    app.createLabel(&apos;saving...&apos;);
+    var fileBlob = e.parameter.thefile;
+var doc = DriveApp.getFolderById(&apos;0B0uw1JCogWHuc29FWFJMWmc3Z1k&apos;).createFile(fileBlob);
+    var label = app.createLabel(&apos;file uploaded successfully&apos;);
+
+    // write value into current cell
+    var value = &apos;hyperlink(&quot;&apos; + doc.getUrl() + &apos;&quot;;&quot;&apos; + doc.getName() + &apos;&quot;)&apos;
+    var activeSpreadsheet = e.parameter.activeSpreadsheet;
+    var activeSheet = e.parameter.activeSheet;
+    var activeCell = e.parameter.activeCell;
+    var label = app.createLabel(&apos;file uploaded successfully&apos;);
+    app.add(label);
+    SpreadsheetApp.openById(activeSpreadsheet).getSheetByName(activeSheet).getRange(activeCell).setFormula(value);
+    app.close();
+    return app;
+  }
+</code></pre>
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/google-spreadsheet/">google-spreadsheet</a>, <a href="/tags/google-apps-scripts/">google-apps-scripts</a>, <a href="/tags/attachments/">attachments</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://yoursite.com/2014/01/20/How-to-attach-a-file-to-google-spreadsheet/" data-addthis-title="How to attach a file to google spreadsheet">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/">
+          Vorherige Seite
+        </a></li>
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2015/08/22/Streaming-audio-from-Mac-to-Sonos/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:yoursite.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 John Doe
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'philippkeller';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>

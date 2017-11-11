@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to migrate your wordpress to tumblr. Including images and comments. | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="So I&amp;rsquo;ve decided to move my wordpress blogs to tumblr. Although apparently TechCrunch thinks that&amp;rsquo;s a bad idea. And although Moritz Adler would kill me for that. (Although: He doesn&amp;rsquo;t have a personal blog and hence has no licence to kill me). Anyway. With tumblr I don&amp;rsquo;t need to host a blog software myself. And I don&amp;rsquo;t end up having my blog hacked and then seeing my blog being displayed as a malware site in Chrome/Firefox (happened to me twice). And then with tumblr I create new blogs with subdomains within minutes. Cool stuff. Hail to the cloud, baby!
+So here you go: A complete guide how to fully migrate your wordpress blog to tumblr. Including comments and pictures. And still supporting your old url scheme.
+Update: I ran into a tool that claims to do a lot for you: import2.com/tumblr. It doesn&amp;rsquo;t migrate images and 302 redirects. Not sure about comments migration. And it costs 24$. Still, if you can leave out some of the steps below that&amp;rsquo;d be worth the money. Comments of the author on quora">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="How to migrate your wordpress to tumblr. Including images and comments."/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Hexo</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2012-12-14T10:37:00.000Z">2012-12-14</time>
+    </div>
+    
+  
+    <h1 class="title">How to migrate your wordpress to tumblr. Including images and comments.</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p><img src="https://lh3.googleusercontent.com/-Pn-aBqMjq9g/UMpMLdyLsgI/AAAAAAAALe0/zbopqqnD77M/s300/wordpresstumblr.jpg" alt="">So I&rsquo;ve decided to move my wordpress blogs to tumblr. Although apparently TechCrunch <a href="http://techcrunch.com/2010/09/18/stuff-white-person-doesnt-like/" target="_blank" rel="external">thinks that&rsquo;s a bad idea</a>. And although <a href="https://twitter.com/moritzadler" target="_blank" rel="external">Moritz Adler</a> would kill me for that. (Although: He doesn&rsquo;t have a personal blog and hence has no licence to kill me). Anyway. With tumblr I don&rsquo;t need to host a blog software myself. And I don&rsquo;t end up having my blog hacked and then seeing my blog being displayed as a malware site in Chrome/Firefox (happened to me twice). And then with tumblr I create new blogs with subdomains within minutes. Cool stuff. Hail to the cloud, baby!</p>
+<p>So here you go: A complete guide how to fully migrate your wordpress blog to tumblr. Including comments and pictures. And still supporting your old url scheme.</p>
+<p><strong>Update:</strong> I ran into a tool that claims to do a lot for you: <a href="http://www.import2.com/tumblr" target="_blank" rel="external">import2.com/tumblr</a>. It doesn&rsquo;t migrate images and 302 redirects. Not sure about comments migration. And it costs 24$. Still, if you can leave out some of the steps below that&rsquo;d be worth the money. <a href="http://www.quora.com/Mark-Kofman/answers/Tumblr" target="_blank" rel="external">Comments of the author on quora</a></p>
+<a id="more"></a>
+<h2 id="Before-you-start"><a href="#Before-you-start" class="headerlink" title="Before you start"></a>Before you start</h2><p>Before you start to actually move your blog, you need to consider a few things:</p>
+<h3 id="Where-do-you-move-your-DNS-to"><a href="#Where-do-you-move-your-DNS-to" class="headerlink" title="Where do you move your DNS to?"></a>Where do you move your <strong>DNS</strong> to?</h3><p>If you have a wordpress webhost, then this webhost most probably also does DNS for you. You need to replace that by a third party solution. I think these are good services:</p>
+<ul>
+<li><a href="https://dns.he.net/" target="_blank" rel="external">he.net</a>. Free service. No strings attached. The one I&rsquo;ve chosen. The interface is nice and very easy to add new CNAMES, MX records, etc. The uptime was <a href="http://www.lowendtalk.com/discussion/262/which-dns-site-to-use-for-domains#Comment_3800" target="_blank" rel="external">reported to be not so good</a>, but I don&rsquo;t really care about uptime of my blogs. To host your tumblr blog on your domain, you add a <code>CNAME</code> to <code>domains.tumblr.com</code> and then configure your tumblr blog to listen to that domain. Very simple.</li>
+<li><a href="http://aws.amazon.com/route53/" target="_blank" rel="external">Amazon Route 53</a>: They charge you $0.50 per hosted zone per month. That&rsquo;s a fair price and probably has a better uptime then he.net</li>
+</ul>
+<h3 id="What-do-you-want-to-do-with-your-images"><a href="#What-do-you-want-to-do-with-your-images" class="headerlink" title="What do you want to do with your images?"></a>What do you want to do with your <strong>images</strong>?</h3><p>At default they&rsquo;re all located under <code>[www.yourolddomain.com/wp-content/img1.jpg](http://www.yourolddomain.com/wp-content/img1.jpg)</code>. To completely get rid of your old web host you need to move those to a different image hoster. I don&rsquo;t advice you to upload it to tumblr because if in future you want to move away from tumblr you run into the same problem again.</p>
+<h3 id="Would-you-like-to-keep-your-comments"><a href="#Would-you-like-to-keep-your-comments" class="headerlink" title="Would you like to keep your comments?"></a>Would you like to keep your <strong>comments</strong>?</h3><p>Do you have comments at all? Tumblr doesn&rsquo;t support comments by itself. Most themes have disqus support. Moving comments to disqus is no big deal, but still it&rsquo;s some work, so you may decide to just not migrate comments.</p>
+<h3 id="Are-you-keen-to-not-break-your-old-blog-urls"><a href="#Are-you-keen-to-not-break-your-old-blog-urls" class="headerlink" title="Are you keen to not break your old blog urls?"></a>Are you keen to not break your <strong>old blog urls</strong>?</h3><p>Wordpress&rsquo; url scheme generally is e.g. <code>code.pui.ch/2007/01/05/print-hello-world/</code>.<br>That same post ends up at this tumblr url: <code>howto.pui.ch/post/37471154429/print-hello-world</code>. Note that the last part of the url is optional, i.e. <code>howto.pui.ch/post/37471154429</code> works as well.<br>If you care about incoming links to your blog not to break and if you care about your google ranking (I guess 302 redirects inherit the google ranking), there are two possibilities:</p>
+<ol>
+<li>Stay on the same domain, handle the redirects in tumblr (tumblr supports that with the pages&rsquo; type &ldquo;redirect&rdquo;)</li>
+<li>Move to a different domain and put up e.g. <code>redirect permanent</code> in a .htaccess file on your web server</li>
+</ol>
+<h2 id="A-rough-outline-of-what-you-rsquo-re-up-to"><a href="#A-rough-outline-of-what-you-rsquo-re-up-to" class="headerlink" title="A rough outline of what you&rsquo;re up to"></a>A rough outline of what you&rsquo;re up to</h2><p>At a glance, that what you&rsquo;ll do:</p>
+<ol>
+<li>Upload your images to a different hoster (if you want to get rid of your old webhost)</li>
+<li>Extract all blog posts+comment from wordpress</li>
+<li>Fix the export.xml: Replace images, more-tags and fix some additional stuff</li>
+<li>Migrate your wordpress blog to blogger</li>
+<li>Migrate your blogger blog to tumblr</li>
+<li>Install http redirects (on old webhost or on tumblr)</li>
+<li>Migrate your comments to disqus</li>
+<li>Clean up blog posts (might be a biggie if you&rsquo;re a perfectionist)</li>
+</ol>
+<p>Alright, let&rsquo;s specify those 8 steps.</p>
+<h2 id="Step-1-Upload-your-images-to-a-different-hoster"><a href="#Step-1-Upload-your-images-to-a-different-hoster" class="headerlink" title="Step 1: Upload your images to a different hoster"></a>Step 1: Upload your images to a different hoster</h2><p>If you&rsquo;re ok with keeping your old webhost you can skip this point. Easiest thing to do would be to copy your wp-content directory one to one to a different hoster so <code>[www.yourolddomain.com/wp-content/img1.jpg](http://www.yourolddomain.com/wp-content/img1.jpg)</code> turns into <code>[www.imagehoster.com/my_user_name/img1.jpg](http://www.imagehoster.com/my_user_name/img1.jpg)</code>.</p>
+<p>I don&rsquo;t have experience with image hosting providers so I just uploaded my images to picasa, but that meant I needed to update every single image in all my blog posts to the new image url of picasa. That was quite a pain. I couldn&rsquo;t find a image hoster yet who meets the criterias above. Photobucket doesn&rsquo;t, Dropbox doesn&rsquo;t, Google Drive doesn&rsquo;t. Maybe Amazon S3</p>
+<h2 id="Step-2-Extract-your-blog-posts-comment-from-wordpress"><a href="#Step-2-Extract-your-blog-posts-comment-from-wordpress" class="headerlink" title="Step 2: Extract your blog posts+comment from wordpress"></a>Step 2: Extract your blog posts+comment from wordpress</h2><ol>
+<li>In your wordpress admin go to Tools → Export. On my blog that was <code>code.pui.ch/wp-admin/export.php</code>.</li>
+<li>Choose <code>All content</code>, <code>Download Export File</code>.</li>
+</ol>
+<h2 id="Step-3-Fix-the-export-xml"><a href="#Step-3-Fix-the-export-xml" class="headerlink" title="Step 3: Fix the export.xml"></a>Step 3: Fix the export.xml</h2><p>You have just downloaded an xml file, in my case the name was <code>coderandom.wordpress.2012-12-13.xml</code>. Open that file with your favourite text editor. Now you need to do a few things before you can go on:</p>
+<ol>
+<li>Replace all &lt;!&ndash;more&ndash;&gt; by <span>[[</span>MORE<span>]]</span>. The uppercase actually matters. <span>[[</span>MORE<span>]]</span> is the divider that tumblr actually understands as the place where you want your excerpt to stop in the blog overview view.</li>
+<li>Replace all images by the new urls you got by uploading the images to the image hoster in step 1. It&rsquo;s much easier to do this at this stage than to replace the images once you&rsquo;ve migrated your blog to tumblr.</li>
+<li>You may have more wordpress plugins you used in your posts. I used <code>[python]...[/python]</code> to syntax highlight my python markup. I&rsquo;ve moved to <a href="http://code.google.com/p/google-code-prettify/" target="_blank" rel="external">google code prettify</a> which needs <code>&amp;lt;pre class=&quot;prettyprint&quot;&amp;gt;...&amp;lt;/pre&amp;gt;</code> as a syntax. So I needed to replace all occurrences by the new markup. Obviously, regex is your friend at this stage.</li>
+</ol>
+<h2 id="Step-4-Migrate-your-wordpress-blog-to-blogger"><a href="#Step-4-Migrate-your-wordpress-blog-to-blogger" class="headerlink" title="Step 4: Migrate your wordpress blog to blogger"></a>Step 4: Migrate your wordpress blog to blogger</h2><p>Unfortunately there&rsquo;s no direct way to directly import this xml file into tumblr. Instead, that&rsquo;s what you need to do:</p>
+<ol>
+<li><p><strong>Convert</strong> your xml file <a href="http://wordpress2blogger.appspot.com/" target="_blank" rel="external">on this website</a> to a file fit for importing into blogger.</p>
+<p>  This doesn&rsquo;t work for files bigger than 1MB. If that&rsquo;s the case then you can either convert the file on your own machine using <a href="http://code.google.com/p/google-blog-converters-appengine/" target="_blank" rel="external">this sourcecode on google code</a>. Or you can follow the <a href="http://julioinprogress.com/2011/09/10/guide-to-moving-from-wordpress-to-tumblr/" target="_blank" rel="external">instructions under step 3 on this blog post.</a></p>
+</li>
+<li><strong>Create a new blog</strong> on <a href="http://www.blogger.com" target="_blank" rel="external">blogger.com</a>.</li>
+<li>In blogger navigate to your new blog and do settings → other settings → <strong>import blog</strong></li>
+<li><strong>Publish</strong> all blog posts: Posts → All → Select all → Publish</li>
+</ol>
+<p>If you have difficulties in this step you might try a different solution (didn&rsquo;t try any of these):</p>
+<ul>
+<li><a href="https://github.com/ideashower/Export-Wordpress-posts-to-Tumblr" target="_blank" rel="external">ideashowers PHP script on github</a></li>
+<li><a href="http://www.daveexmachina.com/wordpress/?p=5974" target="_blank" rel="external">Dave Lartigues php script (plus explanations)</a></li>
+<li><a href="http://dbavaria.tumblr.com/post/28193913/wp2tumblr-transfer-your-blog-from-wordpress-to-tumblr" target="_blank" rel="external">Darshan Bavarians PHP script</a></li>
+<li><a href="http://snipplr.com/view/14609/migrate-wordpress-to-tumblr/" target="_blank" rel="external">shakefons php script</a></li>
+</ul>
+<h2 id="Step-5-Migrate-your-blogger-blog-to-tumblr"><a href="#Step-5-Migrate-your-blogger-blog-to-tumblr" class="headerlink" title="Step 5: Migrate your blogger blog to tumblr"></a>Step 5: Migrate your blogger blog to tumblr</h2><ol>
+<li>Go to <a href="http://www.bloggertotumblr.com/" target="_blank" rel="external">bloggertotumblr.com</a> and enter your url for your newly created blogger and tumblr blogs. The conversion is very straight forward.</li>
+<li>Delete your blogger blog</li>
+<li>Enjoy. Your blog posts are now on tumblr. Still missing: Support of the old url scheme and comments</li>
+</ol>
+<h2 id="Step-6-Install-http-redirects-on-old-webhost-or-on-tumblr"><a href="#Step-6-Install-http-redirects-on-old-webhost-or-on-tumblr" class="headerlink" title="Step 6: Install http redirects (on old webhost or on tumblr)"></a>Step 6: Install http redirects (on old webhost or on tumblr)</h2><p>In the section <a href="#beforeyoustart">before you start</a> I asked you to decide if you&rsquo;re ok to break your old urls. If you don&rsquo;t care, then skip this step. Although: if you care about keeping your comments then you still might to do this step, as it makes migrating comments to disqus a lot easier</p>
+<p>If you do care, then:</p>
+<ul>
+<li>If you keep the domain of your blog: You need to install tumblr redirect pages. See below.</li>
+<li>If you changed the domain of your blog: You need to install redirects on your former wordpress webhost. I describe how this is done via .htaccess config below</li>
+</ul>
+<h3 id="Install-tumblr-redirect-pages"><a href="#Install-tumblr-redirect-pages" class="headerlink" title="Install tumblr redirect pages"></a>Install tumblr redirect pages</h3><ol>
+<li>go to your new tumblr blog</li>
+<li>click customize top right</li>
+<li>add a page (left column)</li>
+<li>instead of &ldquo;Standard Layout&rdquo; choose &ldquo;Redirect&rdquo; and add a posts&rsquo; old url on top, and the new url on bottom. Repeat this for every blog posts (yeah, lots of work here)</li>
+</ol>
+<h3 id="Install-htaccess-on-your-old-webhost"><a href="#Install-htaccess-on-your-old-webhost" class="headerlink" title="Install .htaccess on your old webhost"></a>Install .htaccess on your old webhost</h3><p>IMO that&rsquo;s a bit simpler than installing a tumblr redirect for every blog post. Still it&rsquo;s a lot of work since you need to come up with a map of old_url → new_url for every blog post. If your webhost supports .htaccess then go for this method. Most probably you have such a file already for your wordpress installation.</p>
+<p>An example of a .htaccess file:</p>
+<pre>
+  RewriteEngine On
+  Redirect permanent /page/2/ [http://howto.pui.ch/page/2](http://howto.pui.ch/page/2)
+  Redirect permanent /feed/ [http://howto.pui.ch/rss](http://howto.pui.ch/rss)
+  RewriteRule ^$ [http://howto.pui.ch/](http://howto.pui.ch/) [R=301,L]
+  Redirect permanent /2007/02/25/add-bandwidth-to-a-file-download-in-python/ [http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python](http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python)
+  Redirect permanent /2007/06/08/python-find-out-cpu-time-of-a-certain-process/ [http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process](http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process)
+  Redirect permanent /2007/07/23/python-sort-a-list-of-dicts-by-dict-key/ [http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key](http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key)
+  Redirect permanent /2009/12/30/dealing-with-mysql-backend-does-not-support-timezone-aware-datetimes/ [http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support](http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support)
+  Redirect permanent /2011/01/19/python-easy-way-to-show-progress/ [http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress](http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress)
+  Redirect permanent /2012/07/17/how-to-detect-a-files-character-encoding/ [http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding](http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding)
+  Redirect permanent /2010/04/04/python-display-refreshing-status-like-top/ [http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top](http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top)
+  Redirect permanent /2011/11/03/how-to-switch-gnu-screen-windows-in-iterm2-via-keyboard-shortcuts/ [http://howto.pui.ch/404](http://howto.pui.ch/404)
+  Redirect permanent /2007/01/19/sched-20-pizza-is-ready/ [http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready](http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready)
+</pre>
+
+<p>Note the first 3 lines, you will need the same for your redirects. Note the special syntax of line 3. That is important to not redirect a non existing url to the new domain.</p>
+<h4 id="Wait-I-just-moved-my-blog-away-from-my-old-webhost-and-now-I-need-to-keep-it-to-have-http-redirects-in-place"><a href="#Wait-I-just-moved-my-blog-away-from-my-old-webhost-and-now-I-need-to-keep-it-to-have-http-redirects-in-place" class="headerlink" title="Wait! I just moved my blog away from my old webhost, and now I need to keep it to have http redirects in place?"></a>Wait! I just moved my blog away from my old webhost, and now I need to keep it to have http redirects in place?</h4><p>Uh, yes. Alternatively, you can move to a free hoster like google apps engine and e.g. <a href="http://blog.dantup.com/2010/01/generic-redirection-script-for-google-app-engine" target="_blank" rel="external">use this</a> to redirect. Or you just wait a few months and wait until all search engines have digested your redirects and kill your old webhost only then (that&rsquo;s what I&rsquo;m probably gonna do).</p>
+<h2 id="Step-7-Migrate-your-comments-to-disqus"><a href="#Step-7-Migrate-your-comments-to-disqus" class="headerlink" title="Step 7: Migrate your comments to disqus"></a>Step 7: Migrate your comments to disqus</h2><p>Because tumblr doesn&rsquo;t offer comments by itself you need to migrate your comments to disqus:</p>
+<ol>
+<li><a href="http://disqus.com/admin/register/" target="_blank" rel="external">Register</a> your new tumblr blog url at disqus</li>
+<li>On disqus go to <code>Admin</code> → <code>Tools</code> → <code>Import/Export</code> → <code>Upload WXR</code>. Choose the XML file you downloaded from your wordpress installation (not that got converted for blogger). Upload that</li>
+<li>On the same page go to <code>Migrate Threads</code>. Choose &ldquo;Redirect crawler&rdquo; if you installed the redirects in step 6. Otherwise you need to use the &ldquo;Upload a URL map&rdquo; option</li>
+</ol>
+<p>Voilà! After a few minutes your comments should appear in your new tumblr blog.</p>
+<h2 id="Step-8-Clean-up-your-tumblr-posts"><a href="#Step-8-Clean-up-your-tumblr-posts" class="headerlink" title="Step 8: Clean up your tumblr posts"></a>Step 8: Clean up your tumblr posts</h2><p>Might be that the html markup of my wordpress posts were so bad, but I needed to fix a lot of spacing between paragraphs. I also had some CSS tweaks to right align the images which I needed to fix.</p>
+<p>Lastly, blogger adds these paragraphs to the end of every blog post:</p>
+<pre>
+  &lt;div class="blogger-post-footer"&gt;
+    &lt;img alt="" height="1" src="https://blogger.googleusercontent.com/tracker/290349385069691835-5946149615494229188?l=coderandomm.blogspot.com" width="1"&gt;
+  &lt;/div&gt;
+</pre>
+
+<p>If you are a perfectionist you may want to remove this markup from every blog post.</p>
+<p>A word of caution: You can spend a lot of time at this step if you overdo it.</p>
+<h2 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h2><ul>
+<li>Thanks to <strong>MG Siegler</strong> (one of my favourite bloggers, although he is an Apple fanboy and I am a google disciple): He showed me that you can <a href="http://parislemon.com/post/15604811641/why-i-hate-android" target="_blank" rel="external">perfectly write long blog posts on tumblr</a> (that linked article is actually a must read about Android vs. iPhone)</li>
+<li><strong>Julio Angel Ortiz</strong>, who&rsquo;s <a href="http://julioinprogress.com/2011/09/10/guide-to-moving-from-wordpress-to-tumblr/" target="_blank" rel="external">article</a> served as the base for this howto.</li>
+<li><strong>TextMate</strong> for making html editing so easy. Just found out that it&rsquo;s actually a pretty decent HTML editor. I&rsquo;ll write my blog posts in here and only then past them into the tiny tumblr HTML editor popup.</li>
+</ul>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/wordpress-to-tumblr/">wordpress-to-tumblr</a>, <a href="/tags/wordpress/">wordpress</a>, <a href="/tags/tumblr/">tumblr</a>, <a href="/tags/migration/">migration</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://yoursite.com/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/" data-addthis-title="How to migrate your wordpress to tumblr. Including images and comments.">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2012/07/17/How-to-detect-a-files-character-encoding/">
+          Vorherige Seite
+        </a></li>
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2012/12/30/How-to-install-mysql-and-python-bindings-on-OS-X/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:yoursite.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 John Doe
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'philippkeller';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>

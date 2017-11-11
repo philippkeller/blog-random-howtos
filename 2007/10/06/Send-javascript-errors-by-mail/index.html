@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Send javascript errors by mail | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="I&amp;rsquo;m running a Django-powered site for a closed user group and added a bit of JavaScript magic here and there (mainly Prototype and Tooltip).">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="Send javascript errors by mail"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Hexo</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
+    </div>
+    
+  
+    <h1 class="title">Send javascript errors by mail</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p>  I&rsquo;m running <a href="http://extranet.icoc.ch" target="_blank" rel="external">a Django-powered site for a closed user group</a> and added a bit of JavaScript magic here and there (mainly <a href="http://www.prototypejs.org/" target="_blank" rel="external">Prototype</a> and <a href="http://codylindley.com/Javascript/219/finding-a-javascript-tool-tip-script" target="_blank" rel="external">Tooltip</a>).</p>
+<a id="more"></a>
+<p>  Now Django sends me a mail whenever a 404 or 500 error occurs. But when one of my users encounters a JavaScript-Error, I&rsquo;m not informed. I thought anyone in the web has solved this problem but didn&rsquo;t find anything, so here&rsquo;s my take: Just send any error using Ajax (here: using <a href="http://www.prototypejs.org/learn/introduction-to-ajax" target="_blank" rel="external">Prototypes Ajax abstraction</a>) to the server</p>
+<pre>
+onerror = Extranet.mailError;
+function mailError(msg, url, line) {
+ var postBody = 'url=' + url + '&amp;line=' + line + '&amp;message=' + escape(msg) + '&amp;useragent=' + escape(navigator.userAgent) + '&amp;user=' + escape(user_name);
+ var myAjax = new Ajax.Request('/api/jserror/', {method: 'post', postBody: postBody});
+}
+</pre>
+
+<p>  <code>user_name</code> is a JavaScript variable holding the Django username (so I know whom I can inform when the error is fixed).</p>
+<p>  On the server side, I just send me mails containing the JavaScript error message, the username and the user agent:</p>
+<pre>
+def jserror(request):
+ from django.core.mail import mail_admins
+ omit_messages = ['pointerobj is not defined', 'tipobj is not defined', 'ns6 is not defined', 'enabletip is not defined']
+ if request.POST.get('message', '') not in omit_messages:
+  message = """url: %s (%s)
+%s
+user-agent: %s
+username: %s
+""" % (request.POST.get('url', ''), request.POST.get('line', ''), request.POST.get('message', ''), request.POST.get('useragent', ''), request.POST.get('user', ''))
+  mail_admins("javascript error", urldecode(message))
+ return HttpResponse()
+</pre>
+
+<p>  Yeah, that&rsquo;s all very trivial but I wonder what other solutions exist for this problem&hellip;</p>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/python/">python</a>, <a href="/tags/django/">django</a>, <a href="/tags/javascript/">javascript</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/10/06/Send-javascript-errors-by-mail/" data-addthis-title="Send javascript errors by mail">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2007/10/03/Django-Serve-big-files-via-fcgid/">
+          Vorherige Seite
+        </a></li>
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2009/12/29/Fetch-publicly-available-google-calendar-data-with-python/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:yoursite.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 John Doe
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'philippkeller';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>

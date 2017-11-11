@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Streaming audio from Mac to Sonos | Hexo</title>
+  <meta name="author" content="John Doe">
+  
+  <meta name="description" content="About a year ago when we moved from a flat into a house we needed a sound system that supported multiple floors and is compatible with non-Apple-devices, so we chose Sonos.
+The Sonos-App is kindof ok, but there are situations I want to stream music directly from my mac to Sonos (e.g. using the spotify app which is like 1325 times more exciting to use than the Sonos app).
+After trying for hours I finally got a working system with AirSonos. Only issue I still have is that the audio is about 2 seconds delayed, which makes this unusable for video playback.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="Streaming audio from Mac to Sonos"/>
+  <meta property="og:site_name" content="Hexo"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Hexo</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2015-08-22T12:45:32.000Z">2015-08-22</time>
+    </div>
+    
+  
+    <h1 class="title">Streaming audio from Mac to Sonos</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p>About a year ago when we moved from a flat into a house we needed a sound system that supported multiple floors and is compatible with non-Apple-devices, so we chose Sonos.</p>
+<p>The Sonos-App is kindof ok, but there are situations I want to stream music directly from my mac to Sonos (e.g. using the spotify app which is like 1325 times more exciting to use than the Sonos app).</p>
+<p>After trying for hours I finally got a working system with <a href="https://github.com/stephen/airsonos" target="_blank" rel="external">AirSonos</a>. Only issue I still have is that the audio is about 2 seconds delayed, which makes this unusable for video playback.</p>
+<a id="more"></a>
+<h2 id="How-to-install"><a href="#How-to-install" class="headerlink" title="How to install"></a>How to install</h2><ol>
+<li>install node and npm either via <a href="http://nodejs.org/download/" target="_blank" rel="external">installer</a> or via <a href="https://changelog.com/install-node-js-with-homebrew-on-os-x/" target="_blank" rel="external">homebrew</a></li>
+<li>install airsonos via <code>npm install -g airsonos</code> (although on some forums users say you need an older node version I got it running with version 0.12.7)</li>
+<li>turn off ipv6 via <code>networksetup -setv6off Wi-Fi</code>: this is the hacky part: apparently on yosemite this is needed, otherwise every time you try to connect to your Sonos device you get <code>Could not connect to &quot;&amp;lt;speaker&amp;gt; (AirSonos)&quot;</code>. I found this trick in <a href="https://github.com/stephen/airsonos/issues/80" target="_blank" rel="external">this thread</a></li>
+<li>start <code>airsonos</code></li>
+<li>start streaming your audio by pressing <code>alt(option)</code> and clicking the volume symbol top right: <img src="https://docs.google.com/uc?id=0B0uw1JCogWHucUJfLXhHVTMyMlk" alt="stream music to sonos"></li>
+</ol>
+<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><ul>
+<li>I had issues with AirSonos after upgrading (error text: <code>Error: Module did not self-register</code>) my node version. I needed to <code>npm uninstall airsonos</code> and <code>npm install airsonos</code> to make it recompile for the new node version</li>
+<li>when playing music through vlc the music is stuttering (choppy playback), this is due to VLC, see <a href="https://www.reddit.com/r/sonos/comments/2ssi3g/pushing_audio_from_video_from_pc_to_sonos_devices/" target="_blank" rel="external">this thread for details</a></li>
+<li>audio is about 2 seconds delayed, that is a <a href="https://github.com/stephen/airsonos/issues/65" target="_blank" rel="external">known issue</a> which - unfortunately - doesn&rsquo;t look to be solved soon.</li>
+</ul>
+<h2 id="About-AirSonos"><a href="#About-AirSonos" class="headerlink" title="About AirSonos"></a>About AirSonos</h2><p>AirSonos is independent from Sonos, and is a one-man project which kindof fell asleep beginning of 2015 but which might see another update soon, looking at <a href="https://github.com/stephen/airsonos/compare/lib" target="_blank" rel="external">a dev branch</a>.</p>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/sonos/">sonos</a>, <a href="/tags/airsonos/">airsonos</a>, <a href="/tags/osx/">osx</a>, <a href="/tags/yosemite/">yosemite</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://yoursite.com/2015/08/22/Streaming-audio-from-Mac-to-Sonos/" data-addthis-title="Streaming audio from Mac to Sonos">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2014/01/20/How-to-attach-a-file-to-google-spreadsheet/">
+          Vorherige Seite
+        </a></li>
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:yoursite.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 John Doe
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'philippkeller';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>
