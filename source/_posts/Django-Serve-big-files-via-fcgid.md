@@ -4,6 +4,7 @@ tags:
   - python
   - django
 date: 2007-10-03 10:14:00
+alias: /post/37471157406/django-serve-big-files-via-fcgid
 ---
 
 I&rsquo;ve got a [django project](http://extranet.icoc.ch) running which requires you to login to access files.

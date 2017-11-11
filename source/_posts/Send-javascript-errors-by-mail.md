@@ -5,6 +5,7 @@ tags:
   - django
   - javascript
 date: 2007-10-06 15:33:00
+alias: /post/37471157855/send-javascript-errors-by-mail
 ---
 
   I&rsquo;m running [a Django-powered site for a closed user group](http://extranet.icoc.ch) and added a bit of JavaScript magic here and there (mainly [Prototype](http://www.prototypejs.org/) and [Tooltip](http://codylindley.com/Javascript/219/finding-a-javascript-tool-tip-script)).

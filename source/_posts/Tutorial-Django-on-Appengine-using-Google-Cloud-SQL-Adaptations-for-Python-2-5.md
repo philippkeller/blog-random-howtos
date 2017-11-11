@@ -8,6 +8,7 @@ tags:
   - google app engine
   - main.py
 date: 2013-01-01 21:53:00
+alias: /post/39406024646/tutorial-django-on-appengine-using-google-cloud
 ---
 
 Google App Engine has two Python runtimes, [either 2.7.3 or 2.5.2](https://developers.google.com/appengine/docs/whatisgoogleappengine#The_Application_Environment). You should try to develop for 2.7, as it&rsquo;s the current default on GAE and all the documentations often only describe this Python version.

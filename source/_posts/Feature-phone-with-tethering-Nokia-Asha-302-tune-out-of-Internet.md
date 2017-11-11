@@ -5,9 +5,10 @@ tags:
   - nvidia shield
   - tethering
 date: 2016-05-15 20:25:41
+alias: /post/144409514866/feature-phone-with-tethering-nokia-asha-302
 ---
 
-![](https://docs.google.com/uc?id=0B0uw1JCogWHuWC1WZ2FabG5NVVU)
+<img src="https://docs.google.com/uc?id=0B0uw1JCogWHuWC1WZ2FabG5NVVU" width="400" />
 
 Since the days of the iPhone finding the right way to handle the mobile phone is challenging to me. Working in web programming and being a father and husband at the same time is means that I need to be able to connect to my colleagues at work when not at my desk while being able to &ldquo;tune out&rdquo; while being with my family.
 

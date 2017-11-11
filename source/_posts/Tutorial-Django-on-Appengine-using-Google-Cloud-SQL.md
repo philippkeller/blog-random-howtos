@@ -7,6 +7,7 @@ tags:
   - python
   - mysql
 date: 2012-12-30 22:47:00
+alias: /post/39245389801/tutorial-django-on-appengine-using-google-cloud
 ---
 
 ![](https://lh5.googleusercontent.com/-lX6aq3qvV50/UOC0ONuosVI/AAAAAAAAMUE/Q_occPtbmnQ/s230/Untitled-1.png)

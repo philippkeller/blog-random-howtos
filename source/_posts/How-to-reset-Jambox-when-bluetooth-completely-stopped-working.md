@@ -3,6 +3,7 @@ title: How to reset Jambox when bluetooth completely stopped working
 tags:
   - gadgets
 date: 2012-07-14 19:26:00
+alias: /post/37471160886/how-to-reset-jambox-when-bluetooth-completely
 ---
 
   I bought a Jambox about half a year ago. Sound wise it is great, but apparently it is not very stable, especially after recharging it falls into some state where it only utters static noise. In this state it still plays music over the aux cable, but not any more over bluetooth.<!-- more -->

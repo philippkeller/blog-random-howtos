@@ -5,6 +5,7 @@ tags:
   - google-apps-scripts
   - attachments
 date: 2014-01-20 16:06:00
+alias: /post/73949358752/how-to-attach-a-file-to-google-spreadsheet
 ---
 
 ![asdf](http://i.imgur.com/UnohuzJ.png)

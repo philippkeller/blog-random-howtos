@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: Random Howtos
+subtitle: 
 description:
-author: John Doe
-language:
+author: Philipp Keller
+language: en
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://howto.philippkeller.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -53,7 +53,7 @@ index_generator:
   order_by: -date
 
 # Disqus
-disqus_shortname: philippkeller
+disqus_shortname: randomhowtos
 
   
 # Category & Tag

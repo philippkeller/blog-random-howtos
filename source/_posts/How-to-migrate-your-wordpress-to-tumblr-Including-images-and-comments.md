@@ -6,6 +6,7 @@ tags:
   - tumblr
   - migration
 date: 2012-12-14 11:37:00
+alias: /post/37850192094/how-to-migrate-your-wordpress-to-tumblr-including
 ---
 
 ![](https://lh3.googleusercontent.com/-Pn-aBqMjq9g/UMpMLdyLsgI/AAAAAAAALe0/zbopqqnD77M/s300/wordpresstumblr.jpg)So I&rsquo;ve decided to move my wordpress blogs to tumblr. Although apparently TechCrunch [thinks that&rsquo;s a bad idea](http://techcrunch.com/2010/09/18/stuff-white-person-doesnt-like/). And although [Moritz Adler](https://twitter.com/moritzadler) would kill me for that. (Although: He doesn&rsquo;t have a personal blog and hence has no licence to kill me). Anyway. With tumblr I don&rsquo;t need to host a blog software myself. And I don&rsquo;t end up having my blog hacked and then seeing my blog being displayed as a malware site in Chrome/Firefox (happened to me twice). And then with tumblr I create new blogs with subdomains within minutes. Cool stuff. Hail to the cloud, baby!
