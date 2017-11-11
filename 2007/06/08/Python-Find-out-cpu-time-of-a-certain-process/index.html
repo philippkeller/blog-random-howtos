@@ -3,25 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Python: Print list of dicts as ascii table | Hexo</title>
+  <title>Python: Find out cpu time of a certain process | Hexo</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="Sometimes I want to print list of dicts as an ascii table, like this:
-  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-
-
-I searched on Google - but without luck.">
+  <meta name="description" content="To find out how many percentage a certain process uses the cpu:">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="generator" content="Hexo 2.6.0"/>
 
-  <meta property="og:title" content="Python: Print list of dicts as ascii table"/>
+  <meta property="og:title" content="Python: Find out cpu time of a certain process"/>
   <meta property="og:site_name" content="Hexo"/>
 
   
@@ -84,68 +75,17 @@ I searched on Google - but without luck.">
       <div class="col-md-8"><article class="post">
   
     <div class="post-date">
-      <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
+      <time datetime="2007-06-08T04:52:00.000Z">2007-06-08</time>
     </div>
     
   
-    <h1 class="title">Python: Print list of dicts as ascii table</h1>
+    <h1 class="title">Python: Find out cpu time of a certain process</h1>
   
 
   
   <div class="post-content">
     
-      <p>Sometimes I want to print list of dicts as an ascii table, like this:</p>
-<pre>  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-</pre>
-
-<p>I searched on Google - but without luck.<a id="more"></a></p>
-<p> That&rsquo;s what I came up with - it&rsquo;s not particularly nice but it does the job:</p>
-<pre>  def table_print(data, title_row):
-    """
-    data: list of dicts,
-    title_row: e.g. [('name', 'Programming Language'), ('type', 'Language Type')]
-    """
-    max_widths = {}
-    data_copy = [dict(title_row)] + list(data)
-    for col in data_copy[0].keys():
-      max_widths[col] = max([len(str(row[col])) for row in data_copy])
-    cols_order = [tup[0] for tup in title_row]
-
-    def custom_just(col, value):
-      if type(value) == int:
-        return str(value).rjust(max_widths[col])
-      else:
-        return value.ljust(max_widths[col])
-
-    for row in data_copy:
-      row_str = " | ".join([custom_just(col, row[col]) for col in cols_order])
-      print "| %s |" % row_str
-      if data_copy.index(row) == 0:
-        underline = "-+-".join(['-' * max_widths[col] for col in cols_order])
-        print '+-%s-+' % underline
-
-  </pre>
-
-<p>Use it like that:</p>
-<pre>  data = [dict(name='python', type='script', years_experience=4),
-    dict(name='php', type='script', years_experience=5),
-    dict(name='java', type='compiled', years_experience=11),
-    dict(name='assember', type='compiled', years_experience=15)
-    ]
-  titles = [('name', 'Programming Language'),
-    ('type', 'Language Type'),
-    ('years_experience', 'Years of Experience')]
-  table_print(data, titles)
-  </pre>
-
-<p>It will produce the table printed above. It&rsquo;s not fancy - the only &lsquo;smart&rsquo; thing it does is <strong>right-adjusting integers, strings are left-adjusted</strong>.</p>
-<p> P.S. no, I don&rsquo;t have 15 years of experience of Assembler - I just know it since 15 years - it&rsquo;s one of the first programming languages I learned - and I even wrote a text editor with it - then I learned that&rsquo;s probably not the best language to write an editor :-)</p>
-
+      <p><br>  To find out how many percentage a certain process uses the cpu:<br></p><br><a id="more"></a><br><pre><br>  import os, time<br><br>  # find out the pid by username.<br>  # “-o pid h” omits the header and just prints the pid<br>  pid = os.popen(‘ps -U my_user_name -o pid h’).read().strip()<br><br>  # 14th column is utime, 15th column is stime:<br>  # The time the process has been scheduled in user/kernel mode<br>  # The time value is in jiffies. One jiffie is appox 1/100 second<br>  # see man proc for more info<br>  stat = os.popen(‘cat /proc/%s/stat’ % pid).read().strip()<br>  cpu_time1=int(stat.split()[14]) + int(stat.split()[15])<br>  time1=time.time()<br><br>  time.sleep(1)<br>  stat = os.popen(‘cat /proc/%s/stat’ % pid).read().strip()<br>  cpu_time2=int(stat.split()[14]) + int(stat.split()[15])<br>  time2=time.time()<br><br>  print str(float(cpu_time2 - cpu_time1) / (time2 - time1)) + “%”<br></pre><br><p><br>  I don’t know though if the number is accurate.<br><br>  What is “cpu time” anyway? It’s the time the process is running (using the cpu for 100%) divided by the time the process is laid asleep by the scheduler.<br><br>  Then, <a href="http://www.ecos.sourceware.org/ml/systemtap/2005-q4/msg00185.html" target="_blank" rel="external">jiffies seem to be not a safe number</a> for time measurements.<br><br>  But for relative measurements it should do the trick.<br></p>
     
   </div>
   
@@ -159,7 +99,7 @@ I searched on Google - but without luck.">
 
   
   <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://yoursite.com/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/" data-addthis-title="Python: Print list of dicts as ascii table">
+addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/" data-addthis-title="Python: Find out cpu time of a certain process">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
@@ -171,13 +111,13 @@ addthis_32x32_style" data-addthis-url="http://yoursite.com/2010/02/27/Python-Pri
     <ul class="next_prev">
       
         <li class="prev">
-        <a class="btn btn-success" role="button" href="/2007/10/06/Send-javascript-errors-by-mail/">
+        <a class="btn btn-success" role="button" href="/2007/02/18/set-timeout-for-a-shell-command-in-python/">
           Назад
         </a></li>
       
       
         <li class="next">
-        <a class="btn btn-success" role="button" href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/">
+        <a class="btn btn-success" role="button" href="/2007/10/03/Django-Serve-big-files-via-fcgid/">
           Вперед
         </a></li>
       

@@ -3,25 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Python: Print list of dicts as ascii table | Hexo</title>
+  <title>set timeout for a shell command in python | Hexo</title>
   <meta name="author" content="John Doe">
   
-  <meta name="description" content="Sometimes I want to print list of dicts as an ascii table, like this:
-  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-
-
-I searched on Google - but without luck.">
+  <meta name="description" content="I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (adplay that was, sometimes it simply hangs).Update: the “task” module of Rob Hooft seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="generator" content="Hexo 2.6.0"/>
 
-  <meta property="og:title" content="Python: Print list of dicts as ascii table"/>
+  <meta property="og:title" content="set timeout for a shell command in python"/>
   <meta property="og:site_name" content="Hexo"/>
 
   
@@ -84,68 +75,17 @@ I searched on Google - but without luck.">
       <div class="col-md-8"><article class="post">
   
     <div class="post-date">
-      <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
+      <time datetime="2007-02-18T17:04:00.000Z">2007-02-18</time>
     </div>
     
   
-    <h1 class="title">Python: Print list of dicts as ascii table</h1>
+    <h1 class="title">set timeout for a shell command in python</h1>
   
 
   
   <div class="post-content">
     
-      <p>Sometimes I want to print list of dicts as an ascii table, like this:</p>
-<pre>  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-</pre>
-
-<p>I searched on Google - but without luck.<a id="more"></a></p>
-<p> That&rsquo;s what I came up with - it&rsquo;s not particularly nice but it does the job:</p>
-<pre>  def table_print(data, title_row):
-    """
-    data: list of dicts,
-    title_row: e.g. [('name', 'Programming Language'), ('type', 'Language Type')]
-    """
-    max_widths = {}
-    data_copy = [dict(title_row)] + list(data)
-    for col in data_copy[0].keys():
-      max_widths[col] = max([len(str(row[col])) for row in data_copy])
-    cols_order = [tup[0] for tup in title_row]
-
-    def custom_just(col, value):
-      if type(value) == int:
-        return str(value).rjust(max_widths[col])
-      else:
-        return value.ljust(max_widths[col])
-
-    for row in data_copy:
-      row_str = " | ".join([custom_just(col, row[col]) for col in cols_order])
-      print "| %s |" % row_str
-      if data_copy.index(row) == 0:
-        underline = "-+-".join(['-' * max_widths[col] for col in cols_order])
-        print '+-%s-+' % underline
-
-  </pre>
-
-<p>Use it like that:</p>
-<pre>  data = [dict(name='python', type='script', years_experience=4),
-    dict(name='php', type='script', years_experience=5),
-    dict(name='java', type='compiled', years_experience=11),
-    dict(name='assember', type='compiled', years_experience=15)
-    ]
-  titles = [('name', 'Programming Language'),
-    ('type', 'Language Type'),
-    ('years_experience', 'Years of Experience')]
-  table_print(data, titles)
-  </pre>
-
-<p>It will produce the table printed above. It&rsquo;s not fancy - the only &lsquo;smart&rsquo; thing it does is <strong>right-adjusting integers, strings are left-adjusted</strong>.</p>
-<p> P.S. no, I don&rsquo;t have 15 years of experience of Assembler - I just know it since 15 years - it&rsquo;s one of the first programming languages I learned - and I even wrote a text editor with it - then I learned that&rsquo;s probably not the best language to write an editor :-)</p>
-
+      <p><br>      I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (<a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> that was, sometimes it simply hangs).<br><br><strong>Update:</strong> <a href="http://www.python.net/crew/hooft/" target="_blank" rel="external">the “task” module of Rob Hooft</a> seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.<br><br><br></p><br><a id="more"></a><br><pre class="linenum"><br>  def timeout_command(command, timeout):<br>    “””call shell-command and either return its output or kill it<br>    if it doesn’t normally exit within timeout seconds and return None”””<br>    import subprocess, datetime, os, time, signal<br>    start = datetime.datetime.now()<br>    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)<br>    while process.poll() is None:<br>      time.sleep(0.1)<br>      now = datetime.datetime.now()<br>      if (now - start).seconds&gt; timeout:<br>        os.kill(process.pid, signal.SIGKILL)<br>        os.waitpid(-1, os.WNOHANG)<br>        return None<br>    return process.stdout.read()<br></pre><br><p>Note especially lines 6, 11 and 12.<br>Usage:</p><br><pre><br>  &gt;&gt;&gt; output = timeout_command([“sleep”, “10”], 2)<br>  None<br>  &gt;&gt;&gt; output = timeout_command([“sleep”, “1”], 2)<br></pre><br><p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
     
   </div>
   
@@ -159,7 +99,7 @@ I searched on Google - but without luck.">
 
   
   <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://yoursite.com/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/" data-addthis-title="Python: Print list of dicts as ascii table">
+addthis_32x32_style" data-addthis-url="http://yoursite.com/2007/02/18/set-timeout-for-a-shell-command-in-python/" data-addthis-title="set timeout for a shell command in python">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
@@ -170,14 +110,9 @@ addthis_32x32_style" data-addthis-url="http://yoursite.com/2010/02/27/Python-Pri
   
     <ul class="next_prev">
       
-        <li class="prev">
-        <a class="btn btn-success" role="button" href="/2007/10/06/Send-javascript-errors-by-mail/">
-          Назад
-        </a></li>
-      
       
         <li class="next">
-        <a class="btn btn-success" role="button" href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/">
+        <a class="btn btn-success" role="button" href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/">
           Вперед
         </a></li>
       
