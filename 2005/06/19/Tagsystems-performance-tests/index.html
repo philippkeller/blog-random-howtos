@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Tagsystems: performance tests | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
+  
+  <meta name="description" content="In my previous article named &amp;ldquo;Tags: database schemas&amp;rdquo; we analysed different database schemas on how they could meet the needs of tag systems. In this article, the focus is on performance (speed). That is: if you want to build a tagsystem that performs good with about 1 million items (bookmarks for instance), then you may want to have a look at the following result of my performance tests.In this article I tested tagging of bookmarks, but as you can tag pretty much anything, this goes for tagging systems in general.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="Tagsystems: performance tests"/>
+  <meta property="og:site_name" content="Random Howtos"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2005-06-19T15:09:00.000Z">2005-06-19</time>
+    </div>
+    
+  
+    <h1 class="title">Tagsystems: performance tests</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p>In my <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas" title="Tags: database schemas" target="_blank" rel="external">previous article named &ldquo;Tags: database schemas&rdquo;</a> we analysed different database schemas on how they could meet the needs of tag systems. In this article, the focus is on performance (speed). That is: if you want to build a tagsystem that performs good with about 1 million items (bookmarks for instance), then you may want to have a look at the following result of my performance tests.<br>In this article I tested tagging of bookmarks, but as you can tag pretty much anything, this goes for tagging systems in general.<a id="more"></a></p>
+<p>I tested the following schemas (I keep the naming from the previous article):</p>
+<ul>
+<li><strong>mysqlicious</strong>: One table. Tags are space separated in column &ldquo;tags&rdquo;; <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas#mysqlicious" target="_blank" rel="external">as introduced</a></li>
+<li><strong>mysqlicious fulltext</strong>: Same schema but with <a href="http://dev.mysql.com/doc/mysql/en/fulltext-search.html" target="_blank" rel="external">mysql fulltext</a> on the tag column; <a href="http://tagging.pui.ch/post/37027745995/tags-with-mysql-fulltext" target="_blank" rel="external">as introduced</a></li>
+<li><strong>scuttle</strong>: Two tables: One for bookmarks, one for tags. Tag-table has foreign key to bookmark table; <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas#scuttle" target="_blank" rel="external">as introduced</a></li>
+<li><strong>toxi</strong>: Three tables: One for bookmarks, one for tags, one for junction; <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas#toxi" target="_blank" rel="external">as introduced</a></li>
+</ul>
+<p><span>You may want to have a close watch at the details of the schemas when having a look at the </span><a href="http://pastie.org/5480706" target="_blank" rel="external">sql-create-table-queries</a><span>.</span></p>
+<p><span></span>But let&rsquo;s go directly to the results. The details about the setup of this tests are mentioned at the <a href="#setup">end of this article</a>. The x-axis depicts the number of bookmarks in the corresponding database, on the y-axis you see how much time each query took to execute.<!-- more --></p>
+<h3 id="Results"><a href="#Results" class="headerlink" title="Results"></a><a name="#results" id="#results"></a>Results</h3><h4 id="Intersection-250-tag-set"><a href="#Intersection-250-tag-set" class="headerlink" title="Intersection: 250 tag set"></a>Intersection: 250 tag set</h4><p><img src="https://lh4.googleusercontent.com/-3MTMt9iTACc/UL0Axe4hHMI/AAAAAAAALDM/cGcmhMoMo20/s400/intersection_250_3_i300.png" alt="Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset" title="Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset"></p>
+<p>The first two tests are done with 250 tags in the small dataset (<a href="#setup">see below</a> for explanation). I think the queries in the &ldquo;1 million bookmarks database&rdquo; are the only size we should pay attention to. I mean if you have a small number of bookmarks, performance isn&rsquo;t really a thing to bother..</p>
+<p>We run intersection queries, like</p>
+<blockquote>
+<div>I want to search for bookmarks tagged with &ldquo;design&rdquo; and &ldquo;html&rdquo;</div>
+
+</blockquote>
+<p>You see that, not surprisingly, mysqlicious with its <code>WHERE tag LIKE &quot;% tag %&quot;</code> is very slow. That is, MySQL has to go through the whole dataset and test each bookmark against the query.<br>What actually <strong>is</strong> surprising me, is that the fulltext search of mysql is not that high-performance. In fact it is not faster then the <code>LIKE</code>-query in the MySQLicious DB. This really disappointed me. I tried to do any quirks possible to make this faster as <a href="http://tagging.pui.ch/post/37027745995/tags-with-mysql-fulltext" target="_blank" rel="external">I think, a tag-database-system with mysql fulltext would be very easy and like the only thing you should head to..</a>.<br>What is surprising me too, is that the queries on the 3 table schema are about double as fast the the ones on the two-table ones(<a href="http://pastie.org/5480722" target="_blank" rel="external">take a look at the queries</a> if you think you could give me a hint on this). Noticeable is, that in the scuttle and toxi-variant, the more queries were run, the faster they were. I didn&rsquo;t do any tests with queries and inserts mixed so this may be coming from just plain good caching and this effect possible doesn&rsquo;t show up on live bookmark management systems.</p>
+<h4 id="Intersection-999-tag-set"><a href="#Intersection-999-tag-set" class="headerlink" title="Intersection: 999 tag set"></a>Intersection: 999 tag set</h4><p><img src="https://lh4.googleusercontent.com/-4awEHoQC8w8/UL0Ax6ZbRNI/AAAAAAAALDY/rSvIp_iaqGA/s400/intersection_999_3_300.png" alt="Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset" title="Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset"><br>Now have a look to what happens if we broaden our small tag set: MySQLicious with fulltext suddenly gets the performance leader. That means, if you have a bookmark management system with diverse tags (this most probably comes from the fact that there are many users), the fulltext solution is possibly the way to go.<br>So now, as you see, choosing the right schema is all about tag distribution. In my previous post about guessing the overall tag distribution on <a href="http://del.icio.us" target="_blank" rel="external">del.icio.us</a>, I came to the conclusion, that delicious&rsquo; most popular tag &ldquo;design&rdquo; is showing up in 3.2% of all bookmarks on <a href="http://del.icio.us" target="_blank" rel="external">del.icio.us</a>. So then, what is the mean tag distribution?</p>
+<ul>
+<li>If we say 1% (a tag shows up in 1/100 of all bookmarks on an average) that makes our small tag set 250 tags big</li>
+<li>If we say 0.25%, the small tag set grows to a size of 1000</li>
+<li>If we say 0.1%, the small set will contain 2500 tags</li>
+</ul>
+<p><span>So I&rsquo;d suggest that if your average distribution is 1%, take &ldquo;toxi&rdquo;, if the distribution is broader, take &ldquo;MySQLicious fulltext&rdquo;.</span></p>
+<p><span></span>If you take a closer look, you can see that the fulltext schema stayed as fast as when queried in the 250 tag set. That means, if you want to go sure your tag system responds ok in every situation, you should go with the &ldquo;mysql fulltext&rdquo; schema.<br><a href="http://hannes.magiccards.info/get/results.html" target="_blank" rel="external">Hannes has done some further investigation on mysql fulltext running on MySQL 4.1</a> (my tests were on MySQL 4.0.21)</p>
+<h4 id="Union"><a href="#Union" class="headerlink" title="Union"></a>Union</h4><p><img src="https://lh5.googleusercontent.com/-Ze5AtV5GPMQ/UL0A35Lc2aI/AAAAAAAALEQ/Y9b0Qs9daAU/s400/union_full_250_3.png" alt="Union test with 250 tags in small dataset"><br>When doing a union query we say</p>
+<blockquote>
+<div>I want to search for all the bookmarks that are tagged either with &ldquo;delicious&rdquo; or &ldquo;del.icio.us&rdquo;</div>
+
+</blockquote>
+<p>This queries, you guessed, are handled the fastest by &ldquo;MySQLicious schema&rdquo; with its <code>LIKE</code>-queries: MySQL seeks through the bookmarks, harvesting all bookmarks with one of the given tags and says &ldquo;I&rsquo;m finished!&rdquo; when it was at bookmark number #968, because it found 50 bookmarks. Whereas in the other schemas, MySQL has to join the tags with the bookmarks first and only then could search though it..</p>
+<h4 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h4><p><img src="https://lh5.googleusercontent.com/-0HAVj_cQ5dM/UL0A2DwvC5I/AAAAAAAALDw/X4DmJIwk8nk/s400/setup_250.png" alt="Setup database schemas with the data: 250 tags in small dataset"><br>When comparing the different schemas on the time of the insert-&ldquo;statements&rdquo; of one bookmark, the result isn&rsquo;t very surprising (notice that I&rsquo;ve changed the scale of the y-axis).<br>Mysqlicious with it&rsquo;s 1 table is very fast indeed, its variation with fulltext had to create the fulltext index and therefore is a bit slower. Scuttle, with its 2 tables and toxi with its 3 tables are at least two respectively three times as slow. I have to remark, that I used quite a bit of caching for the toxi schema, as I didn&rsquo;t want hours to have the data ready..</p>
+<p>I guess it doesn&rsquo;t really make sense to base your decision, which schema to take on the time for an insert: Bookmark inserts are about 100 times as fast as the intersection queries..</p>
+<h4 id="«What-That-slow-»"><a href="#«What-That-slow-»" class="headerlink" title="«What? That slow??»"></a>«What? That slow??»</h4><p>You said it. You don&rsquo;t want your intersection queries take 0.2 seconds each. That would bring your system to its knees.</p>
+<p><span>There are some recipes to avoid that:</span></p>
+<h5 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h5><p>I think, you don&rsquo;t come around good old caching. I think that you could cache results to a query like &ldquo;mysql+tagging&rdquo; for about an hour or so. If a user queries his own items, I would lower the cache time (as up-to-dateness is more important with his own items).<br>Then, I expect if you for instance cache items per tag and intersection them with a decent algorithm, that could be faster..</p>
+<h5 id="The-Best-Of-Both-Worlds"><a href="#The-Best-Of-Both-Worlds" class="headerlink" title="The Best Of Both Worlds"></a>The Best Of Both Worlds</h5><p>I think you could have &ldquo;mysqlicous fulltext&rdquo; and &ldquo;toxi&rdquo; running at the same time. That means you have to update/insert in both schemas but when you have to query, you could take the one you think is faster: For simple union the mysqlicious without fulltext search, for intersection queries with common tags the toxi, and for those with uncommon tags the mysqlicious fulltext variant.</p>
+<h5 id="Slicing-and-dicing"><a href="#Slicing-and-dicing" class="headerlink" title="Slicing and dicing"></a>Slicing and dicing</h5><p>You could &ldquo;slice and dice&rdquo; data (as Nitin proposed it in <a href="http://tagschema.com/blogs/tagschema/2005/06/slicing-and-dicing-data-20-part-1.html" target="_blank" rel="external">two</a> of his <a href="http://tagschema.com/blogs/tagschema/2005/06/slicing-and-dicing-data-20-part-2.html" target="_blank" rel="external">posts</a>): That is: you slice your user/tag/item-room and build fact tables. You &ldquo;prebuild&rdquo; your results in a way. This way, inserts take long but queries themself should be much faster. In our examples, you would for instance first query the tag-intersections on &ldquo;toxi&rdquo; and then get the facts about each bookmark out of the &ldquo;mysqlicious&rdquo;-fact-table. But you really should read Nitins posts, as they give a lot of insight.</p>
+<h5 id="Using-a-non-RDBMS-system"><a href="#Using-a-non-RDBMS-system" class="headerlink" title="Using a non RDBMS system"></a>Using a non RDBMS system</h5><p><strong>Update:</strong> It&rsquo;s been about a year since I wrote that article, and during that year I came to the conclusion that <a href="http://en.wikipedia.org/wiki/RDBMS" target="_blank" rel="external">RDBMS</a> systems don&rsquo;t scale good in systems that have more than 1 million items. Yes, this is a warning: If you are planning to build a large scale system then look for alternatives to <a href="http://en.wikipedia.org/wiki/RDBMS" target="_blank" rel="external">RDBMS</a> systems. To quote Joshua Schachter, founder of <a href="http://del.icio.us" target="_blank" rel="external">delicious</a>:<br>«tags doesn&rsquo;t map to sql at all. so use partial indexing.»[<a href="http://www.redmonk.com/jgovernor/2006/02/08/things-weve-learned-josh-schachter-quotes-of-the-day/" target="_blank" rel="external">Joshua Schachter at Carson Summit</a>]<br>I didn&rsquo;t try any of the non-RDBMS system but it looks like <a href="http://lucene.apache.org/java/docs/" target="_blank" rel="external">Apache Lucene</a> and <a href="http://lucene.apache.org/hadoop/" target="_blank" rel="external">Hadoop</a>. There has been <a href="http://nelson.textdrive.com/pipermail/tagdb/2006-March/thread.html#164" target="_blank" rel="external">a discussion on the Tagdb Mailing list</a> about these solutions.</p>
+<h4 id="«I-don-rsquo-t-believe-you-I-want-to-try-it-at-home»"><a href="#«I-don-rsquo-t-believe-you-I-want-to-try-it-at-home»" class="headerlink" title="«I don&rsquo;t believe you! I want to try it at home»"></a>«I don&rsquo;t believe you! I want to try it at home»</h4><p><a href="https://docs.google.com/file/d/0B0uw1JCogWHubEJhdFhub0VjbkE/edit" target="_blank" rel="external">Download the source code (PHP)</a> I used to run the queries and test yourself, extend them as you like. The source is published as <a href="http://en.wikipedia.org/wiki/LGPL" target="_blank" rel="external">LGPL</a>.</p>
+<h3 id="Performance-Tests-Setup"><a href="#Performance-Tests-Setup" class="headerlink" title="Performance Tests Setup"></a><a id="setup" name="setup"></a>Performance Tests Setup</h3><p><span>Now, if you have read that far, you probably want to know some background information: As you noticed, for each schema, I set up 4 databases, one database holding 1000 bookmarks, the next 10’000, then 100’000 and the fourth 1 million bookmarks. The inserted tags (as well as urls) are random English words taken from two sets of tags:</span></p>
+<ul>
+<li>the large set containing about 44’000 tags (that are simple English words)</li>
+<li>the small set is varying in size (the results shown here are taken from 250 and 999 tag sets)</li>
+</ul>
+<p>Every bookmark gets one to ten tags attached. Every odd tag is from the large set, alternately taken from small and large set. Every schema got exactly the same bookmarks and tag data.</p>
+<p>Then every schema got queried with an alternately 1-3 tag query. So the first query is for instance just &ldquo;blog&rdquo;, the second &ldquo;design+css&rdquo;, the third &ldquo;webdesign+music+software&rdquo;, the fourth again with just one tag an so forth..<br>All the tags for the queries are taken from the small set so that the queries don&rsquo;t all end in empty results..<br>All the queries are tested and work. The outcome of each query on the three schemas is exactly the same.</p>
+<h4 id="Mysql-Setup"><a href="#Mysql-Setup" class="headerlink" title="Mysql Setup"></a>Mysql Setup</h4><p>I used mysql 4.0.21.<br>An excerpt from <code>/etc/my.cnf</code> (I think these are the relevant settings to this performance test)</p>
+<pre>key_buffer=300M
+query_cache_size=30M
+query_cache_limit=30M
+table_cache = 64
+ft_min_word_len = 2
+ft_stopword_file = ''</pre>
+
+<h4 id="System"><a href="#System" class="headerlink" title="System"></a>System</h4><blockquote>
+<div>CPU: 3GHz Dual Xeon<br>Cache: 1MB<br>Harddisk: SCSI Ultra 320 Atlas 10K, no RAID<br>RAM: 3GB</div>
+
+</blockquote>
+<h4 id="Assumptions"><a href="#Assumptions" class="headerlink" title="Assumptions"></a>Assumptions</h4><ul>
+<li>Queries select just the id of a bookmark. I assume that you have to do a second query to get all the wished data to display. I know that this is not fair towards the mysqlicious schema.</li>
+<li>I left out user data, as I assume, user data columns wouldn&rsquo;t change the outcome of this tests. I wanted to keep the schemas as simple as possible.</li>
+<li>Each query is done with <code>LIMIT 50</code> as I assume that a normal application doesn&rsquo;t want to get all bookmarks. I assume nobody wants to <code>order</code> bookmarks by any dimension, because this would be <strong>very</strong> expensive (ever wondered why you cannot sort bookmarks on <a href="http://del.icio.us" target="_blank" rel="external">del.icio.us</a> by date or similar? You get it..)</li>
+</ul>
+<h3 id="Acknowledgements"><a href="#Acknowledgements" class="headerlink" title="Acknowledgements"></a>Acknowledgements</h3><p>Thanks to <a href="http://www.citrin.ch" target="_blank" rel="external">Citrin</a>, the company I work, to let me use our new server to run the queries. The server didn&rsquo;t have much anything else to do so the results should be accurate.<br>The graphs are done using <a href="http://www.aditus.nu/jpgraph/" target="_blank" rel="external">JpGraph</a>. Very easy to use and produces beautiful images.</p>
+<h3 id="Further-reading"><a href="#Further-reading" class="headerlink" title="Further reading"></a>Further reading</h3><ul>
+<li><a href="http://www.niallkennedy.com/blog/archives/2004/10/flickr_architec.html" target="_blank" rel="external">Flickr architecture</a></li>
+<li><a href="http://labnotes.blogsome.com/2005/06/06/lab-notes-5-fulltext-not-so-fast/" target="_blank" rel="external">Lab notes: Fulltext not so fast</a>: Fulltext performance issues</li>
+<li><a href="http://www.webmasterworld.com/forum23/3557.htm" target="_blank" rel="external">WebmasterWorld forum: mysql fulltext performance issues</a></li>
+<li><a href="http://vegan.net/tony/supersmack/" target="_blank" rel="external">Mysql Supersmack: Mysql performance tool</a></li>
+<li><a href="http://dev.mysql.com/doc/mysql/en/mysql-benchmarks.html" target="_blank" rel="external">Mysql Benchmark</a></li>
+<li><a href="http://jeremy.zawodny.com/mysql/mysql-optimization.html" target="_blank" rel="external">Powerpoint article of jeremy zawodny</a>on Mysql optimisation</li>
+<li><a href="http://www.petefreitag.com/item/389.cfm" target="_blank" rel="external">Pete Freitag did a sort of review of this article</a><div class="blogger-post-footer"><img src="https://blogger.googleusercontent.com/tracker/2748783673844839576-5133448602510209729?l=theneachwenttohisownhome.blogspot.com" alt=""></div></li>
+</ul>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/Tags/">Tags</a>, <a href="/tags/Del-icio-us/">Del.icio.us</a>, <a href="/tags/MySQL/">MySQL</a>, <a href="/tags/Performance/">Performance</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/06/19/Tagsystems-performance-tests/" data-addthis-title="Tagsystems: performance tests">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2005/05/05/Tags-with-MySQL-fulltext/">
+          Vorherige Seite
+        </a></li>
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2006/07/11/Automated-tag-clustering/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 Philipp Keller
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'randomhowtos';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>

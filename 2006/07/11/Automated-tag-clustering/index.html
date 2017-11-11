@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Automated tag clustering | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
+  
+  <meta name="description" content="Grigory Begelman (Technion - Israel Institute of Technology Computer Science Dpt), Frank Smadja (RawSugar) and I did a paper for www2006 called &amp;ldquo;automated tag clustering&amp;rdquo;. It deals with why clustering the tag space makes sense and how this could be done.
+After the presentation at the tagging workshop at www2006 we felt the need to give our paper a more www-friendly, I-don&amp;rsquo;t-want-to-read-through-those-theoretical-equation-flooded-papers face.
+
+So, here you go: Automated Tag Clustering: Improving search and exploration in the tag space.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="Automated tag clustering"/>
+  <meta property="og:site_name" content="Random Howtos"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2006-07-11T07:03:00.000Z">2006-07-11</time>
+    </div>
+    
+  
+    <h1 class="title">Automated tag clustering</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p><a href="http://www.cs.technion.ac.il/%7Egbeg/" target="_blank" rel="external">Grigory Begelman</a> (<a href="http://www.cs.technion.ac.il/" target="_blank" rel="external">Technion - Israel Institute of Technology Computer Science Dpt)</a>, <a href="http://smadja.us/" target="_blank" rel="external">Frank Smadja</a> (<a href="http://www.rawsugar.com/" target="_blank" rel="external">RawSugar</a>) and I did a paper for <a href="http://www2006.org" target="_blank" rel="external">www2006</a> called &ldquo;automated tag clustering&rdquo;. It deals with why clustering the tag space makes sense and how this could be done.</p>
+<p>After the presentation at the <a href="http://blog.rawsugar.com/wikka/wikka.php?wakka=HomePage" target="_blank" rel="external">tagging workshop</a> at www2006 we felt the need to give our paper a more www-friendly, I-don&rsquo;t-want-to-read-through-those-theoretical-equation-flooded-papers face.</p>
+<p><a href="http://tagging.pui.ch/automated_tag_clustering/#cluster" target="_blank" rel="external"><img src="http://i.imgur.com/40BW8.png" alt="clustering the tag space" title="clustering the tag space"></a></p>
+<p>So, here you go: <a href="http://tagging.pui.ch/automated_tag_clustering/" target="_blank" rel="external">Automated Tag Clustering: Improving search and exploration in the tag space</a>.<a id="more"></a></p>
+<p>To read this document you should have a clue what tags are about, you should also know some tag services as <a href="http://del.icio.us" target="_blank" rel="external">delicious</a> or <a href="http://www.flickr.com" target="_blank" rel="external">flickr</a> so you can understand the limitations these services currently have. If you don&rsquo;t want to read through the whole papers, the numerous figures give you a good summary. Finally, to wet your appetite, here a few excerpts of the document:</p>
+<blockquote>
+<p>Currently tagging services still provide a relatively marginal value for information discovery and we claim that with the use of clustering techniques this can be greatly improved [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_motivation" target="_blank" rel="external">introduction</a>]<br>The whole promise of collaborative tagging is that by exploring the tag space you can discover a lot of useful information you would not find with traditional search engines. When your information need is not well defined, the idea that you can explore and see what other people tagged with certain tags is very attractive. We believe that tagging will be able to reach a very wide audience only when exploration techniques will be effective. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_exploration" target="_blank" rel="external">limited exploration</a>]<br>Although a great visualization paradigm, we believe that with today&rsquo;s tagclouds it is hard to find more than one or two tags to click on. Tags are not grouped, there is too much information, so that you find lot of related tags scattered on the tag cloud. One or two popular topics and all their related tags tend to dominate the whole cloud. For example, looking at the del.icio.us tagcloud, one would mostly see tags related to web design and technologies. This is because these topics are overwhelmingly more frequent than anything else. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_exploration" target="_blank" rel="external">limited exploration</a>]<br>Tag <em>web2.0</em> nowadays is so popular and is combined wildly with anything. In fact this tag is so overused that if you look at <a href="http://del.icio.us/tag/bookmarks" target="_blank" rel="external">tag <em>bookmarks</em> in the del.icio.us dataset</a>, the most used cotag is <em>web2.0</em>[&hellip;]. Basing tag similarity on these numbers often doesn&rsquo;t make sense at all. The similarity measure should be chosen so the popularity of a tag doesn&rsquo;t affect the set of a tags related tags. Don&rsquo;t cut the <a href="http://en.wikipedia.org/wiki/Long_tail" target="_blank" rel="external">long tail</a>. The success of blogs is driven by the importance of the long tail. We all know that it is crucial to support the niches. Tagging applications should empower the long tail too. If you just sort by popularity, you&rsquo;d loose all those niches. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_similarity" target="_blank" rel="external">choosing a similarity measure</a>]</p>
+</blockquote>
+<p>We&rsquo;d be happy to get any kind of feedback on the article. Just post a comment to this blog post.</p>
+<p><strong>Edit (4 years later!)</strong>: A few guys asked me about the source code: <a href="http://pastie.org/1098455" target="_blank" rel="external">Source code with syntax highlighting</a>.<br>You need <a href="http://people.sc.fsu.edu/~jburkardt/c_src/kmetis/kmetis.html" target="_blank" rel="external">kmetis</a> to make this run, see <code>usage()</code> to see how it should be used.</p>
+<p><strong>Edit</strong>: Robin sent me <a href="http://pastie.org/3549928" target="_blank" rel="external">this fixed source code</a>, didn&rsquo;t test it though:</p>
+<div class="blogger-post-footer"><img src="https://blogger.googleusercontent.com/tracker/2748783673844839576-786221472892263493?l=theneachwenttohisownhome.blogspot.com" alt=""></div>
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/RawSugar/">RawSugar</a>, <a href="/tags/Research/">Research</a>, <a href="/tags/Tags/">Tags</a>, <a href="/tags/Clustering/">Clustering</a>, <a href="/tags/Del-icio-us/">Del.icio.us</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2006/07/11/Automated-tag-clustering/" data-addthis-title="Automated tag clustering">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2005/06/19/Tagsystems-performance-tests/">
+          Vorherige Seite
+        </a></li>
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2007/02/10/Turn-demoscene-modules-into-mp3s/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 Philipp Keller
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'randomhowtos';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>

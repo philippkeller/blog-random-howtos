@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Tags: Database schemas | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
+  
+  <meta name="description" content="Recently, on del.icio.us mailinglist, I asked the question &amp;ldquo;Does anyone know the database schema of del.icio.us?&amp;rdquo;. I got a few private responses so I wanted to share the knowledge with the world.
+The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many tags as you want. Later then, you want to run queries to constrain the bookmarks to a union or intersection of tags. You also want to exclude (say: minus) some tags from the search result.
+Apparently there are three different solutions (Attention: If you are building a websites that allows users to tag, be sure to have a look at my performance tests as performance seems to be a problem on larger scaled sites.)">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="Tags: Database schemas"/>
+  <meta property="og:site_name" content="Random Howtos"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+  
+
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8"><article class="post">
+  
+    <div class="post-date">
+      <time datetime="2005-04-24T14:35:00.000Z">2005-04-24</time>
+    </div>
+    
+  
+    <h1 class="title">Tags: Database schemas</h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p>Recently, <a href="http://lists.del.icio.us/pipermail/discuss/2005-April/002827.html" target="_blank" rel="external">on del.icio.us mailinglist</a>, I asked the question &ldquo;Does anyone know the database schema of del.icio.us?&rdquo;. I got a few private responses so I wanted to share the knowledge with the world.</p>
+<p>The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many <a href="http://en.wikipedia.org/wiki/Tags" target="_blank" rel="external">tags</a> as you want. Later then, you want to run queries to constrain the bookmarks to a <a href="http://en.wikipedia.org/wiki/Union_%28set_theory%29" target="_blank" rel="external">union</a> or <a href="http://en.wikipedia.org/wiki/Intersection_%28set_theory%29" target="_blank" rel="external">intersection</a> of tags. You also want to exclude (say: minus) some tags from the search result.</p>
+<p>Apparently there are three different solutions (<strong>Attention: </strong>If you are building a websites that allows users to tag, be sure to have a look at <a href="http://tagging.pui.ch/post/37027746608/tagsystems-performance-tests" target="_blank" rel="external">my performance tests</a> as performance seems to be a problem on larger scaled sites.)<a id="more"></a></p>
+<h2 id="ldquo-MySQLicious-rdquo-solution"><a href="#ldquo-MySQLicious-rdquo-solution" class="headerlink" title="&ldquo;MySQLicious&rdquo; solution"></a><a id="mysqlicious" name="mysqlicious"></a>&ldquo;MySQLicious&rdquo; solution</h2><p><img src="https://lh3.googleusercontent.com/-yV7B1_K6nEM/UL0AyrAz2yI/AAAAAAAALDc/3nRpzrNXMwM/s373/mysqlicious_data.png" alt="mysqlicious sample data"><img src="https://lh4.googleusercontent.com/-PSV7DWIwy0Q/UL0AyyL_z0I/AAAAAAAALDg/vUhaDRz9b-4/s128/mysqlicious_structure.png" alt="mysqlicious database stucture"></p>
+<p><span>In this solution, the schema has got just one table, it is </span><a href="http://en.wikipedia.org/wiki/Denormalization" target="_blank" rel="external">denormalized</a><span>.</span></p>
+<p><span></span><span>I named this solution &ldquo;MySQLicious solution&rdquo; because </span><a href="http://nanovivid.com/projects/mysqlicious/" target="_blank" rel="external">MySQLicious</a><span> imports del.icio.us data into a table with this structure.</span></p>
+<h3 id="Intersection-AND"><a href="#Intersection-AND" class="headerlink" title="Intersection (AND)"></a>Intersection (AND)</h3><p>Query for &ldquo;search+webservice+semweb&rdquo;:<br><code>SELECT * 
+FROM</code>delicious<code>WHERE tags LIKE &quot;%search%&quot; 
+AND tags LIKE &quot;%webservice%&quot; 
+AND tags LIKE &quot;%semweb%&quot;</code></p>
+<h3 id="Union-OR"><a href="#Union-OR" class="headerlink" title="Union (OR)"></a>Union (OR)</h3><p><span>Query for &ldquo;search|webservice|semweb&rdquo;:</span></p>
+<p><span></span><code>SELECT * 
+FROM</code>delicious<code>WHERE tags LIKE &quot;%search%&quot; 
+OR tags LIKE &quot;%webservice%&quot; 
+OR tags LIKE &quot;%semweb%&quot;</code></p>
+<h3 id="Minus"><a href="#Minus" class="headerlink" title="Minus"></a>Minus</h3><p>Query for &ldquo;search+webservice-semweb&rdquo;</p>
+<p><code>SELECT * 
+FROM</code>delicious<code>WHERE tags LIKE &quot;%search%&quot; 
+AND tags LIKE &quot;%webservice%&quot; 
+AND tags NOT LIKE &quot;%semweb%&quot;</code></p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p><span>The advantages of this solution:</span></p>
+<ul>
+<li>just one table</li>
+<li>the queries are very straightforward</li>
+<li>one can also achieve results via fulltextsearch. That might be a little faster.</li>
+<li>queries are quite slow according to some commenters. Fulltext search would speed up a bit. I <a href="http://tagging.pui.ch/post/37027746608/tagsystems-performance-tests" target="_blank" rel="external">did some performance tests</a> to prove that.</li>
+<li><a href="http://tagging.pui.ch/post/37027745995/tags-with-mysql-fulltext" target="_blank" rel="external">In my follow up post I dealt with MySQL fulltext concerning tagging</a><span>.</span></li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>You have a limit on the number of tags per bookmark. Normally you use a 256byte field in your DB (<code>VARCHAR</code>). Otherwise, if you took a <code>text</code> field or similar, the query times would slow down, I suppose</li>
+<li>Patrice <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas#comment-725379777" target="_blank" rel="external">noticed</a> that <code>LIKE &quot;%search&quot;</code> will also find tags with &ldquo;websearch&rdquo;. If you alter the query to <code>LIKE &quot; %search% &quot;</code> you end up having a messy solution: You have to add a space to the beginning of the tags value to make this work.</li>
+</ul>
+<h2 id="ldquo-Scuttle-rdquo-solution"><a href="#ldquo-Scuttle-rdquo-solution" class="headerlink" title="&ldquo;Scuttle&rdquo; solution"></a><a id="scuttle" name="scuttle"></a>&ldquo;Scuttle&rdquo; solution</h2><p>Scuttle organizes its data in two tables. That table &ldquo;scCategories&rdquo; is the &ldquo;tag&rdquo;-table and has got a foreign key to the &ldquo;bookmark&rdquo;-table. <img src="https://lh3.googleusercontent.com/-g9_LV4z_W5Q/UL0AzhvHefI/AAAAAAAALDo/LJYhO3RlaxQ/s206/scuttle_structure.png" alt="database structure of scuttle"></p>
+<h3 id="Intersection-AND-1"><a href="#Intersection-AND-1" class="headerlink" title="Intersection (AND)"></a>Intersection (AND)</h3><p>Query for &ldquo;bookmark+webservice+semweb&rdquo;:</p>
+<p><code>SELECT b.*
+FROM scBookmarks b, scCategories c
+WHERE c.bId = b.bId
+AND (c.category IN (&#39;bookmark&#39;, &#39;webservice&#39;, &#39;semweb&#39;))
+GROUP BY b.bId
+HAVING COUNT( b.bId )=3</code></p>
+<p><span>First, all bookmark-tag combinations are searched, where the tag is &ldquo;bookmark&rdquo;, &ldquo;webservice&rdquo; or &ldquo;semweb&rdquo; (</span><code>c.category IN (&#39;bookmark&#39;, &#39;webservice&#39;, &#39;semweb&#39;)</code><span>), then just the bookmarks that have got all three tags searched for are taken into account (</span><code>HAVING COUNT(b.bId)=3</code><span>).</span></p>
+<h3 id="Union-OR-1"><a href="#Union-OR-1" class="headerlink" title="Union (OR)"></a>Union (OR)</h3><p>Query for &ldquo;bookmark|webservice|semweb&rdquo;:</p>
+<p>Just leave out the <code>HAVING</code> clause and you have union:</p>
+<p><code>SELECT b.*
+FROM scBookmarks b, scCategories c
+WHERE c.bId = b.bId
+AND (c.category IN (&#39;bookmark&#39;, &#39;webservice&#39;, &#39;semweb&#39;))
+GROUP BY b.bId</code></p>
+<h3 id="Minus-Exclusion"><a href="#Minus-Exclusion" class="headerlink" title="Minus (Exclusion)"></a>Minus (Exclusion)</h3><p><span>Query for &ldquo;bookmark+webservice-semweb&rdquo;, that is: bookmark AND webservice AND NOT semweb.</span><br><code>SELECT b. *
+FROM scBookmarks b, scCategories c
+WHERE b.bId = c.bId
+AND (c.category IN (&#39;bookmark&#39;, &#39;webservice&#39;))
+AND b.bId NOT
+IN (SELECT b.bId FROM scBookmarks b, scCategories c WHERE b.bId = c.bId AND c.category = &#39;semweb&#39;)
+GROUP BY b.bId
+HAVING COUNT( b.bId ) =2</code></p>
+<p>Leaving out the <code>HAVING COUNT</code> leads to the Query for &ldquo;bookmark|webservice-semweb&rdquo;.<br>Credits go to <a href="http://www.metafilter.com/user/26222" target="_blank" rel="external">Rhomboid</a> for <a href="http://ask.metafilter.com/mefi/34897#544185" target="_blank" rel="external">helping me out with this query</a>.</p>
+<h3 id="Conclusion-1"><a href="#Conclusion-1" class="headerlink" title="Conclusion"></a>Conclusion</h3><p><span>I guess the main advantage of this solution is that it is more normalized than the first solution, and that you can have unlimited number of tags per bookmark.</span></p>
+<h2 id="ldquo-Toxi-rdquo-solution"><a href="#ldquo-Toxi-rdquo-solution" class="headerlink" title="&ldquo;Toxi&rdquo; solution"></a><a id="toxi" name="toxi"></a>&ldquo;Toxi&rdquo; solution</h2><p><img src="https://lh3.googleusercontent.com/-WmVNkFcCHOI/UL0A3982dZI/AAAAAAAALEI/GC0DI-wfiIU/s330/toxi_structure.png" alt="image"></p>
+<p><a href="http://toxi.co.uk/" target="_blank" rel="external">Toxi</a><span> came up with a three-table structure. Via the table &ldquo;tagmap&rdquo; the bookmarks and the tags are n-to-m related. Each tag can be used together with different bookmarks and vice versa. This DB-schema is also used by </span><a href="http://wordpress.org/" target="_blank" rel="external">wordpress</a><span>.</span></p>
+<p><span></span><span>The queries are quite the same as in the &ldquo;scuttle&rdquo; solution.</span></p>
+<h3 id="Intersection-AND-2"><a href="#Intersection-AND-2" class="headerlink" title="Intersection (AND)"></a>Intersection (AND)</h3><p><span>Query for &ldquo;bookmark+webservice+semweb&rdquo;</span></p>
+<p><span></span><code>SELECT b.*
+FROM tagmap bt, bookmark b, tag t
+WHERE bt.tag_id = t.tag_id
+AND (t.name IN (&#39;bookmark&#39;, &#39;webservice&#39;, &#39;semweb&#39;))
+AND b.id = bt.bookmark_id
+GROUP BY b.id
+HAVING COUNT( b.id )=3</code></p>
+<h3 id="Union-OR-2"><a href="#Union-OR-2" class="headerlink" title="Union (OR)"></a>Union (OR)</h3><p>Query for “bookmark|webservice|semweb”</p>
+<p><code>SELECT b.*
+FROM tagmap bt, bookmark b, tag t
+WHERE bt.tag_id = t.tag_id
+AND (t.name IN (&#39;bookmark&#39;, &#39;webservice&#39;, &#39;semweb&#39;))
+AND b.id = bt.bookmark_id
+GROUP BY b.id</code></p>
+<h3 id="Minus-Exclusion-1"><a href="#Minus-Exclusion-1" class="headerlink" title="Minus (Exclusion)"></a>Minus (Exclusion)</h3><p><span>Query for &ldquo;bookmark+webservice-semweb&rdquo;, that is: bookmark AND webservice AND NOT semweb.</span><br><code>SELECT b. *
+FROM bookmark b, tagmap bt, tag t
+WHERE b.id = bt.bookmark_id
+AND bt.tag_id = t.tag_id 
+AND (t.name IN (&#39;Programming&#39;, &#39;Algorithms&#39;))
+AND b.id NOT IN (SELECT b.id FROM bookmark b, tagmap bt, tag t WHERE b.id = bt.bookmark_id AND bt.tag_id = t.tag_id AND t.name = &#39;Python&#39;)
+GROUP BY b.id
+HAVING COUNT( b.id ) =2</code><br>Leaving out the <code>HAVING COUNT</code> leads to the Query for &ldquo;bookmark|webservice-semweb&rdquo;.<br>Credits go to <a href="http://www.metafilter.com/user/26222" target="_blank" rel="external">Rhomboid</a> for <a href="http://ask.metafilter.com/mefi/34897#544185" target="_blank" rel="external">helping me out with this query</a>.</p>
+<h3 id="Conclusion-2"><a href="#Conclusion-2" class="headerlink" title="Conclusion"></a>Conclusion</h3><p><span>The advantages of this solution:</span></p>
+<ul>
+<li>You can save extra information on each tag (description, tag hierarchy, &hellip;)</li>
+<li>This is the most normalized solution (that is, if you go for <a href="http://en.wikipedia.org/wiki/3NF" target="_blank" rel="external">3NF</a>: take this one :-)</li>
+</ul>
+<p><span>Disadvantages:</span></p>
+<ul>
+<li>When altering or deleting bookmarks you can end up with tag-orphans.</li>
+</ul>
+<p>If you want to have more complicated queries like (bookmarks OR bookmark) AND (webservice or WS) AND NOT (semweb or semanticweb) the queries tend to become very complicated. In these cases I suggest the following query/computation process:</p>
+<ol>
+<li>Run a query for each tag appearing in your &ldquo;tag-query&rdquo;: <code>SELECT b.id FROM tagmap bt, bookmark b, tag t WHERE bt.tag_id = t.tag_id AND b.id = bt.bookmark_id AND t.name = &quot;semweb&quot;</code></li>
+<li>Put each id-set from the result into an array (that is: in your favourite coding language). You could cache this arrays if you want..</li>
+<li>Constrain the arrays with union or intersection or whatever.</li>
+</ol>
+<p>In this way, you can also do queries like <code>(del.icio.us|delicious)+(semweb|semantic_web)-search</code>. This type of queries (that is: the brackets) cannot be done by using the denormalized &ldquo;MySQLicious solution&rdquo;.<br>This is the most flexible data structure and I guess it should scale pretty good (that is: if you do some caching).</p>
+<p><strong>Update May, 2006</strong>. This arcticle got quite some attention. I wasn&rsquo;t really prepared for that! It seems people keep referring to it and even some new sites that allow tagging give credit to my articles. I think the real credit goes to the contributers of the different schemas: <a href="http://nanovivid.com/projects/mysqlicious/" target="_blank" rel="external">MySQLicious</a>, <a href="http://sourceforge.net/projects/scuttle/" target="_blank" rel="external">scuttle</a>, <a href="http://toxi.co.uk/" target="_blank" rel="external">Toxi</a> and to all the contributors of the comments (be sure to read them!)</p>
+<p><span>P.S. Thanks to </span><a href="http://toxi.co.uk/" target="_blank" rel="external">Toxi</a><span> for sending me the queries for the three-table-schema, Benjamin Reitzammer for pointing me to </span><a href="http://laughingmeme.org/archives/002918.html" target="_blank" rel="external">a loughing meme article</a><span> (a good reference for tag queries) and powerlinux for pointing me to </span><a href="http://sourceforge.net/projects/scuttle/" target="_blank" rel="external">scuttle</a><span>.</span><br>Further reading</p>
+<ul>
+<li><a href="http://lists.tagschema.com/mailman/listinfo/tagdb" target="_blank" rel="external">Taglist: a mailing list dedicated to schemas with tagging</a></li>
+<li><a href="http://tagschema.com/blogs/tagschema/" target="_blank" rel="external">Tagschema: A blog dedicated to tagging schemas</a></li>
+<li><a href="http://www.bigbold.com/snippets/tags/tagging" target="_blank" rel="external">Tag-related Queries on Snippets</a></li>
+<li><a href="http://www.getluky.net/freetag/" target="_blank" rel="external">Freetag</a><span> is a php &ldquo;library&rdquo; with which you can add tags to whatever object you like. It actually uses the &ldquo;toxi schema&rdquo;.</span></li>
+<li><span>Hammy </span><a href="http://hellojoseph.com/tags-howto.php" target="_blank" rel="external">gives an insight</a><span> how he did his tagging system with &ldquo;less DB and more code&rdquo; (that is: regular expressions), interesting!</span></li>
+<li><span>Brad Choate </span><a href="http://bradchoate.com/weblog/2004/10/06/delicious" target="_blank" rel="external">has got some ideas</a><span> which tag queries should be possible</span></li>
+<li><span>Feedmaker has written </span><a href="http://blog.feedmarker.com/2005/04/26/tagging-in-mysql/" target="_blank" rel="external">a sort of reply to this article</a></li>
+</ul>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="tags">
+    <a href="/tags/Tags/">Tags</a>, <a href="/tags/Del-icio-us/">Del.icio.us</a>, <a href="/tags/MySQL/">MySQL</a>
+  </div>
+
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/04/24/Tags-Database-schemas/" data-addthis-title="Tags: Database schemas">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+      
+        <li class="next">
+        <a class="btn btn-success" role="button" href="/2005/05/05/Tags-with-MySQL-fulltext/">
+          Nächste Seite
+        </a></li>
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Kommentare</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+  <div class="widget">
+  	  <form action=""
+    method="get"
+    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
+    accept-charset="utf-8"
+    data-js="google-search-form">
+  <div class="input-group">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <span class="glyphicon glyphicon-search"></span> 
+      </button>
+    </span>
+  </div>
+</form>
+  </div>
+
+</div>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2017 Philipp Keller
+      
+    </p>
+  </div>
+</div>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'randomhowtos';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>
