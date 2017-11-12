@@ -12,7 +12,7 @@ Recently, [on del.icio.us mailinglist](http://lists.del.icio.us/pipermail/discus
 
 The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many [tags](http://en.wikipedia.org/wiki/Tags) as you want. Later then, you want to run queries to constrain the bookmarks to a [union](http://en.wikipedia.org/wiki/Union_%28set_theory%29) or [intersection](http://en.wikipedia.org/wiki/Intersection_%28set_theory%29) of tags. You also want to exclude (say: minus) some tags from the search result.
 
-Apparently there are three different solutions (**Attention: **If you are building a websites that allows users to tag, be sure to have a look at [my performance tests](http://tagging.pui.ch/post/37027746608/tagsystems-performance-tests) as performance seems to be a problem on larger scaled sites.)<!-- more -->
+Apparently there are three different solutions (**Attention: **If you are building a websites that allows users to tag, be sure to have a look at [my performance tests](http://howto.philippkeller.com/2005/06/19/Tagsystems-performance-tests/) as performance seems to be a problem on larger scaled sites.)<!-- more -->
 
 ## <a id="mysqlicious" name="mysqlicious"></a>&ldquo;MySQLicious&rdquo; solution
 
