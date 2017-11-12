@@ -20,9 +20,9 @@ If you run into exceptions, check the troubleshooting part at the bottom
 
 # Requirements
 
-*   Python 2.7\. If you can&rsquo;t use 2.7 for any reason, no worries. [Here are the adaptions](http://howto.pui.ch/post/39406024646/tutorial-django-on-appengine-using-google-cloud-sql) you need to make for this tutorial to work
+*   Python 2.7\. If you can&rsquo;t use 2.7 for any reason, no worries. [Here are the adaptions](http://howto.philippkeller.com/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/) you need to make for this tutorial to work
 *   OS X or Linux. I&rsquo;m on OS X 10.8.2, I marked the steps that are OS X specific. For Linux users it&rsquo;s most probably very easy to adapt those. For Windows you certainly need to do some bigger adaptations.
-*   MySQL and its python bindings (for local development): [detailed instructions for OS X here](http://howto.pui.ch/post/39213978701/how-to-install-mysql-and-python-bindings-on-os-x)
+*   MySQL and its python bindings (for local development)
 
 ## What about Django &lt; 1.4?
 

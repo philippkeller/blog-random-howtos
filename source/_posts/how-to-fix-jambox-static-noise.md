@@ -14,9 +14,9 @@ The problem lies in the aux in port. The device thinks there's an aux cable plug
 
 <!-- more -->
 
-In my <a href="http://howto.pui.ch/post/37471160886/how-to-reset-jambox-when-bluetooth-completely-stopped">last post</a> I described the different easy-to-do solutions to this problem, but today I needed to implement the soldering solution because nothing else worked. Implementing this solution means tricking the Jambox to think there's no aux cable plugged in.
+In my <a href="http://howto.philippkeller.com/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/">last post</a> I described the different easy-to-do solutions to this problem, but today I needed to implement the soldering solution because nothing else worked. Implementing this solution means tricking the Jambox to think there's no aux cable plugged in.
 
-<strong>Update</strong>: My initial soldering was working, but after the first recharge the fix stopped working. Might be that the soldering melted and if you are a solder pro this might work for you. Anyway. I personally ended up putting a <a href="http://howto.pui.ch/post/37471160886/how-to-reset-jambox-when-bluetooth-completely-stopped">screw into the aux port</a>
+<strong>Update</strong>: My initial soldering was working, but after the first recharge the fix stopped working. Might be that the soldering melted and if you are a solder pro this might work for you. Anyway. I personally ended up putting a <a href="http://howto.philippkeller.com/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/">screw into the aux port</a>
 
 ## What do you need?
 

@@ -19,6 +19,6 @@ Apparently the issue is the aux port which has two contacts that should touch ea
 *   Insert an **aux cable** and removing it again (worked a few times for me)
 *   Insert a small **screw driver** (this is scary, more detailed instructions [here](http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/jambox-static-and-airplay/m-p/14882/highlight/true#M748)). This connects the two metal contacts which should touch each other to make the Jambox believe there is no AUX cable inserted
 *   If the screw driver thing is working for you, you might consider putting a screw into the aux port: [![](http://i.imgur.com/udCI5.jpg)](http://i.imgur.com/udCI5.jpg)
-*   If nothing of the above works, you can [solder a bypass of the aux port](http://howto.pui.ch/post/37471161448/how-to-fix-jambox-static-noise-and-no-bluetooth) (which is what I finally did)
+*   If nothing of the above works, you can [solder a bypass of the aux port](http://howto.philippkeller.com/2012/07/21/how-to-fix-jambox-static-noise/) (which is what I finally did)
 
   I don&rsquo;t recommend buying a Jambox to anyone, I completely agree with [this review on Amazon](http://www.amazon.com/review/R3GYH7DT8H8EKR/ref=cm_cr_pr_cmt?ie=UTF8&amp;ASIN=B004E10KGU)

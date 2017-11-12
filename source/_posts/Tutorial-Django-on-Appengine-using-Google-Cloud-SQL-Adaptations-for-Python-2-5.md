@@ -15,7 +15,7 @@ Google App Engine has two Python runtimes, [either 2.7.3 or 2.5.2](https://devel
 
 Additionally: If you use Python 2.5 you can only use Django up to version 1.3\. (At least I couldn&rsquo;t find out how to get version 1.4 working, `use_library('django', '1.3')` would fail if setting 1.4
 
-If you&rsquo;re stuck with Python below 2.7 for any reason, that&rsquo;s what you need to change following [my tutorial](http://howto.pui.ch/post/39245389801/tutorial-django-1-4-on-appengine-using-google-cloud) in order to get it working for Python 2.5:
+If you&rsquo;re stuck with Python below 2.7 for any reason, that&rsquo;s what you need to change following [my tutorial](http://howto.philippkeller.com/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/) in order to get it working for Python 2.5:
 
 <!-- more -->
 
@@ -26,7 +26,7 @@ If you&rsquo;re stuck with Python below 2.7 for any reason, that&rsquo;s what yo
   Linux: <pre>ln -f /usr/bin/python2.6 /usr/local/bin/python</pre>
 
 2.  In order to make oauth work you need to install ssl (which comes preinstalled with 2.7): <pre>sudo /usr/bin/python2.5 /usr/local/bin/pip install ssl</pre>
-3.  Instead of `app.yaml` [defined in the tutorial](http://howto.pui.ch/post/39245389801/tutorial-django-1-4-on-appengine-using-google-cloud#create_the_django_project) you need to put 2 files into your project dir: app.yaml and main.py:
+3.  Instead of `app.yaml` [defined in the tutorial](http://howto.philippkeller.com/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL#create_the_django_project) you need to put 2 files into your project dir: app.yaml and main.py:
 `app.yaml` (replace `appproject` with the id of your appspot.com instance):
 <pre>
 application: appproject
