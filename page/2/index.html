@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Seite 2 | Random Howtos</title>
+  <title>Page 2 | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
   
@@ -78,6 +78,58 @@
 						<article class="post">
   
     <div class="post-date">
+      <time datetime="2007-10-03T08:14:00.000Z">2007-10-03</time>
+    </div>
+    
+  
+    <h1 class="title"><a href="/2007/10/03/Django-Serve-big-files-via-fcgid/">Django: Serve big files via fcgid</a></h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p>I&rsquo;ve got a <a href="http://extranet.icoc.ch" target="_blank" rel="external">django project</a> running which requires you to login to access files.</p>
+<p>That means that I have to serve the files via python, like this:</p>
+<pre>
+  @login_required
+  def download(request, filename):
+    # ... some code specific to my site ...
+    response = HttpResponse(mimetype=postUpload.mimetype)
+    response['Content-Disposition'] = "attachment; filename=" + original_filename
+    response['Content-Length'] = os.path.getsize(filename_path)
+    response.write(open(filename_path).read())
+    return response
+</pre>
+    
+  </div>
+  
+      <div class="row">
+    
+      <div class="col-3 col-md-3">
+        <a href="/2007/10/03/Django-Serve-big-files-via-fcgid/#more" class="more-link">Read more</a>
+      </div>
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/03/Django-Serve-big-files-via-fcgid/" data-addthis-title="Django: Serve big files via fcgid">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    <div class="post-date">
       <time datetime="2007-06-08T04:52:00.000Z">2007-06-08</time>
     </div>
     
@@ -95,7 +147,7 @@
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -140,7 +192,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/05/12/Tag-history-and-gartners-hype-cycles/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/05/12/Tag-history-and-gartners-hype-cycles/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -181,7 +233,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/05/12
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/02/18/set-timeout-for-a-shell-command-in-python/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/02/18/set-timeout-for-a-shell-command-in-python/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -223,7 +275,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/18
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/02/10/Turn-demoscene-modules-into-mp3s/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/02/10/Turn-demoscene-modules-into-mp3s/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -267,7 +319,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/10
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2006/07/11/Automated-tag-clustering/#more" class="more-link">weiterlesen »</a>
+        <a href="/2006/07/11/Automated-tag-clustering/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -308,7 +360,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2006/07/11
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2005/06/19/Tagsystems-performance-tests/#more" class="more-link">weiterlesen »</a>
+        <a href="/2005/06/19/Tagsystems-performance-tests/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -349,7 +401,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/06/19
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2005/05/05/Tags-with-MySQL-fulltext/#more" class="more-link">weiterlesen »</a>
+        <a href="/2005/05/05/Tags-with-MySQL-fulltext/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -392,7 +444,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/05/05
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2005/04/24/Tags-Database-schemas/#more" class="more-link">weiterlesen »</a>
+        <a href="/2005/04/24/Tags-Database-schemas/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -416,10 +468,10 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/04/24
 						
 <ul class="pager">
   
-    <li class="previous"><a href="/" class="alignleft prev">Vorherige Seite</a></li>
+    <li class="previous"><a href="/" class="alignleft prev">Prev</a></li>
   
   
-    <li class="next disabled"><a href="/" class="alignright next">Nächste Seite</a></li>
+    <li class="next disabled"><a href="/" class="alignright next">Next</a></li>
   
 </ul>
 
@@ -437,7 +489,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/04/24
     accept-charset="utf-8"
     data-js="google-search-form">
   <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">
         <span class="glyphicon glyphicon-search"></span> 

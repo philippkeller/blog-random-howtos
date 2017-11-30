@@ -78,6 +78,59 @@
 						<article class="post">
   
     <div class="post-date">
+      <time datetime="2017-11-29T15:22:14.000Z">2017-11-29</time>
+    </div>
+    
+  
+    <h1 class="title"><a href="/2017/11/29/How-to-mass-convert-mp3-files-to-aac-m3a/">How to mass convert mp3 files to aac (m3a)</a></h1>
+  
+
+  
+  <div class="post-content">
+    
+      <p>Since aac has a slightly better compression rate than mp3 (and, geez, mp3 was standardized 1992, there must be better standards nowaday), I decided to mass convert my music library from mp3 to aac</p>
+<h1 id="Declutter"><a href="#Declutter" class="headerlink" title="Declutter"></a>Declutter</h1><p>First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3. That’s insane.</p>
+<p>First, reduce your collection to, say the albums you listened in the past year. Make it two. But anything else is just an overly burden you don’t need to carry.</p>
+<h1 id="Won’t-the-quality-be-just-aweful"><a href="#Won’t-the-quality-be-just-aweful" class="headerlink" title="Won’t the quality be just aweful?"></a>Won’t the quality be just aweful?</h1><p>Of course, re-encoding sounds like a terrible idea. You’re converting from one lossfull format to another, similar when mass-converting gifs to jpegs. But on the other hand, for my setting it was just good enough. The library I converted we listen to at home over Sonos speakers or in the car with only a half-decent stereo. Also, many of the tracks I converted from cassettes, so they were in a bad quality already. You can certainly play with the bitrate, but if you have invested into an expensive stereo you’d be better off converting from a lossless source.</p>
+<h1 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h1><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">detox *.mp3</span><br><span class="line">ffmpeg -i 01_*.mp3 artwork.jpg</span><br><span class="line">for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf &quot;scale=trunc(iw/2)*2:trunc(ih/2)*2&quot; $&#123;i/mp3/m4a&#125;; done</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done</span><br><span class="line">rm artwork.jpg &amp;&amp; rm *.mp3</span><br></pre></td></tr></table></figure>
+<h1 id="Line-1-Asciify-your-filenames-with-detox"><a href="#Line-1-Asciify-your-filenames-with-detox" class="headerlink" title="Line 1: Asciify your filenames with detox"></a>Line 1: Asciify your filenames with detox</h1><p>Everything is easier on the shell if instead of having <code>my süpér s&#39;öñg.mp3</code> having a file called <code>my_super_song.mp3</code>. Detox converts all characters which you need to somehow escape on the shell to ascii characters.</p>
+<h1 id="Line-2-Extract-artwork"><a href="#Line-2-Extract-artwork" class="headerlink" title="Line 2: Extract artwork"></a>Line 2: Extract artwork</h1><p>We’ll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you’ll have a problem in line 4)</p>
+<h1 id="Line-3-Convert"><a href="#Line-3-Convert" class="headerlink" title="Line 3: Convert"></a>Line 3: Convert</h1><p>Now, in my version of Ubuntu (Xenial, 16.04) ffmpeg does not come with the compiled in converter from mp3 to aac, so I needed to first <a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu" target="_blank" rel="external">compile ffmpeg from source</a>. This was quite straightforward for me except that it kept saying I had x265 not installed even after doing <code>sudo apt install libx265-dev</code>. I needed to follow <a href="https://bitbucket.org/multicoreware/x265/issues/125/x265-not-found-using-pkg-config#comment-17635086" target="_blank" rel="external">these steps</a> to have this resolved. </p>
+<p>If you don’t want to compile from source then <a href="https://superuser.com/a/370637" target="_blank" rel="external">here</a> is a good overview on all the options you have for doing this step. Just be sure to use the right path, <code>~/bin/ffmpeg</code> is referring to my compiled ffmpeg binary.</p>
+<h2 id="Playing-with-the-options"><a href="#Playing-with-the-options" class="headerlink" title="Playing with the options"></a>Playing with the options</h2><ul>
+<li><code>-b:a 128k</code>: this sets a fixed bitrate. If you’d wish a variable bitrate (having more details for more “dynamic” sections of the track) then you can use <code>-vbr 4</code> instead, or lower it for lower quality/higher compression.</li>
+<li>the <code>scale=trunc(..)</code> bit is needed to circumvent the <code>height not divisible by 2</code> error. Taken from <a href="https://stackoverflow.com/a/20848224/119861" target="_blank" rel="external">here</a></li>
+</ul>
+<h1 id="Line-4-Set-artwork"><a href="#Line-4-Set-artwork" class="headerlink" title="Line 4: Set artwork"></a>Line 4: Set artwork</h1><p>This just sets back the artwork you extracted in line 2. This was taken from <a href="https://superuser.com/a/524120" target="_blank" rel="external">here</a>.</p>
+<h1 id="Line-5-Cleanup"><a href="#Line-5-Cleanup" class="headerlink" title="Line 5: Cleanup"></a>Line 5: Cleanup</h1><p>Yeah, finally delete all the old file and enjoy the smaller filesize :)</p>
+
+    
+  </div>
+  
+      <div class="row">
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29/How-to-mass-convert-mp3-files-to-aac-m3a/" data-addthis-title="How to mass convert mp3 files to aac (m3a)">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    <div class="post-date">
       <time datetime="2016-05-15T18:25:41.000Z">2016-05-15</time>
     </div>
     
@@ -98,7 +151,7 @@
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/#more" class="more-link">weiterlesen »</a>
+        <a href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -145,7 +198,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2016/05/15
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2014/01/20/How-to-attach-a-file-to-google-spreadsheet/#more" class="more-link">weiterlesen »</a>
+        <a href="/2014/01/20/How-to-attach-a-file-to-google-spreadsheet/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -188,7 +241,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/#more" class="more-link">weiterlesen »</a>
+        <a href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -230,7 +283,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2013/01/01
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/#more" class="more-link">weiterlesen »</a>
+        <a href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -273,7 +326,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/30
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/#more" class="more-link">weiterlesen »</a>
+        <a href="/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -316,7 +369,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/14
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/07/21/how-to-fix-jambox-static-noise/#more" class="more-link">weiterlesen »</a>
+        <a href="/2012/07/21/how-to-fix-jambox-static-noise/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -357,7 +410,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/21
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/#more" class="more-link">weiterlesen »</a>
+        <a href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -407,7 +460,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/#more" class="more-link">weiterlesen »</a>
+        <a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -448,7 +501,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/10/06/Send-javascript-errors-by-mail/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/10/06/Send-javascript-errors-by-mail/#more" class="more-link">Read more</a>
       </div>
     
     
@@ -469,65 +522,13 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/06
 </article>
 
 						
-						<article class="post">
-  
-    <div class="post-date">
-      <time datetime="2007-10-03T08:14:00.000Z">2007-10-03</time>
-    </div>
-    
-  
-    <h1 class="title"><a href="/2007/10/03/Django-Serve-big-files-via-fcgid/">Django: Serve big files via fcgid</a></h1>
-  
-
-  
-  <div class="post-content">
-    
-      <p>I&rsquo;ve got a <a href="http://extranet.icoc.ch" target="_blank" rel="external">django project</a> running which requires you to login to access files.</p>
-<p>That means that I have to serve the files via python, like this:</p>
-<pre>
-  @login_required
-  def download(request, filename):
-    # ... some code specific to my site ...
-    response = HttpResponse(mimetype=postUpload.mimetype)
-    response['Content-Disposition'] = "attachment; filename=" + original_filename
-    response['Content-Length'] = os.path.getsize(filename_path)
-    response.write(open(filename_path).read())
-    return response
-</pre>
-    
-  </div>
-  
-      <div class="row">
-    
-      <div class="col-3 col-md-3">
-        <a href="/2007/10/03/Django-Serve-big-files-via-fcgid/#more" class="more-link">weiterlesen »</a>
-      </div>
-    
-    
-    </div>
-  
-  <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/03/Django-Serve-big-files-via-fcgid/" data-addthis-title="Django: Serve big files via fcgid">
-<a class="addthis_button_preferred_1"></a>
-<a class="addthis_button_preferred_2"></a>
-<a class="addthis_button_preferred_3"></a>
-<a class="addthis_button_preferred_4"></a>
-<a class="addthis_button_compact"></a>
-<a class="addthis_counter addthis_bubble_style"></a>
-</div>
-  
-  
-
-</article>
-
-						
 						
 <ul class="pager">
   
-    <li class="previous disabled"><a href="/" class="alignleft prev">Vorherige Seite</a></li>
+    <li class="previous disabled"><a href="/" class="alignleft prev">Prev</a></li>
   
   
-    <li class="next"><a href="/page/2/" class="alignright next">Nächste Seite</a></li>
+    <li class="next"><a href="/page/2/" class="alignright next">Next</a></li>
   
 </ul>
 
@@ -545,7 +546,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/03
     accept-charset="utf-8"
     data-js="google-search-form">
   <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">
         <span class="glyphicon glyphicon-search"></span> 
