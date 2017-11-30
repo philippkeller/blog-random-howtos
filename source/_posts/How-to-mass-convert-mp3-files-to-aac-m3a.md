@@ -7,17 +7,19 @@ tags:
 - aac
 ---
 
+<img src="/images/tape.jpg" />
+
 Since aac has a slightly better compression rate than mp3 (and, geez, mp3 was standardized 1992, there must be better standards nowaday), I decided to mass convert my music library from mp3 to aac
+
+# Won't the quality be just awful?
+
+Of course, re-encoding sounds like a terrible idea. You're converting from one lossfull format to another, similar when mass-converting gifs to jpegs. But on the other hand, for my setting it was just good enough. The library I converted we listen to at home over Sonos or in the car. So in both settings there are only half-decent speakers. Also, many of the tracks I converted from audio cassettes, so they were in a bad quality already. You can certainly play with the bitrate, but if you have invested into an expensive stereo you'd be better off converting from a lossless source.
 
 # Declutter
 
-First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3. That's insane.
+First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That's insane.
 
-First, reduce your collection to, say the albums you listened in the past year. Make it two. But anything else is just an overly burden you don't need to carry.
-
-# Won't the quality be just aweful?
-
-Of course, re-encoding sounds like a terrible idea. You're converting from one lossfull format to another, similar when mass-converting gifs to jpegs. But on the other hand, for my setting it was just good enough. The library I converted we listen to at home over Sonos speakers or in the car with only a half-decent stereo. Also, many of the tracks I converted from cassettes, so they were in a bad quality already. You can certainly play with the bitrate, but if you have invested into an expensive stereo you'd be better off converting from a lossless source.
+First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don't need to carry.
 
 # No words! I just want to copy-paste
 
