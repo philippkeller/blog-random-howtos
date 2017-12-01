@@ -27,8 +27,8 @@ Here you go: Once, you haved `cd`ed into the directory with the mp3 files you wa
 
 ```
 detox *.mp3
-ffmpeg -i 01_*.mp3 artwork.jpg
-for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${i/mp3/m4a}; done
+fmpeg -i *.mp3([1]) artwork.jpg
+for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
 rm artwork.jpg && rm *.mp3
 ```
@@ -41,7 +41,7 @@ Everything is easier on the shell if instead of having `my süpér s'öñg.mp3` 
 
 # Line 2: Extract artwork
 
-We'll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you'll have a problem in line 4)
+We'll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you'll have a problem in line 4). This command takes the first mp3 and extracts the artwork into artwork.jpg.
 
 # Line 3: Convert
 
@@ -52,7 +52,7 @@ If you don't want to compile from source then [here](https://superuser.com/a/370
 ## Playing with the options
 
 - `-b:a 128k`: this sets a fixed bitrate. If you'd wish a variable bitrate (having more details for more "dynamic" sections of the track) then you can use `-vbr 4` instead, or lower it for lower quality/higher compression.
-- the `scale=trunc(..)` bit is needed to circumvent the `height not divisible by 2` error. Taken from [here](https://stackoverflow.com/a/20848224/119861)
+- the `-vf scale=1280:-2` bit is needed to circumvent the `height not divisible by 2` error. Taken from [here](https://stackoverflow.com/a/20848224/119861)
 
 # Line 4: Set artwork
 
