@@ -11,7 +11,7 @@ Won’t the quality be just awful?Of course, re-encoding sounds like a terrible 
 DeclutterFirst things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.
 First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.
 No words! I just want to copy-pasteHere you go: Once, you haved cded into the directory with the mp3 files you want to convert, do this:
-12345detox *.mp3ffmpeg -i 01_*.mp3 artwork.jpgfor i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf &amp;quot;scale=trunc(iw/2)*2:trunc(ih/2)*2&amp;quot; $&amp;#123;i/mp3/m4a&amp;#125;; donefor i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; donerm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
+12345detox *.mp3fmpeg -i *.mp3([1]) artwork.jpgfor i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 $&amp;#123;i/mp3/m4a&amp;#125;; donefor i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; donerm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -96,15 +96,15 @@ No words! I just want to copy-pasteHere you go: Once, you haved cded into the di
 <h1 id="Declutter"><a href="#Declutter" class="headerlink" title="Declutter"></a>Declutter</h1><p>First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.</p>
 <p>First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.</p>
 <h1 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h1><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">detox *.mp3</span><br><span class="line">ffmpeg -i 01_*.mp3 artwork.jpg</span><br><span class="line">for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf &quot;scale=trunc(iw/2)*2:trunc(ih/2)*2&quot; $&#123;i/mp3/m4a&#125;; done</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done</span><br><span class="line">rm artwork.jpg &amp;&amp; rm *.mp3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">detox *.mp3</span><br><span class="line">fmpeg -i *.mp3([1]) artwork.jpg</span><br><span class="line">for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 $&#123;i/mp3/m4a&#125;; done</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done</span><br><span class="line">rm artwork.jpg &amp;&amp; rm *.mp3</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h1 id="Line-1-Asciify-your-filenames-with-detox"><a href="#Line-1-Asciify-your-filenames-with-detox" class="headerlink" title="Line 1: Asciify your filenames with detox"></a>Line 1: Asciify your filenames with detox</h1><p>Everything is easier on the shell if instead of having <code>my süpér s&#39;öñg.mp3</code> having a file called <code>my_super_song.mp3</code>. Detox converts all characters which you need to somehow escape on the shell to ascii characters.</p>
-<h1 id="Line-2-Extract-artwork"><a href="#Line-2-Extract-artwork" class="headerlink" title="Line 2: Extract artwork"></a>Line 2: Extract artwork</h1><p>We’ll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you’ll have a problem in line 4)</p>
+<h1 id="Line-2-Extract-artwork"><a href="#Line-2-Extract-artwork" class="headerlink" title="Line 2: Extract artwork"></a>Line 2: Extract artwork</h1><p>We’ll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you’ll have a problem in line 4). This command takes the first mp3 and extracts the artwork into artwork.jpg.</p>
 <h1 id="Line-3-Convert"><a href="#Line-3-Convert" class="headerlink" title="Line 3: Convert"></a>Line 3: Convert</h1><p>Now, in my version of Ubuntu (Xenial, 16.04) ffmpeg does not come with the compiled in converter from mp3 to aac, so I needed to first <a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu" target="_blank" rel="external">compile ffmpeg from source</a>. This was quite straightforward for me except that it kept saying I had x265 not installed even after doing <code>sudo apt install libx265-dev</code>. I needed to follow <a href="https://bitbucket.org/multicoreware/x265/issues/125/x265-not-found-using-pkg-config#comment-17635086" target="_blank" rel="external">these steps</a> to have this resolved. </p>
 <p>If you don’t want to compile from source then <a href="https://superuser.com/a/370637" target="_blank" rel="external">here</a> is a good overview on all the options you have for doing this step. Just be sure to use the right path, <code>~/bin/ffmpeg</code> is referring to my compiled ffmpeg binary.</p>
 <h2 id="Playing-with-the-options"><a href="#Playing-with-the-options" class="headerlink" title="Playing with the options"></a>Playing with the options</h2><ul>
 <li><code>-b:a 128k</code>: this sets a fixed bitrate. If you’d wish a variable bitrate (having more details for more “dynamic” sections of the track) then you can use <code>-vbr 4</code> instead, or lower it for lower quality/higher compression.</li>
-<li>the <code>scale=trunc(..)</code> bit is needed to circumvent the <code>height not divisible by 2</code> error. Taken from <a href="https://stackoverflow.com/a/20848224/119861" target="_blank" rel="external">here</a></li>
+<li>the <code>-vf scale=1280:-2</code> bit is needed to circumvent the <code>height not divisible by 2</code> error. Taken from <a href="https://stackoverflow.com/a/20848224/119861" target="_blank" rel="external">here</a></li>
 </ul>
 <h1 id="Line-4-Set-artwork"><a href="#Line-4-Set-artwork" class="headerlink" title="Line 4: Set artwork"></a>Line 4: Set artwork</h1><p>This just sets back the artwork you extracted in line 2. This was taken from <a href="https://superuser.com/a/524120" target="_blank" rel="external">here</a>.</p>
 <h1 id="Line-5-Cleanup"><a href="#Line-5-Cleanup" class="headerlink" title="Line 5: Cleanup"></a>Line 5: Cleanup</h1><p>Yeah, finally delete all the old file and enjoy the smaller filesize :)</p>
@@ -135,7 +135,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/">
-          Vorherige Seite
+          Назад
         </a></li>
       
       
@@ -143,7 +143,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Комментарии</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -161,7 +161,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
     accept-charset="utf-8"
     data-js="google-search-form">
   <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Поиск" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">
         <span class="glyphicon glyphicon-search"></span> 
