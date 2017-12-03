@@ -6,12 +6,14 @@ tags:
 - music
 ---
 
+![CD tower to rip](/images/cd_tower.jpg)
+
 I wanted to rip a couple of children CDs (spoken stories) which often are not on MusicBrainz -> I need to tag them myself. Because I don't care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:
 
 - Rip the CD and convert it to m4a (AAC encoding, slightly better compression than mp3)
 - Eject the CD
-- Ask you for the album and artist name
-- Opens chrome so you can choose an artwork (be sure to take a jpg image)
+- Ask me for the album and artist name
+- Opens chrome so I can choose an artwork (be sure to take a jpg image)
 - Copies the music to the directory on my NAS
 
 <!-- more -->
