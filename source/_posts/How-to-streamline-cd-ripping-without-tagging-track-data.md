@@ -6,15 +6,19 @@ tags:
 - music
 ---
 
-![CD tower to rip](/images/cd_tower.jpg)
+![CD tower to rip](/images/automate.jpg)
 
-I wanted to rip a couple of children CDs (spoken stories) which often are not on MusicBrainz -> I need to tag them myself. Because I don't care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:
+Since we recently stopped using Spotify (mainly because I think having everything at your fingertips influences brain in a negative way) we switched to borrowing CDs from the local library (which, in our case is only 200m away from our house).
+
+Now, because the kids get CDs at least once a week, I needed a way to quickly import those CDs into our Sonos system without too much hassle. Since the kids only borrow children stories (spoken audio) which often are not on MusicBrainz, I needed an easy way to tag them myself. Because I don't care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:
 
 - Rip the CD and convert it to m4a (AAC encoding, slightly better compression than mp3)
 - Eject the CD
 - Ask me for the album and artist name
-- Opens chrome so I can choose an artwork (be sure to take a jpg image)
+- Opens chrome so I can choose an artwork
+- Convert the artwork to JPG in a reasonable size
 - Copies the music to the directory on my NAS
+- Triggers Sonos to update the music library
 
 <!-- more -->
 
@@ -25,6 +29,7 @@ You may take it as a starting point, you'd want to adapt:
 - the genre (line 8)
 - the handling of special characters for the album directory name (line 15)
 - the hostname/directory of your NAS
+- the updating of the music library (line 23. For Sonos there's [soco](https://github.com/SoCo/SoCo), an awesome python library. If you want to use that you'd need to `pip install soco` first)
 
 Btw: the script can be run in parallel, i.e. when the first cd is finished ripping and the aac encoding runs you can insert the next disc and start the script again.
 
@@ -39,14 +44,17 @@ for i in *.wav; do ffmpeg -i $i -c:a libfdk_aac -b:a 96k ${i/cdda.wav/m4a}; done
 total=$(ls *.m4a | wc -l); for i in *.m4a; do number=$(echo $i | sed 's/^track\([0-9]\+\).*/\1/'); AtomicParsley $i --tracknum "$number/$total" --title "Track $number" --genre "Kinder Geschichten" --overWrite; done
 echo -n "Album name>" && read album
 echo -n "Artist name>" && read artist
-chrome "https://www.google.ch/search?&q=${album// /+}+${artist// /+}+cd&tbm=isch" 2>/dev/null
+search_term="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$album $artist cd")"
+chrome "https://www.google.ch/search?&q=$search_term&tbm=isch" >/dev/null 2>/dev/null &
 echo -n "Artwork url>" && read artwork_url
-wget -q "$artwork_url" -O artwork.jpg
+wget -q "$artwork_url" -O artwork.orig
+convert artwork.orig -resize "250x" artwork.jpg
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --artist "$artist" --album "$album" --overWrite; done
 dir_name=$(echo "${artist// /_}_${album// /_}" | sed 's/Ö/oe/g; s/Ä/ae/g; s/Ü/ue/g; s/ä/ae/g; s/ö/oe/g; s/ü/ue/g' | tr '[:upper:]' '[:lower:]')
 mkdir $dir_name
 mv *.m4a $dir_name
 scp -rp $dir_name root@wdmycloud:/DataVolume/shares/Public/Shared\\\ Music/kinder
+python3 -c "import soco; soco.music_library.MusicLibrary().start_library_update()"
 cd -
 rm -rf $tmp_dir
 ```
