@@ -6,13 +6,16 @@
   <title>How to streamline cd ripping without tagging track data | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
-  <meta name="description" content="I wanted to rip a couple of children CDs (spoken stories) which often are not on MusicBrainz -&amp;gt; I need to tag them myself. Because I don’t care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:
+  <meta name="description" content="Since we recently stopped using Spotify (mainly because I think having everything at your fingertips influences brain in a negative way) we switched to borrowing CDs from the local library (which, in our case is only 200m away from our house).
+Now, because the kids get CDs at least once a week, I needed a way to quickly import those CDs into our Sonos system without too much hassle. Since the kids only borrow children stories (spoken audio) which often are not on MusicBrainz, I needed an easy way to tag them myself. Because I don’t care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:
 
 Rip the CD and convert it to m4a (AAC encoding, slightly better compression than mp3)
 Eject the CD
 Ask me for the album and artist name
-Opens chrome so I can choose an artwork (be sure to take a jpg image)
-Copies the music to the directory on my NAS">
+Opens chrome so I can choose an artwork
+Convert the artwork to JPG in a reasonable size
+Copies the music to the directory on my NAS
+Triggers Sonos to update the music library">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -91,14 +94,17 @@ Copies the music to the directory on my NAS">
   
   <div class="post-content">
     
-      <p><img src="/images/cd_tower.jpg" alt="CD tower to rip"></p>
-<p>I wanted to rip a couple of children CDs (spoken stories) which often are not on MusicBrainz -&gt; I need to tag them myself. Because I don’t care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:</p>
+      <p><img src="/images/automate.jpg" alt="CD tower to rip"></p>
+<p>Since we recently stopped using Spotify (mainly because I think having everything at your fingertips influences brain in a negative way) we switched to borrowing CDs from the local library (which, in our case is only 200m away from our house).</p>
+<p>Now, because the kids get CDs at least once a week, I needed a way to quickly import those CDs into our Sonos system without too much hassle. Since the kids only borrow children stories (spoken audio) which often are not on MusicBrainz, I needed an easy way to tag them myself. Because I don’t care about tagging every single track (because you usually listen to a story start to end anyway), I wanted to have a streamlined process. The following script does:</p>
 <ul>
 <li>Rip the CD and convert it to m4a (AAC encoding, slightly better compression than mp3)</li>
 <li>Eject the CD</li>
 <li>Ask me for the album and artist name</li>
-<li>Opens chrome so I can choose an artwork (be sure to take a jpg image)</li>
+<li>Opens chrome so I can choose an artwork</li>
+<li>Convert the artwork to JPG in a reasonable size</li>
 <li>Copies the music to the directory on my NAS</li>
+<li>Triggers Sonos to update the music library</li>
 </ul>
 <a id="more"></a>
 <p>You may take it as a starting point, you’d want to adapt:</p>
@@ -108,9 +114,10 @@ Copies the music to the directory on my NAS">
 <li>the genre (line 8)</li>
 <li>the handling of special characters for the album directory name (line 15)</li>
 <li>the hostname/directory of your NAS</li>
+<li>the updating of the music library (line 23. For Sonos there’s <a href="https://github.com/SoCo/SoCo" target="_blank" rel="external">soco</a>, an awesome python library. If you want to use that you’d need to <code>pip install soco</code> first)</li>
 </ul>
 <p>Btw: the script can be run in parallel, i.e. when the first cd is finished ripping and the aac encoding runs you can insert the next disc and start the script again.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">set -e</span><br><span class="line">tmp_dir=$(mktemp -d)</span><br><span class="line">cd $tmp_dir</span><br><span class="line">cdparanoia -BY</span><br><span class="line">eject</span><br><span class="line">for i in *.wav; do ffmpeg -i $i -c:a libfdk_aac -b:a 96k $&#123;i/cdda.wav/m4a&#125;; done</span><br><span class="line">total=$(ls *.m4a | wc -l); for i in *.m4a; do number=$(echo $i | sed &apos;s/^track\([0-9]\+\).*/\1/&apos;); AtomicParsley $i --tracknum &quot;$number/$total&quot; --title &quot;Track $number&quot; --genre &quot;Kinder Geschichten&quot; --overWrite; done</span><br><span class="line">echo -n &quot;Album name&gt;&quot; &amp;&amp; read album</span><br><span class="line">echo -n &quot;Artist name&gt;&quot; &amp;&amp; read artist</span><br><span class="line">chrome &quot;https://www.google.ch/search?&amp;q=$&#123;album// /+&#125;+$&#123;artist// /+&#125;+cd&amp;tbm=isch&quot; 2&gt;/dev/null</span><br><span class="line">echo -n &quot;Artwork url&gt;&quot; &amp;&amp; read artwork_url</span><br><span class="line">wget -q &quot;$artwork_url&quot; -O artwork.jpg</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --artist &quot;$artist&quot; --album &quot;$album&quot; --overWrite; done</span><br><span class="line">dir_name=$(echo &quot;$&#123;artist// /_&#125;_$&#123;album// /_&#125;&quot; | sed &apos;s/Ö/oe/g; s/Ä/ae/g; s/Ü/ue/g; s/ä/ae/g; s/ö/oe/g; s/ü/ue/g&apos; | tr &apos;[:upper:]&apos; &apos;[:lower:]&apos;)</span><br><span class="line">mkdir $dir_name</span><br><span class="line">mv *.m4a $dir_name</span><br><span class="line">scp -rp $dir_name root@wdmycloud:/DataVolume/shares/Public/Shared\\\ Music/kinder</span><br><span class="line">cd -</span><br><span class="line">rm -rf $tmp_dir</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">set -e</span><br><span class="line">tmp_dir=$(mktemp -d)</span><br><span class="line">cd $tmp_dir</span><br><span class="line">cdparanoia -BY</span><br><span class="line">eject</span><br><span class="line">for i in *.wav; do ffmpeg -i $i -c:a libfdk_aac -b:a 96k $&#123;i/cdda.wav/m4a&#125;; done</span><br><span class="line">total=$(ls *.m4a | wc -l); for i in *.m4a; do number=$(echo $i | sed &apos;s/^track\([0-9]\+\).*/\1/&apos;); AtomicParsley $i --tracknum &quot;$number/$total&quot; --title &quot;Track $number&quot; --genre &quot;Kinder Geschichten&quot; --overWrite; done</span><br><span class="line">echo -n &quot;Album name&gt;&quot; &amp;&amp; read album</span><br><span class="line">echo -n &quot;Artist name&gt;&quot; &amp;&amp; read artist</span><br><span class="line">search_term=&quot;$(perl -MURI::Escape -e &apos;print uri_escape($ARGV[0]);&apos; &quot;$album $artist cd&quot;)&quot;</span><br><span class="line">chrome &quot;https://www.google.ch/search?&amp;q=$search_term&amp;tbm=isch&quot; &gt;/dev/null 2&gt;/dev/null &amp;</span><br><span class="line">echo -n &quot;Artwork url&gt;&quot; &amp;&amp; read artwork_url</span><br><span class="line">wget -q &quot;$artwork_url&quot; -O artwork.orig</span><br><span class="line">convert artwork.orig -resize &quot;250x&quot; artwork.jpg</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --artist &quot;$artist&quot; --album &quot;$album&quot; --overWrite; done</span><br><span class="line">dir_name=$(echo &quot;$&#123;artist// /_&#125;_$&#123;album// /_&#125;&quot; | sed &apos;s/Ö/oe/g; s/Ä/ae/g; s/Ü/ue/g; s/ä/ae/g; s/ö/oe/g; s/ü/ue/g&apos; | tr &apos;[:upper:]&apos; &apos;[:lower:]&apos;)</span><br><span class="line">mkdir $dir_name</span><br><span class="line">mv *.m4a $dir_name</span><br><span class="line">scp -rp $dir_name root@wdmycloud:/DataVolume/shares/Public/Shared\\\ Music/kinder</span><br><span class="line">python3 -c &quot;import soco; soco.music_library.MusicLibrary().start_library_update()&quot;</span><br><span class="line">cd -</span><br><span class="line">rm -rf $tmp_dir</span><br></pre></td></tr></table></figure>
 
     
   </div>
