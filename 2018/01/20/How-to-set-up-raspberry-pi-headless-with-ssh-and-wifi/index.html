@@ -120,14 +120,15 @@ Select image e.g. ~/Downloads/2017-11-29-raspbian-stretch-lite.zip and flash (fo
 <li>edit <code>/var/tmp/sdcard/etc/wpa_supplicant/wpa_supplicant.conf</code> and add the config you just got from <code>wpa_passphrase</code>. Be sure to delete the plain text psk line</li>
 <li><code>sudo umount /var/tmp/sdcard</code></li>
 </ul>
-<h1 id="Profit"><a href="#Profit" class="headerlink" title="Profit!"></a>Profit!</h1><p>That’s it, boot your pi, check your router for the ip address it just got and ssh in with <code>ssh pi@...</code> using <code>raspberry</code> as password.</p>
+<h1 id="Profit"><a href="#Profit" class="headerlink" title="Profit!"></a>Profit!</h1><p>That’s it, boot your pi, check your router for the ip address it just got and ssh in with <code>ssh pi@192.168.x.x</code> using <code>raspberry</code> as password.</p>
 <p>A good first step is to start <code>sudo raspi-config</code> in order to:</p>
 <ul>
 <li>change password</li>
 <li>generate the locale (get rid of the <code>warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)</code>)</li>
 <li>set the correct timezone</li>
 </ul>
-
+<p>And, of course add your public key to authorized_keys:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub | ssh pi@192.168.x.x &quot;mkdir -p ~/.ssh &amp;&amp; chmod 700 ~/.ssh &amp;&amp; cat &gt;&gt;  ~/.ssh/authorized_keys&quot;</span><br></pre></td></tr></table></figure>
     
   </div>
   
