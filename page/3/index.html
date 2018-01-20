@@ -3,16 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Python: Find out cpu time of a certain process | Random Howtos</title>
+  <title>Page 3 | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
-  
-  <meta name="description" content="To find out how many percentage a certain process uses the cpu:">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="generator" content="Hexo 2.6.0"/>
 
-  <meta property="og:title" content="Python: Find out cpu time of a certain process"/>
+  
   <meta property="og:site_name" content="Random Howtos"/>
 
   
@@ -39,7 +37,7 @@
 </head>
 
 <body>
-  
+
 
 <div class="navbar navbar-default navbar-static-top">
   <div class="container">
@@ -70,36 +68,43 @@
 </div>
 
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8"><article class="post">
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-11 col-md-11">
+						
+						<article class="post">
   
     <div class="post-date">
-      <time datetime="2007-06-08T04:52:00.000Z">2007-06-08</time>
+      <time datetime="2005-04-24T14:35:00.000Z">2005-04-24</time>
     </div>
     
   
-    <h1 class="title">Python: Find out cpu time of a certain process</h1>
+    <h1 class="title"><a href="/2005/04/24/Tags-Database-schemas/">Tags: Database schemas</a></h1>
   
 
   
   <div class="post-content">
     
-      <p><br>  To find out how many percentage a certain process uses the cpu:<br></p><br><a id="more"></a><br><pre><br>  import os, time<br><br>  # find out the pid by username.<br>  # “-o pid h” omits the header and just prints the pid<br>  pid = os.popen(‘ps -U my_user_name -o pid h’).read().strip()<br><br>  # 14th column is utime, 15th column is stime:<br>  # The time the process has been scheduled in user/kernel mode<br>  # The time value is in jiffies. One jiffie is appox 1/100 second<br>  # see man proc for more info<br>  stat = os.popen(‘cat /proc/%s/stat’ % pid).read().strip()<br>  cpu_time1=int(stat.split()[14]) + int(stat.split()[15])<br>  time1=time.time()<br><br>  time.sleep(1)<br>  stat = os.popen(‘cat /proc/%s/stat’ % pid).read().strip()<br>  cpu_time2=int(stat.split()[14]) + int(stat.split()[15])<br>  time2=time.time()<br><br>  print str(float(cpu_time2 - cpu_time1) / (time2 - time1)) + “%”<br></pre><br><p><br>  I don’t know though if the number is accurate.<br><br>  What is “cpu time” anyway? It’s the time the process is running (using the cpu for 100%) divided by the time the process is laid asleep by the scheduler.<br><br>  Then, <a href="http://www.ecos.sourceware.org/ml/systemtap/2005-q4/msg00185.html" target="_blank" rel="external">jiffies seem to be not a safe number</a> for time measurements.<br><br>  But for relative measurements it should do the trick.<br></p>
+      <p>Recently, <a href="http://lists.del.icio.us/pipermail/discuss/2005-April/002827.html" target="_blank" rel="external">on del.icio.us mailinglist</a>, I asked the question &ldquo;Does anyone know the database schema of del.icio.us?&rdquo;. I got a few private responses so I wanted to share the knowledge with the world.</p>
+<p>The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many <a href="http://en.wikipedia.org/wiki/Tags" target="_blank" rel="external">tags</a> as you want. Later then, you want to run queries to constrain the bookmarks to a <a href="http://en.wikipedia.org/wiki/Union_%28set_theory%29" target="_blank" rel="external">union</a> or <a href="http://en.wikipedia.org/wiki/Intersection_%28set_theory%29" target="_blank" rel="external">intersection</a> of tags. You also want to exclude (say: minus) some tags from the search result.</p>
+<p>Apparently there are three different solutions (<strong>Attention: </strong>If you are building a websites that allows users to tag, be sure to have a look at <a href="http://howto.philippkeller.com/2005/06/19/Tagsystems-performance-tests/">my performance tests</a> as performance seems to be a problem on larger scaled sites.)
     
   </div>
   
+      <div class="row">
     
-
+      <div class="col-3 col-md-3">
+        <a href="/2005/04/24/Tags-Database-schemas/#more" class="more-link">Read more »</a>
+      </div>
     
-  
-  <div class="tags">
-    <a href="/tags/python/">python</a>
-  </div>
-
+    
+    </div>
   
   <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/" data-addthis-title="Python: Find out cpu time of a certain process">
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/04/24/Tags-Database-schemas/" data-addthis-title="Tags: Database schemas">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
@@ -108,33 +113,27 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08
 <a class="addthis_counter addthis_bubble_style"></a>
 </div>
   
-    <ul class="next_prev">
-      
-        <li class="prev">
-        <a class="btn btn-success" role="button" href="/2007/05/12/Tag-history-and-gartners-hype-cycles/">
-          Previous page
-        </a></li>
-      
-      
-        <li class="next">
-        <a class="btn btn-success" role="button" href="/2007/10/03/Django-Serve-big-files-via-fcgid/">
-          Next page
-        </a></li>
-      
-    </ul>
   
-  
-<div class="row comments">
-  <h2>Comments</h1>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</div>
-
 
 </article>
-</div>
-      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
+
+						
+						
+<ul class="pager">
+  
+    <li class="previous"><a href="/page/2/" class="alignleft prev">Previous page</a></li>
+  
+  
+    <li class="next disabled"><a href="/" class="alignright next">Next page</a></li>
+  
+</ul>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
 
   <div class="widget">
   	  <form action=""
@@ -155,10 +154,10 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08
 
 </div>
 </div>
-    </div>
-  </div>
-  <div id="push"></div>
-  <div class="navbar navbar-footer">
+	</div>
+</div>
+<div id="push"></div>
+<div class="navbar navbar-footer">
   <div class="container">
     <p class="navbar-center navbar-text">
       
@@ -167,7 +166,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08
     </p>
   </div>
 </div>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
 
 
 
@@ -178,7 +177,7 @@ var disqus_shortname = 'randomhowtos';
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());
 </script>
