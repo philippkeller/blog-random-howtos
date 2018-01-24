@@ -6,8 +6,8 @@
   <title>Automated tag clustering | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
-  <meta name="description" content="Grigory Begelman (Technion - Israel Institute of Technology Computer Science Dpt), Frank Smadja (RawSugar) and I did a paper for www2006 called &amp;ldquo;automated tag clustering&amp;rdquo;. It deals with why clustering the tag space makes sense and how this could be done.
-After the presentation at the tagging workshop at www2006 we felt the need to give our paper a more www-friendly, I-don&amp;rsquo;t-want-to-read-through-those-theoretical-equation-flooded-papers face.
+  <meta name="description" content="Grigory Begelman (Technion - Israel Institute of Technology Computer Science Dpt), Frank Smadja (RawSugar) and I did a paper for www2006 called “automated tag clustering”. It deals with why clustering the tag space makes sense and how this could be done.
+After the presentation at the tagging workshop at www2006 we felt the need to give our paper a more www-friendly, I-don’t-want-to-read-through-those-theoretical-equation-flooded-papers face.
 
 So, here you go: Automated Tag Clustering: Improving search and exploration in the tag space.">
   
@@ -39,6 +39,9 @@ So, here you go: Automated Tag Clustering: Improving search and exploration in t
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+
+
 
 
 </head>
@@ -79,28 +82,28 @@ So, here you go: Automated Tag Clustering: Improving search and exploration in t
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2006-07-11T07:03:00.000Z">2006-07-11</time>
-    </div>
     
   
     <h1 class="title">Automated tag clustering</h1>
   
 
+    <div class="post-date">
+      <time datetime="2006-07-11T07:03:00.000Z">2006-07-11</time>
+    </div>
   
   <div class="post-content">
     
-      <p><a href="http://www.cs.technion.ac.il/%7Egbeg/" target="_blank" rel="external">Grigory Begelman</a> (<a href="http://www.cs.technion.ac.il/" target="_blank" rel="external">Technion - Israel Institute of Technology Computer Science Dpt)</a>, <a href="http://smadja.us/" target="_blank" rel="external">Frank Smadja</a> (<a href="http://www.rawsugar.com/" target="_blank" rel="external">RawSugar</a>) and I did a paper for <a href="http://www2006.org" target="_blank" rel="external">www2006</a> called &ldquo;automated tag clustering&rdquo;. It deals with why clustering the tag space makes sense and how this could be done.</p>
-<p>After the presentation at the <a href="http://blog.rawsugar.com/wikka/wikka.php?wakka=HomePage" target="_blank" rel="external">tagging workshop</a> at www2006 we felt the need to give our paper a more www-friendly, I-don&rsquo;t-want-to-read-through-those-theoretical-equation-flooded-papers face.</p>
+      <p><a href="http://www.cs.technion.ac.il/%7Egbeg/" target="_blank" rel="external">Grigory Begelman</a> (<a href="http://www.cs.technion.ac.il/" target="_blank" rel="external">Technion - Israel Institute of Technology Computer Science Dpt)</a>, <a href="http://smadja.us/" target="_blank" rel="external">Frank Smadja</a> (<a href="http://www.rawsugar.com/" target="_blank" rel="external">RawSugar</a>) and I did a paper for <a href="http://www2006.org" target="_blank" rel="external">www2006</a> called “automated tag clustering”. It deals with why clustering the tag space makes sense and how this could be done.</p>
+<p>After the presentation at the <a href="http://blog.rawsugar.com/wikka/wikka.php?wakka=HomePage" target="_blank" rel="external">tagging workshop</a> at www2006 we felt the need to give our paper a more www-friendly, I-don’t-want-to-read-through-those-theoretical-equation-flooded-papers face.</p>
 <p><a href="http://tagging.pui.ch/automated_tag_clustering/#cluster" target="_blank" rel="external"><img src="http://i.imgur.com/40BW8.png" alt="clustering the tag space" title="clustering the tag space"></a></p>
 <p>So, here you go: <a href="http://tagging.pui.ch/automated_tag_clustering/" target="_blank" rel="external">Automated Tag Clustering: Improving search and exploration in the tag space</a>.<a id="more"></a></p>
-<p>To read this document you should have a clue what tags are about, you should also know some tag services as <a href="http://del.icio.us" target="_blank" rel="external">delicious</a> or <a href="http://www.flickr.com" target="_blank" rel="external">flickr</a> so you can understand the limitations these services currently have. If you don&rsquo;t want to read through the whole papers, the numerous figures give you a good summary. Finally, to wet your appetite, here a few excerpts of the document:</p>
+<p>To read this document you should have a clue what tags are about, you should also know some tag services as <a href="http://del.icio.us" target="_blank" rel="external">delicious</a> or <a href="http://www.flickr.com" target="_blank" rel="external">flickr</a> so you can understand the limitations these services currently have. If you don’t want to read through the whole papers, the numerous figures give you a good summary. Finally, to wet your appetite, here a few excerpts of the document:</p>
 <blockquote>
-<p>Currently tagging services still provide a relatively marginal value for information discovery and we claim that with the use of clustering techniques this can be greatly improved [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_motivation" target="_blank" rel="external">introduction</a>]<br>The whole promise of collaborative tagging is that by exploring the tag space you can discover a lot of useful information you would not find with traditional search engines. When your information need is not well defined, the idea that you can explore and see what other people tagged with certain tags is very attractive. We believe that tagging will be able to reach a very wide audience only when exploration techniques will be effective. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_exploration" target="_blank" rel="external">limited exploration</a>]<br>Although a great visualization paradigm, we believe that with today&rsquo;s tagclouds it is hard to find more than one or two tags to click on. Tags are not grouped, there is too much information, so that you find lot of related tags scattered on the tag cloud. One or two popular topics and all their related tags tend to dominate the whole cloud. For example, looking at the del.icio.us tagcloud, one would mostly see tags related to web design and technologies. This is because these topics are overwhelmingly more frequent than anything else. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_exploration" target="_blank" rel="external">limited exploration</a>]<br>Tag <em>web2.0</em> nowadays is so popular and is combined wildly with anything. In fact this tag is so overused that if you look at <a href="http://del.icio.us/tag/bookmarks" target="_blank" rel="external">tag <em>bookmarks</em> in the del.icio.us dataset</a>, the most used cotag is <em>web2.0</em>[&hellip;]. Basing tag similarity on these numbers often doesn&rsquo;t make sense at all. The similarity measure should be chosen so the popularity of a tag doesn&rsquo;t affect the set of a tags related tags. Don&rsquo;t cut the <a href="http://en.wikipedia.org/wiki/Long_tail" target="_blank" rel="external">long tail</a>. The success of blogs is driven by the importance of the long tail. We all know that it is crucial to support the niches. Tagging applications should empower the long tail too. If you just sort by popularity, you&rsquo;d loose all those niches. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_similarity" target="_blank" rel="external">choosing a similarity measure</a>]</p>
+<p>Currently tagging services still provide a relatively marginal value for information discovery and we claim that with the use of clustering techniques this can be greatly improved [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_motivation" target="_blank" rel="external">introduction</a>]<br>The whole promise of collaborative tagging is that by exploring the tag space you can discover a lot of useful information you would not find with traditional search engines. When your information need is not well defined, the idea that you can explore and see what other people tagged with certain tags is very attractive. We believe that tagging will be able to reach a very wide audience only when exploration techniques will be effective. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_exploration" target="_blank" rel="external">limited exploration</a>]<br>Although a great visualization paradigm, we believe that with today’s tagclouds it is hard to find more than one or two tags to click on. Tags are not grouped, there is too much information, so that you find lot of related tags scattered on the tag cloud. One or two popular topics and all their related tags tend to dominate the whole cloud. For example, looking at the del.icio.us tagcloud, one would mostly see tags related to web design and technologies. This is because these topics are overwhelmingly more frequent than anything else. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_exploration" target="_blank" rel="external">limited exploration</a>]<br>Tag <em>web2.0</em> nowadays is so popular and is combined wildly with anything. In fact this tag is so overused that if you look at <a href="http://del.icio.us/tag/bookmarks" target="_blank" rel="external">tag <em>bookmarks</em> in the del.icio.us dataset</a>, the most used cotag is <em>web2.0</em>[&hellip;]. Basing tag similarity on these numbers often doesn’t make sense at all. The similarity measure should be chosen so the popularity of a tag doesn’t affect the set of a tags related tags. Don’t cut the <a href="http://en.wikipedia.org/wiki/Long_tail" target="_blank" rel="external">long tail</a>. The success of blogs is driven by the importance of the long tail. We all know that it is crucial to support the niches. Tagging applications should empower the long tail too. If you just sort by popularity, you’d loose all those niches. [from <a href="http://tagging.pui.ch/automated_tag_clustering/#p_similarity" target="_blank" rel="external">choosing a similarity measure</a>]</p>
 </blockquote>
-<p>We&rsquo;d be happy to get any kind of feedback on the article. Just post a comment to this blog post.</p>
+<p>We’d be happy to get any kind of feedback on the article. Just post a comment to this blog post.</p>
 <p><strong>Edit (4 years later!)</strong>: A few guys asked me about the source code: <a href="http://pastie.org/1098455" target="_blank" rel="external">Source code with syntax highlighting</a>.<br>You need <a href="http://people.sc.fsu.edu/~jburkardt/c_src/kmetis/kmetis.html" target="_blank" rel="external">kmetis</a> to make this run, see <code>usage()</code> to see how it should be used.</p>
-<p><strong>Edit</strong>: Robin sent me <a href="http://pastie.org/3549928" target="_blank" rel="external">this fixed source code</a>, didn&rsquo;t test it though:</p>
+<p><strong>Edit</strong>: Robin sent me <a href="http://pastie.org/3549928" target="_blank" rel="external">this fixed source code</a>, didn’t test it though:</p>
 <div class="blogger-post-footer"><img src="https://blogger.googleusercontent.com/tracker/2748783673844839576-786221472892263493?l=theneachwenttohisownhome.blogspot.com" alt=""></div>
     
   </div>
@@ -128,20 +131,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2006/07/11
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2005/06/19/Tagsystems-performance-tests/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2007/02/10/Turn-demoscene-modules-into-mp3s/">
-          Nächste Seite
+          Next post
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>

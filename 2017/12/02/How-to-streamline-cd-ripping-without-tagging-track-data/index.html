@@ -45,6 +45,15 @@ Triggers Sonos to update the music library">
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+  <style>
+    
+      pre>code.bash.hljs {font-size: 80%}
+    
+  </style>
+  
+
+
 
 
 </head>
@@ -85,14 +94,14 @@ Triggers Sonos to update the music library">
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2017-12-02T15:23:53.000Z">2017-12-02</time>
-    </div>
     
   
     <h1 class="title">How to streamline cd ripping without tagging track data</h1>
   
 
+    <div class="post-date">
+      <time datetime="2017-12-02T15:23:53.000Z">2017-12-02</time>
+    </div>
   
   <div class="post-content">
     
@@ -126,8 +135,17 @@ tmp_dir=$(mktemp -d)
 cd $tmp_dir
 cdparanoia -BY
 eject
-for i in *.wav; do ffmpeg -i $i -c:a libfdk_aac -b:a 96k ${i/cdda.wav/m4a}; done
-total=$(ls *.m4a | wc -l); for i in *.m4a; do number=$(echo $i | sed &#39;s/^track\([0-9]\+\).*/\1/&#39;); AtomicParsley $i --tracknum &quot;$number/$total&quot; --title &quot;Track $number&quot; --genre &quot;Kinder Geschichten&quot; --overWrite; done
+
+for i in *.wav; do 
+    ffmpeg -i $i -c:a libfdk_aac -b:a 96k ${i/cdda.wav/m4a}
+done
+
+total=$(ls *.m4a | wc -l)
+for i in *.m4a; do 
+    number=$(echo $i | sed &#39;s/^track\([0-9]\+\).*/\1/&#39;)
+    AtomicParsley $i --tracknum &quot;$number/$total&quot; --title &quot;Track $number&quot; --genre &quot;&lt;my genre&gt;&quot; --overWrite
+done
+
 echo -n &quot;Album name&gt;&quot; &amp;&amp; read album
 echo -n &quot;Artist name&gt;&quot; &amp;&amp; read artist
 search_term=&quot;$(perl -MURI::Escape -e &#39;print uri_escape($ARGV[0]);&#39; &quot;$album $artist cd&quot;)&quot;
@@ -135,11 +153,13 @@ chrome &quot;https://www.google.ch/search?&amp;q=$search_term&amp;tbm=isch&quot;
 echo -n &quot;Artwork url&gt;&quot; &amp;&amp; read artwork_url
 wget -q &quot;$artwork_url&quot; -O artwork.orig
 convert artwork.orig -resize &quot;250x&quot; artwork.jpg
-for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --artist &quot;$artist&quot; --album &quot;$album&quot; --overWrite; done
+for i in *.m4a; do 
+    AtomicParsley $i --artwork artwork.jpg --artist &quot;$artist&quot; --album &quot;$album&quot; --overWrite
+done
 dir_name=$(echo &quot;${artist// /_}_${album// /_}&quot; | sed &#39;s/Ö/oe/g; s/Ä/ae/g; s/Ü/ue/g; s/ä/ae/g; s/ö/oe/g; s/ü/ue/g&#39; | tr &#39;[:upper:]&#39; &#39;[:lower:]&#39;)
 mkdir $dir_name
 mv *.m4a $dir_name
-scp -rp $dir_name root@wdmycloud:/DataVolume/shares/Public/Shared\\\ Music/kinder
+scp -rp $dir_name user@nas:/directory/of/my/music
 python3 -c &quot;import soco; soco.music_library.MusicLibrary().start_library_update()&quot;
 cd -
 rm -rf $tmp_dir
@@ -171,20 +191,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/12/02
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2017/11/29/How-to-mass-convert-mp3-files-to-aac-m3a/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/">
-          Nächste Seite
+          Next post
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>

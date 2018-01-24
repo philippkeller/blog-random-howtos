@@ -36,6 +36,9 @@
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+
+
 
 
 </head>
@@ -76,38 +79,40 @@
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-02-18T17:04:00.000Z">2007-02-18</time>
-    </div>
     
   
     <h1 class="title">Set timeout for a shell command in python</h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-02-18T17:04:00.000Z">2007-02-18</time>
+    </div>
   
   <div class="post-content">
     
       <p>I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (<a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> that was, sometimes it simply hangs).<br><br><strong>Update:</strong> <a href="http://www.python.net/crew/hooft/" target="_blank" rel="external">the “task” module of Rob Hooft</a> seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.<br><br></p>
 <a id="more"></a>
-<pre><code>  def timeout_command(command, timeout):
-    &quot;&quot;&quot;call shell-command and either return its output or kill it
-    if it doesn&#39;t normally exit within timeout seconds and return None&quot;&quot;&quot;
-    import subprocess, datetime, os, time, signal
-    start = datetime.datetime.now()
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    while process.poll() is None:
-      time.sleep(0.1)
-      now = datetime.datetime.now()
-      if (now - start).seconds&amp;gt; timeout:
-        os.kill(process.pid, signal.SIGKILL)
-        os.waitpid(-1, os.WNOHANG)
-        return None
-    return process.stdout.read()
-</code></pre><p>Note especially lines 6, 11 and 12.<br>Usage:</p>
-<pre><code>&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;10&quot;], 2)
+<pre><code class="python">def timeout_command(command, timeout):
+  &quot;&quot;&quot;call shell-command and either return its output or kill it
+  if it doesn&#39;t normally exit within timeout seconds and return None&quot;&quot;&quot;
+  import subprocess, datetime, os, time, signal
+  start = datetime.datetime.now()
+  process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  while process.poll() is None:
+    time.sleep(0.1)
+    now = datetime.datetime.now()
+    if (now - start).seconds&amp;gt; timeout:
+      os.kill(process.pid, signal.SIGKILL)
+      os.waitpid(-1, os.WNOHANG)
+      return None
+  return process.stdout.read()
+</code></pre>
+<p>Usage:</p>
+<pre><code class="python">&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;10&quot;], 2)
 None
 &gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;1&quot;], 2)
-</code></pre><p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
+</code></pre>
+<p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
 
     
   </div>
@@ -135,20 +140,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/18
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2007/02/10/Turn-demoscene-modules-into-mp3s/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2007/05/12/Tag-history-and-gartners-hype-cycles/">
-          Nächste Seite
+          Next post
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>

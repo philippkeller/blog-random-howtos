@@ -36,6 +36,15 @@
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+  <style>
+    
+      pre>code.hljs.javascript {font-size: 80%}
+    
+  </style>
+  
+
+
 
 
 </head>
@@ -76,20 +85,20 @@
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
-    </div>
     
   
     <h1 class="title">Send javascript errors by mail</h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
+    </div>
   
   <div class="post-content">
     
       <p>I’m running <a href="http://extranet.icoc.ch" target="_blank" rel="external">a Django-powered site for a closed user group</a> and added a bit of JavaScript magic here and there (mainly <a href="http://www.prototypejs.org/" target="_blank" rel="external">Prototype</a> and <a href="http://codylindley.com/Javascript/219/finding-a-javascript-tool-tip-script" target="_blank" rel="external">Tooltip</a>).</p>
 <a id="more"></a>
-<p>Now Django sends me a mail whenever a 404 or 500 error occurs. But when one of my users encounters a JavaScript-Error, I&rsquo;m not informed. I thought anyone in the web has solved this problem but didn&rsquo;t find anything, so here&rsquo;s my take: Just send any error using Ajax (here: using <a href="http://www.prototypejs.org/learn/introduction-to-ajax" target="_blank" rel="external">Prototypes Ajax abstraction</a>) to the server</p>
+<p>Now Django sends me a mail whenever a 404 or 500 error occurs. But when one of my users encounters a JavaScript-Error, I’m not informed. I thought anyone in the web has solved this problem but didn’t find anything, so here’s my take: Just send any error using Ajax (here: using <a href="http://www.prototypejs.org/learn/introduction-to-ajax" target="_blank" rel="external">Prototypes Ajax abstraction</a>) to the server</p>
 <pre><code class="javascript">onerror = Extranet.mailError;
 function mailError(msg, url, line) {
    var postBody = &#39;url=&#39; + url + &#39;&amp;amp;line=&#39; + line + &#39;&amp;amp;message=&#39; + escape(msg)
@@ -143,20 +152,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/06
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2007/10/03/Django-Serve-big-files-via-fcgid/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/">
-          Nächste Seite
+          Next post
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>

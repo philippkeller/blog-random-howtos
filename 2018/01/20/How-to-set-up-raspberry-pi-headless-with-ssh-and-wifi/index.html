@@ -44,6 +44,9 @@ Select image e.g. ~/Downloads/2017-11-29-raspbian-stretch-lite.zip and flash (fo
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+
+
 
 
 </head>
@@ -84,20 +87,20 @@ Select image e.g. ~/Downloads/2017-11-29-raspbian-stretch-lite.zip and flash (fo
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2018-01-20T08:32:44.000Z">2018-01-20</time>
-    </div>
     
   
     <h1 class="title">How to set up raspberry pi headless with ssh and wifi</h1>
   
 
+    <div class="post-date">
+      <time datetime="2018-01-20T08:32:44.000Z">2018-01-20</time>
+    </div>
   
   <div class="post-content">
     
       <p><img src="/images/pi.jpg" alt="raspberry pi 3"></p>
 <p>Setting up raspberry pi is a bit tedious when doing it over attached monitor, keyboard and mouse (I usually don’t have those around anyway, being laptop only at the moment), so here’s a good and easy way to get an installation directly from your laptop, making the pi automatically join your wifi and enable ssh:</p>
-<h1 id="Flash"><a href="#Flash" class="headerlink" title="Flash"></a>Flash</h1><p><img src="/images/etcher.png" alt="etcher"></p>
+<h2 id="Flash"><a href="#Flash" class="headerlink" title="Flash"></a>Flash</h2><p><img src="/images/etcher.png" alt="etcher"></p>
 <p>I found that etcher.io is a very easy way to flash, in order to do so:</p>
 <ul>
 <li><strong>Install <a href="https://etcher.io/" target="_blank" rel="external">etcher</a></strong> (available for linux/osx/windows)</li>
@@ -107,7 +110,7 @@ Select image e.g. ~/Downloads/2017-11-29-raspbian-stretch-lite.zip and flash (fo
 <li><strong>Select image</strong> e.g. <code>~/Downloads/2017-11-29-raspbian-stretch-lite.zip</code> and <strong>flash</strong> <small>(for linux i3 users: you’ll get a polkit error. You’ll need to start a polkit agent, e.g. <code>/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1</code> before flashing)</small></li>
 </ul>
 <a id="more"></a>
-<h1 id="Enable-ssh-and-wlan-on-the-image"><a href="#Enable-ssh-and-wlan-on-the-image" class="headerlink" title="Enable ssh and wlan on the image"></a>Enable ssh and wlan on the image</h1><p>Etcher just created two partitions: a boot partition and a data partition. First, find out the device files of the two partitions using <code>sudo fdisk -l</code>. In my case I found:</p>
+<h2 id="Enable-ssh-and-wlan-on-the-image"><a href="#Enable-ssh-and-wlan-on-the-image" class="headerlink" title="Enable ssh and wlan on the image"></a>Enable ssh and wlan on the image</h2><p>Etcher just created two partitions: a boot partition and a data partition. First, find out the device files of the two partitions using <code>sudo fdisk -l</code>. In my case I found:</p>
 <pre><code class="shell">Disk /dev/mmcblk0: 14.9 GiB, 15931539456 bytes, 31116288 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
@@ -118,21 +121,26 @@ Device               Boot   Start     End Sectors Size Id Type
 /dev/mmcblk0p1       8192   93236   85045 41.5M         c W95 FAT32 (LBA)
 /dev/mmcblk0p2      94208 3629055 3534848  1.7G        83 Linux
 </code></pre>
-<p>The relevant lines are 8 (boot partition) and 9 (data partition).</p>
-<h2 id="Enable-ssh"><a href="#Enable-ssh" class="headerlink" title="Enable ssh"></a>Enable ssh</h2><ul>
-<li>create the mount point e.g. <code>mkdir /var/tmp/sdcard</code></li>
-<li>mount the boot partition with <code>sudo mount -t vfat /dev/mmcblk0p1 /var/tmp/sdcard</code> whereas you specify the file system using <code>-t vfar</code> (corresponds to W95 FAT32) and the device <code>/dev/mmcblk0p1</code> is what you take from above (be sure to take the first one, that with the lower start number)</li>
-<li><code>sudo touch /var/tmp/sdcard/ssh</code> to enable ssh on the first boot</li>
-<li><code>sudo umount /var/tmp/sdcard</code></li>
-</ul>
-<h2 id="Enable-wireless"><a href="#Enable-wireless" class="headerlink" title="Enable wireless"></a>Enable wireless</h2><ul>
-<li>mount the data partition with <code>sudo mount -t ext4 /dev/mmcblk0p2 /var/tmp/sdcard</code>, be sure to take the correct <code>/dev/</code>, <code>-t ext4</code> corresponds to the <code>Linux</code> fs type</li>
-<li>run <code>wpa_passphrase &lt;ssid&gt; &lt;password&gt;</code> to create the wireless config config</li>
-<li>edit <code>/var/tmp/sdcard/etc/wpa_supplicant/wpa_supplicant.conf</code> and add the config you just got from <code>wpa_passphrase</code>. Be sure to delete the plain text psk line</li>
-<li><code>sudo umount /var/tmp/sdcard</code></li>
-</ul>
-<h1 id="Profit"><a href="#Profit" class="headerlink" title="Profit!"></a>Profit!</h1><p>That’s it, boot your pi, check your router for the ip address it just got and ssh in with <code>ssh pi@192.168.x.x</code> using <code>raspberry</code> as password.</p>
-<p>A good first step is to start <code>sudo raspi-config</code> in order to:</p>
+<p>The relevant lines are the last two lines whereas <code>mmcblk0p1</code> is the boot partition and <code>mmcblk0p2</code> the data partition</p>
+<h2 id="Enable-ssh"><a href="#Enable-ssh" class="headerlink" title="Enable ssh"></a>Enable ssh</h2><p>Create the mount point and mount it i.e. in my case this was</p>
+<pre><code class="bash">mkdir /var/tmp/sdcard
+sudo mount -t vfat /dev/mmcblk0p1 /var/tmp/sdcard
+</code></pre>
+<p>whereas <code>-t vfar</code> is the file system (corresponds to W95 FAT32) and <code>/dev/mmcblk0p1</code> is the device from above (be sure to take the first one, that with the lower start number). Now enable ssh and unmount again:</p>
+<pre><code class="bash">sudo touch /var/tmp/sdcard/ssh
+sudo umount /var/tmp/sdcard
+</code></pre>
+<h2 id="Enable-wireless"><a href="#Enable-wireless" class="headerlink" title="Enable wireless"></a>Enable wireless</h2><p>Mount the data partition (take the second <code>/dev/...</code> from the <code>fdisk</code> call)</p>
+<pre><code class="bash">sudo mount -t ext4 /dev/mmcblk0p2 /var/tmp/sdcard
+</code></pre>
+<p>Then run </p>
+<pre><code class="bash">wpa_passphrase &lt;ssid&gt; &lt;password&gt;
+</code></pre>
+<p>to create the wireless config which you need to put into <code>/var/tmp/sdcard/etc/wpa_supplicant/wpa_supplicant.conf</code>. Be sure to delete the plain text psk line. Finally, unmount with:</p>
+<pre><code class="bash">sudo umount /var/tmp/sdcard
+</code></pre>
+<h2 id="Profit"><a href="#Profit" class="headerlink" title="Profit!"></a>Profit!</h2><p>Boot your pi, check your router for the ip address and ssh in with <code>ssh pi@192.168.x.x</code> using <code>raspberry</code> as password.</p>
+<p>A good first step is to <code>sudo raspi-config</code> and use it to:</p>
 <ul>
 <li>change password</li>
 <li>generate the locale (get rid of the <code>warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)</code>)</li>
@@ -163,7 +171,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/01/20
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2017/12/02/How-to-streamline-cd-ripping-without-tagging-track-data/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
@@ -171,7 +179,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/01/20
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>

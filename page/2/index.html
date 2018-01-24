@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Seite 2 | Random Howtos</title>
+  <title>Page 2 | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
   
@@ -34,6 +34,9 @@
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+
+
 
 
 </head>
@@ -79,14 +82,14 @@
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
-    </div>
     
   
     <h1 class="title"><a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/">Python: Print list of dicts as ascii table</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
+    </div>
   
   <div class="post-content">
     
@@ -104,7 +107,7 @@
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/#more" class="more-link">weiterlesen »</a>
+        <a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -127,14 +130,14 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
-    </div>
     
   
     <h1 class="title"><a href="/2007/10/06/Send-javascript-errors-by-mail/">Send javascript errors by mail</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
+    </div>
   
   <div class="post-content">
     
@@ -145,7 +148,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/10/06/Send-javascript-errors-by-mail/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/10/06/Send-javascript-errors-by-mail/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -168,36 +171,35 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/06
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-10-03T08:14:00.000Z">2007-10-03</time>
-    </div>
     
   
     <h1 class="title"><a href="/2007/10/03/Django-Serve-big-files-via-fcgid/">Django: Serve big files via fcgid</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-10-03T08:14:00.000Z">2007-10-03</time>
+    </div>
   
   <div class="post-content">
     
-      <p>I&rsquo;ve got a <a href="http://extranet.icoc.ch" target="_blank" rel="external">django project</a> running which requires you to login to access files.</p>
+      <p>I’ve got a <a href="http://extranet.icoc.ch" target="_blank" rel="external">django project</a> running which requires you to login to access files.</p>
 <p>That means that I have to serve the files via python, like this:</p>
-<pre>
-  @login_required
-  def download(request, filename):
-    # ... some code specific to my site ...
-    response = HttpResponse(mimetype=postUpload.mimetype)
-    response['Content-Disposition'] = "attachment; filename=" + original_filename
-    response['Content-Length'] = os.path.getsize(filename_path)
-    response.write(open(filename_path).read())
-    return response
-</pre>
+<pre><code class="python">@login_required
+def download(request, filename):
+  # ... some code specific to my site ...
+  response = HttpResponse(mimetype=postUpload.mimetype)
+  response[&#39;Content-Disposition&#39;] = &quot;attachment; filename=&quot; + original_filename
+  response[&#39;Content-Length&#39;] = os.path.getsize(filename_path)
+  response.write(open(filename_path).read())
+  return response
+</code></pre>
     
   </div>
   
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/10/03/Django-Serve-big-files-via-fcgid/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/10/03/Django-Serve-big-files-via-fcgid/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -220,25 +222,25 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/03
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-06-08T04:52:00.000Z">2007-06-08</time>
-    </div>
     
   
     <h1 class="title"><a href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/">Python: Find out cpu time of a certain process</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-06-08T04:52:00.000Z">2007-06-08</time>
+    </div>
   
   <div class="post-content">
     
-      <p><br>  To find out how many percentage a certain process uses the cpu:<br></p><br>
+      <p>To find out how many percentage a certain process uses the cpu:</p>
     
   </div>
   
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -261,14 +263,14 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-05-12T14:21:00.000Z">2007-05-12</time>
-    </div>
     
   
     <h1 class="title"><a href="/2007/05/12/Tag-history-and-gartners-hype-cycles/">Tag history and gartners hype cycles</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-05-12T14:21:00.000Z">2007-05-12</time>
+    </div>
   
   <div class="post-content">
     
@@ -283,7 +285,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/06/08
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/05/12/Tag-history-and-gartners-hype-cycles/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/05/12/Tag-history-and-gartners-hype-cycles/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -306,14 +308,14 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/05/12
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-02-18T17:04:00.000Z">2007-02-18</time>
-    </div>
     
   
     <h1 class="title"><a href="/2007/02/18/set-timeout-for-a-shell-command-in-python/">Set timeout for a shell command in python</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-02-18T17:04:00.000Z">2007-02-18</time>
+    </div>
   
   <div class="post-content">
     
@@ -324,7 +326,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/05/12
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/02/18/set-timeout-for-a-shell-command-in-python/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/02/18/set-timeout-for-a-shell-command-in-python/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -347,26 +349,26 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/18
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-02-10T18:39:00.000Z">2007-02-10</time>
-    </div>
     
   
     <h1 class="title"><a href="/2007/02/10/Turn-demoscene-modules-into-mp3s/">Turn demoscene modules into mp3s</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-02-10T18:39:00.000Z">2007-02-10</time>
+    </div>
   
   <div class="post-content">
     
       <p><img src="https://lh3.googleusercontent.com/-31kHXDajZUM/UMZL5kXClbI/AAAAAAAALXE/S26QsfTYpHs/s498/itunes_purple_motion.png" alt="iTunes screenshot of purple motions tracks"></p>
-<p>If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won&rsquo;t have read that far anyway..</p>
+<p>If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won’t have read that far anyway..</p>
     
   </div>
   
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2007/02/10/Turn-demoscene-modules-into-mp3s/#more" class="more-link">weiterlesen »</a>
+        <a href="/2007/02/10/Turn-demoscene-modules-into-mp3s/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -389,19 +391,19 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/10
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2006-07-11T07:03:00.000Z">2006-07-11</time>
-    </div>
     
   
     <h1 class="title"><a href="/2006/07/11/Automated-tag-clustering/">Automated tag clustering</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2006-07-11T07:03:00.000Z">2006-07-11</time>
+    </div>
   
   <div class="post-content">
     
-      <p><a href="http://www.cs.technion.ac.il/%7Egbeg/" target="_blank" rel="external">Grigory Begelman</a> (<a href="http://www.cs.technion.ac.il/" target="_blank" rel="external">Technion - Israel Institute of Technology Computer Science Dpt)</a>, <a href="http://smadja.us/" target="_blank" rel="external">Frank Smadja</a> (<a href="http://www.rawsugar.com/" target="_blank" rel="external">RawSugar</a>) and I did a paper for <a href="http://www2006.org" target="_blank" rel="external">www2006</a> called &ldquo;automated tag clustering&rdquo;. It deals with why clustering the tag space makes sense and how this could be done.</p>
-<p>After the presentation at the <a href="http://blog.rawsugar.com/wikka/wikka.php?wakka=HomePage" target="_blank" rel="external">tagging workshop</a> at www2006 we felt the need to give our paper a more www-friendly, I-don&rsquo;t-want-to-read-through-those-theoretical-equation-flooded-papers face.</p>
+      <p><a href="http://www.cs.technion.ac.il/%7Egbeg/" target="_blank" rel="external">Grigory Begelman</a> (<a href="http://www.cs.technion.ac.il/" target="_blank" rel="external">Technion - Israel Institute of Technology Computer Science Dpt)</a>, <a href="http://smadja.us/" target="_blank" rel="external">Frank Smadja</a> (<a href="http://www.rawsugar.com/" target="_blank" rel="external">RawSugar</a>) and I did a paper for <a href="http://www2006.org" target="_blank" rel="external">www2006</a> called “automated tag clustering”. It deals with why clustering the tag space makes sense and how this could be done.</p>
+<p>After the presentation at the <a href="http://blog.rawsugar.com/wikka/wikka.php?wakka=HomePage" target="_blank" rel="external">tagging workshop</a> at www2006 we felt the need to give our paper a more www-friendly, I-don’t-want-to-read-through-those-theoretical-equation-flooded-papers face.</p>
 <p><a href="http://tagging.pui.ch/automated_tag_clustering/#cluster" target="_blank" rel="external"><img src="http://i.imgur.com/40BW8.png" alt="clustering the tag space" title="clustering the tag space"></a></p>
 <p>So, here you go: <a href="http://tagging.pui.ch/automated_tag_clustering/" target="_blank" rel="external">Automated Tag Clustering: Improving search and exploration in the tag space</a>.
     
@@ -410,7 +412,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/10
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2006/07/11/Automated-tag-clustering/#more" class="more-link">weiterlesen »</a>
+        <a href="/2006/07/11/Automated-tag-clustering/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -433,25 +435,25 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2006/07/11
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2005-06-19T15:09:00.000Z">2005-06-19</time>
-    </div>
     
   
     <h1 class="title"><a href="/2005/06/19/Tagsystems-performance-tests/">Tagsystems: performance tests</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2005-06-19T15:09:00.000Z">2005-06-19</time>
+    </div>
   
   <div class="post-content">
     
-      <p>In my <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas" title="Tags: database schemas" target="_blank" rel="external">previous article named &ldquo;Tags: database schemas&rdquo;</a> we analysed different database schemas on how they could meet the needs of tag systems. In this article, the focus is on performance (speed). That is: if you want to build a tagsystem that performs good with about 1 million items (bookmarks for instance), then you may want to have a look at the following result of my performance tests.<br>In this article I tested tagging of bookmarks, but as you can tag pretty much anything, this goes for tagging systems in general.
+      <p>In my <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas" title="Tags: database schemas" target="_blank" rel="external">previous article named “Tags: database schemas”</a> we analysed different database schemas on how they could meet the needs of tag systems. In this article, the focus is on performance (speed). That is: if you want to build a tagsystem that performs good with about 1 million items (bookmarks for instance), then you may want to have a look at the following result of my performance tests.<br>In this article I tested tagging of bookmarks, but as you can tag pretty much anything, this goes for tagging systems in general.
     
   </div>
   
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2005/06/19/Tagsystems-performance-tests/#more" class="more-link">weiterlesen »</a>
+        <a href="/2005/06/19/Tagsystems-performance-tests/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -474,14 +476,14 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/06/19
 						
 						<article class="post">
   
-    <div class="post-date">
-      <time datetime="2005-05-05T17:09:00.000Z">2005-05-05</time>
-    </div>
     
   
     <h1 class="title"><a href="/2005/05/05/Tags-with-MySQL-fulltext/">Tags with MySQL fulltext</a></h1>
   
 
+    <div class="post-date">
+      <time datetime="2005-05-05T17:09:00.000Z">2005-05-05</time>
+    </div>
   
   <div class="post-content">
     
@@ -492,7 +494,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/06/19
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2005/05/05/Tags-with-MySQL-fulltext/#more" class="more-link">weiterlesen »</a>
+        <a href="/2005/05/05/Tags-with-MySQL-fulltext/#more" class="more-link">Read more »</a>
       </div>
     
     
@@ -516,10 +518,10 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/05/05
 						
 <ul class="pager">
   
-    <li class="previous"><a href="/" class="alignleft prev">Vorherige Seite</a></li>
+    <li class="previous"><a href="/" class="alignleft prev">Previous post</a></li>
   
   
-    <li class="next"><a href="/page/3/" class="alignright next">Nächste Seite</a></li>
+    <li class="next"><a href="/page/3/" class="alignright next">Next post</a></li>
   
 </ul>
 
@@ -537,7 +539,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2005/05/05
     accept-charset="utf-8"
     data-js="google-search-form">
   <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">
         <span class="glyphicon glyphicon-search"></span> 

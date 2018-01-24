@@ -6,17 +6,16 @@
   <title>Django: Serve big files via fcgid | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
-  <meta name="description" content="I&amp;rsquo;ve got a django project running which requires you to login to access files.
+  <meta name="description" content="I’ve got a django project running which requires you to login to access files.
 That means that I have to serve the files via python, like this:
-
-  @login_required
-  def download(request, filename):
-    # ... some code specific to my site ...
-    response = HttpResponse(mimetype=postUpload.mimetype)
-    response[&#39;Content-Disposition&#39;] = &#34;attachment; filename=&#34; + original_filename
-    response[&#39;Content-Length&#39;] = os.path.getsize(filename_path)
-    response.write(open(filename_path).read())
-    return response">
+@login_required
+def download(request, filename):
+  # ... some code specific to my site ...
+  response = HttpResponse(mimetype=postUpload.mimetype)
+  response[&amp;#39;Content-Disposition&amp;#39;] = &amp;quot;attachment; filename=&amp;quot; + original_filename
+  response[&amp;#39;Content-Length&amp;#39;] = os.path.getsize(filename_path)
+  response.write(open(filename_path).read())
+  return response">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -46,6 +45,9 @@ That means that I have to serve the files via python, like this:
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+
+
 
 
 </head>
@@ -86,43 +88,36 @@ That means that I have to serve the files via python, like this:
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2007-10-03T08:14:00.000Z">2007-10-03</time>
-    </div>
     
   
     <h1 class="title">Django: Serve big files via fcgid</h1>
   
 
+    <div class="post-date">
+      <time datetime="2007-10-03T08:14:00.000Z">2007-10-03</time>
+    </div>
   
   <div class="post-content">
     
-      <p>I&rsquo;ve got a <a href="http://extranet.icoc.ch" target="_blank" rel="external">django project</a> running which requires you to login to access files.</p>
+      <p>I’ve got a <a href="http://extranet.icoc.ch" target="_blank" rel="external">django project</a> running which requires you to login to access files.</p>
 <p>That means that I have to serve the files via python, like this:</p>
-<pre>
-  @login_required
-  def download(request, filename):
-    # ... some code specific to my site ...
-    response = HttpResponse(mimetype=postUpload.mimetype)
-    response['Content-Disposition'] = "attachment; filename=" + original_filename
-    response['Content-Length'] = os.path.getsize(filename_path)
-    response.write(open(filename_path).read())
-    return response
-</pre>
+<pre><code class="python">@login_required
+def download(request, filename):
+  # ... some code specific to my site ...
+  response = HttpResponse(mimetype=postUpload.mimetype)
+  response[&#39;Content-Disposition&#39;] = &quot;attachment; filename=&quot; + original_filename
+  response[&#39;Content-Length&#39;] = os.path.getsize(filename_path)
+  response.write(open(filename_path).read())
+  return response
+</code></pre>
 <a id="more"></a>
-
-The problem: If the download of a file exceeded 5 minutes (big files and/or low
-bandwidth) the download was canceled on the server side by a timeout. This Apache
-configuration for mod_fcgid solved the problem (see [mod_fcgid documentation for BusyTimeout](http://fastcgi.coremail.cn/doc.htm))
-
-<pre>
-&lt;IfModule mod_fcgid.c&gt;
+<p>The problem: If the download of a file exceeded 5 minutes (big files and/or low<br>bandwidth) the download was canceled on the server side by a timeout. This Apache<br>configuration for mod_fcgid solved the problem (see <a href="http://fastcgi.coremail.cn/doc.htm" target="_blank" rel="external">mod_fcgid documentation for BusyTimeout</a>)</p>
+<pre><code class="apache">&lt;IfModule mod_fcgid.c&gt;
  BusyTimeout 1200
 &lt;/IfModule&gt;
-</pre>
-
-<p>The problem was that the apache module scanned every minute for processes that run for<br>more than BusyTimeout seconds. These processes are potentially in bad health (infinite<br>loop et al.) and have to be killed. Not so with my processes (since I know what I&rsquo;m<br>doing..). The setting of the busy timeout to 1200 seconds now lets my processes run for<br>a maximum of one hour.</p>
-<p>As this setting can&rsquo;t by overwritten in a htaccess file by default I needed to bug<br><a href="http://www.citrin.ch/" target="_blank" rel="external">my web hosting provider</a> with the request, which was<br>handled in 24 hours, so thanks for that one!</p>
+</code></pre>
+<p>The problem was that the apache module scanned every minute for processes that run for<br>more than BusyTimeout seconds. These processes are potentially in bad health (infinite<br>loop et al.) and have to be killed. Not so with my processes (since I know what I’m<br>doing..). The setting of the busy timeout to 1200 seconds now lets my processes run for<br>a maximum of one hour.</p>
+<p>As this setting can’t by overwritten in a htaccess file by default I needed to bug<br><a href="http://www.citrin.ch/" target="_blank" rel="external">my web hosting provider</a> with the request, which was<br>handled in 24 hours, so thanks for that one!</p>
 <p>PS: If you know of another way how to serve protected static files via a single sign on<br>(no HTTP basic auth), please let me know.</p>
 
     
@@ -151,20 +146,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/03
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2007/06/08/Python-Find-out-cpu-time-of-a-certain-process/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2007/10/06/Send-javascript-errors-by-mail/">
-          Nächste Seite
+          Next post
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>

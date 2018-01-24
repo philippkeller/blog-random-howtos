@@ -13,7 +13,7 @@ First, reduce your collection to, say the albums you listened in the past 12 mon
 No words! I just want to copy-pasteHere you go: Once, you haved cded into the directory with the mp3 files you want to convert, do this:
 detox *.mp3
 fmpeg -i *.mp3([1]) artwork.jpg
-for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done
+for i in *.mp3; do ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a} done
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
 rm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
   
@@ -45,6 +45,15 @@ rm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
   <script type="text/javascript" src="/js/ewal.js"></script>
 
   
+  
+  <style>
+    
+      pre>code.bash.hljs {font-size: 80%}
+    
+  </style>
+  
+
+
 
 
 </head>
@@ -85,40 +94,40 @@ rm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
     <div class="row">
       <div><article class="post">
   
-    <div class="post-date">
-      <time datetime="2017-11-29T15:22:14.000Z">2017-11-29</time>
-    </div>
     
   
     <h1 class="title">How to mass convert mp3 files to aac (m3a)</h1>
   
 
+    <div class="post-date">
+      <time datetime="2017-11-29T15:22:14.000Z">2017-11-29</time>
+    </div>
   
   <div class="post-content">
     
       <p><img src="/images/tape.jpg"></p>
 <p>Since aac has a slightly better compression rate than mp3 (and, geez, mp3 was standardized 1992, there must be better standards nowaday), I decided to mass convert my music library from mp3 to aac</p>
-<h1 id="Won’t-the-quality-be-just-awful"><a href="#Won’t-the-quality-be-just-awful" class="headerlink" title="Won’t the quality be just awful?"></a>Won’t the quality be just awful?</h1><p>Of course, re-encoding sounds like a terrible idea. You’re converting from one lossfull format to another, similar when mass-converting gifs to jpegs. But on the other hand, for my setting it was just good enough. The library I converted we listen to at home over Sonos or in the car. So in both settings there are only half-decent speakers. Also, many of the tracks I converted from audio cassettes, so they were in a bad quality already. You can certainly play with the bitrate, but if you have invested into an expensive stereo you’d be better off converting from a lossless source.</p>
-<h1 id="Declutter"><a href="#Declutter" class="headerlink" title="Declutter"></a>Declutter</h1><p>First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.</p>
+<h3 id="Won’t-the-quality-be-just-awful"><a href="#Won’t-the-quality-be-just-awful" class="headerlink" title="Won’t the quality be just awful?"></a>Won’t the quality be just awful?</h3><p>Of course, re-encoding sounds like a terrible idea. You’re converting from one lossfull format to another, similar when mass-converting gifs to jpegs. But on the other hand, for my setting it was just good enough. The library I converted we listen to at home over Sonos or in the car. So in both settings there are only half-decent speakers. Also, many of the tracks I converted from audio cassettes, so they were in a bad quality already. You can certainly play with the bitrate, but if you have invested into an expensive stereo you’d be better off converting from a lossless source.</p>
+<h3 id="Declutter"><a href="#Declutter" class="headerlink" title="Declutter"></a>Declutter</h3><p>First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.</p>
 <p>First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.</p>
-<h1 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h1><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
+<h3 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h3><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
 <pre><code class="bash">detox *.mp3
 fmpeg -i *.mp3([1]) artwork.jpg
-for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done
+for i in *.mp3; do ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a} done
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
 rm artwork.jpg &amp;&amp; rm *.mp3
 </code></pre>
 <a id="more"></a>
-<h1 id="Line-1-Asciify-your-filenames-with-detox"><a href="#Line-1-Asciify-your-filenames-with-detox" class="headerlink" title="Line 1: Asciify your filenames with detox"></a>Line 1: Asciify your filenames with detox</h1><p>Everything is easier on the shell if instead of having <code>my süpér s&#39;öñg.mp3</code> having a file called <code>my_super_song.mp3</code>. Detox converts all characters which you need to somehow escape on the shell to ascii characters.</p>
-<h1 id="Line-2-Extract-artwork"><a href="#Line-2-Extract-artwork" class="headerlink" title="Line 2: Extract artwork"></a>Line 2: Extract artwork</h1><p>We’ll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you’ll have a problem in line 4). This command takes the first mp3 and extracts the artwork into artwork.jpg.</p>
-<h1 id="Line-3-Convert"><a href="#Line-3-Convert" class="headerlink" title="Line 3: Convert"></a>Line 3: Convert</h1><p>Now, in my version of Ubuntu (Xenial, 16.04) ffmpeg does not come with the compiled in converter from mp3 to aac, so I needed to first <a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu" target="_blank" rel="external">compile ffmpeg from source</a>. This was quite straightforward for me except that it kept saying I had x265 not installed even after doing <code>sudo apt install libx265-dev</code>. I needed to follow <a href="https://bitbucket.org/multicoreware/x265/issues/125/x265-not-found-using-pkg-config#comment-17635086" target="_blank" rel="external">these steps</a> to have this resolved. </p>
+<h3 id="Line-1-Ascify-your-filenames-with-detox"><a href="#Line-1-Ascify-your-filenames-with-detox" class="headerlink" title="Line 1: Ascify your filenames with detox"></a>Line 1: Ascify your filenames with detox</h3><p>Everything is easier on the shell if instead of having <code>my süpér s&#39;öñg.mp3</code> having a file called <code>my_super_song.mp3</code>. Detox converts all characters which you need to somehow escape on the shell to ascii characters.</p>
+<h3 id="Line-2-Extract-artwork"><a href="#Line-2-Extract-artwork" class="headerlink" title="Line 2: Extract artwork"></a>Line 2: Extract artwork</h3><p>We’ll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you’ll have a problem in line 4). This command takes the first mp3 and extracts the artwork into artwork.jpg.</p>
+<h3 id="Lines-3-5-Convert"><a href="#Lines-3-5-Convert" class="headerlink" title="Lines 3-5: Convert"></a>Lines 3-5: Convert</h3><p>Now, in my version of Ubuntu (Xenial, 16.04) ffmpeg does not come with the compiled in converter from mp3 to aac, so I needed to first <a href="http://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu" target="_blank" rel="external">compile ffmpeg from source</a>. This was quite straightforward for me except that it kept saying I had x265 not installed even after doing <code>sudo apt install libx265-dev</code>. I needed to follow <a href="https://bitbucket.org/multicoreware/x265/issues/125/x265-not-found-using-pkg-config#comment-17635086" target="_blank" rel="external">these steps</a> to have this resolved. </p>
 <p>If you don’t want to compile from source then <a href="https://superuser.com/a/370637" target="_blank" rel="external">here</a> is a good overview on all the options you have for doing this step. Just be sure to use the right path, <code>~/bin/ffmpeg</code> is referring to my compiled ffmpeg binary.</p>
-<h2 id="Playing-with-the-options"><a href="#Playing-with-the-options" class="headerlink" title="Playing with the options"></a>Playing with the options</h2><ul>
+<h4 id="Playing-with-the-options"><a href="#Playing-with-the-options" class="headerlink" title="Playing with the options"></a>Playing with the options</h4><ul>
 <li><code>-b:a 128k</code>: this sets a fixed bitrate. If you’d wish a variable bitrate (having more details for more “dynamic” sections of the track) then you can use <code>-vbr 4</code> instead, or lower it for lower quality/higher compression.</li>
 <li>the <code>-vf scale=1280:-2</code> bit is needed to circumvent the <code>height not divisible by 2</code> error. Taken from <a href="https://stackoverflow.com/a/20848224/119861" target="_blank" rel="external">here</a></li>
 </ul>
-<h1 id="Line-4-Set-artwork"><a href="#Line-4-Set-artwork" class="headerlink" title="Line 4: Set artwork"></a>Line 4: Set artwork</h1><p>This just sets back the artwork you extracted in line 2. This was taken from <a href="https://superuser.com/a/524120" target="_blank" rel="external">here</a>.</p>
-<h1 id="Line-5-Cleanup"><a href="#Line-5-Cleanup" class="headerlink" title="Line 5: Cleanup"></a>Line 5: Cleanup</h1><p>Yeah, finally delete all the old file and enjoy the smaller filesize :)</p>
+<h3 id="Line-6-Set-artwork"><a href="#Line-6-Set-artwork" class="headerlink" title="Line 6: Set artwork"></a>Line 6: Set artwork</h3><p>This just sets back the artwork you extracted in line 2. This was taken from <a href="https://superuser.com/a/524120" target="_blank" rel="external">here</a>.</p>
+<h3 id="Line-7-Cleanup"><a href="#Line-7-Cleanup" class="headerlink" title="Line 7: Cleanup"></a>Line 7: Cleanup</h3><p>Yeah, finally delete all the old file and enjoy the smaller filesize :)</p>
 
     
   </div>
@@ -146,20 +155,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/">
-          Vorherige Seite
+          Previous post
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2017/12/02/How-to-streamline-cd-ripping-without-tagging-track-data/">
-          Nächste Seite
+          Next post
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Kommentare</h1>
+  <h2>Comments</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
