@@ -7,14 +7,12 @@
   <meta name="author" content="Philipp Keller">
   
   <meta name="description" content="Sometimes I want to print list of dicts as an ascii table, like this:
-  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-
-
+| Programming Language | Language Type | Years of Experience |
++----------------------+---------------+---------------------+
+| python               | script        |                   4 |
+| php                  | script        |                   5 |
+| java                 | compiled      |                  11 |
+| assember             | compiled      |                  15 |
 I searched on Google - but without luck.">
   
   
@@ -31,8 +29,10 @@ I searched on Google - but without luck.">
   <link href="/favicon.png" rel="shortcut icon">
 
   
-    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
   
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
@@ -81,7 +81,7 @@ I searched on Google - but without luck.">
 
   <div class="container">
     <div class="row">
-      <div class="col-md-8"><article class="post">
+      <div><article class="post">
   
     <div class="post-date">
       <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
@@ -95,21 +95,19 @@ I searched on Google - but without luck.">
   <div class="post-content">
     
       <p>Sometimes I want to print list of dicts as an ascii table, like this:</p>
-<pre>  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-</pre>
-
-<p>I searched on Google - but without luck.<a id="more"></a></p>
+<pre><code>| Programming Language | Language Type | Years of Experience |
++----------------------+---------------+---------------------+
+| python               | script        |                   4 |
+| php                  | script        |                   5 |
+| java                 | compiled      |                  11 |
+| assember             | compiled      |                  15 |
+</code></pre><p>I searched on Google - but without luck.<a id="more"></a></p>
 <p> That&rsquo;s what I came up with - it&rsquo;s not particularly nice but it does the job:</p>
-<pre>  def table_print(data, title_row):
-    """
+<pre><code class="python">def table_print(data, title_row):
+    &quot;&quot;&quot;
     data: list of dicts,
-    title_row: e.g. [('name', 'Programming Language'), ('type', 'Language Type')]
-    """
+    title_row: e.g. [(&#39;name&#39;, &#39;Programming Language&#39;), (&#39;type&#39;, &#39;Language Type&#39;)]
+    &quot;&quot;&quot;
     max_widths = {}
     data_copy = [dict(title_row)] + list(data)
     for col in data_copy[0].keys():
@@ -123,26 +121,23 @@ I searched on Google - but without luck.">
         return value.ljust(max_widths[col])
 
     for row in data_copy:
-      row_str = " | ".join([custom_just(col, row[col]) for col in cols_order])
-      print "| %s |" % row_str
+      row_str = &quot; | &quot;.join([custom_just(col, row[col]) for col in cols_order])
+      print &quot;| %s |&quot; % row_str
       if data_copy.index(row) == 0:
-        underline = "-+-".join(['-' * max_widths[col] for col in cols_order])
-        print '+-%s-+' % underline
-
-  </pre>
-
-<p>Use it like that:</p>
-<pre>  data = [dict(name='python', type='script', years_experience=4),
-    dict(name='php', type='script', years_experience=5),
-    dict(name='java', type='compiled', years_experience=11),
-    dict(name='assember', type='compiled', years_experience=15)
+        underline = &quot;-+-&quot;.join([&#39;-&#39; * max_widths[col] for col in cols_order])
+        print &#39;+-%s-+&#39; % underline
+</code></pre>
+<p>Use it like this:</p>
+<pre><code class="python">data = [dict(name=&#39;python&#39;, type=&#39;script&#39;, years_experience=4),
+    dict(name=&#39;php&#39;, type=&#39;script&#39;, years_experience=5),
+    dict(name=&#39;java&#39;, type=&#39;compiled&#39;, years_experience=11),
+    dict(name=&#39;assember&#39;, type=&#39;compiled&#39;, years_experience=15)
     ]
-  titles = [('name', 'Programming Language'),
-    ('type', 'Language Type'),
-    ('years_experience', 'Years of Experience')]
+  titles = [(&#39;name&#39;, &#39;Programming Language&#39;),
+    (&#39;type&#39;, &#39;Language Type&#39;),
+    (&#39;years_experience&#39;, &#39;Years of Experience&#39;)]
   table_print(data, titles)
-  </pre>
-
+</code></pre>
 <p>It will produce the table printed above. It&rsquo;s not fancy - the only &lsquo;smart&rsquo; thing it does is <strong>right-adjusting integers, strings are left-adjusted</strong>.</p>
 <p> P.S. no, I don&rsquo;t have 15 years of experience of Assembler - I just know it since 15 years - it&rsquo;s one of the first programming languages I learned - and I even wrote a text editor with it - then I learned that&rsquo;s probably not the best language to write an editor :-)</p>
 
@@ -172,20 +167,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2007/10/06/Send-javascript-errors-by-mail/">
-          Previous page
+          Vorherige Seite
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/">
-          Next page
+          Nächste Seite
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Comments</h1>
+  <h2>Kommentare</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -193,27 +188,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27
 
 
 </article>
-</div>
-      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
-
-  <div class="widget">
-  	  <form action=""
-    method="get"
-    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
-    accept-charset="utf-8"
-    data-js="google-search-form">
-  <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <span class="glyphicon glyphicon-search"></span> 
-      </button>
-    </span>
-  </div>
-</form>
-  </div>
-
-</div>
 </div>
     </div>
   </div>

@@ -11,7 +11,11 @@ Won’t the quality be just awful?Of course, re-encoding sounds like a terrible 
 DeclutterFirst things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.
 First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.
 No words! I just want to copy-pasteHere you go: Once, you haved cded into the directory with the mp3 files you want to convert, do this:
-12345detox *.mp3fmpeg -i *.mp3([1]) artwork.jpgfor i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 $&amp;#123;i/mp3/m4a&amp;#125;; donefor i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; donerm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
+detox *.mp3
+fmpeg -i *.mp3([1]) artwork.jpg
+for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done
+for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
+rm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -27,8 +31,10 @@ No words! I just want to copy-pasteHere you go: Once, you haved cded into the di
   <link href="/favicon.png" rel="shortcut icon">
 
   
-    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
   
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
@@ -77,7 +83,7 @@ No words! I just want to copy-pasteHere you go: Once, you haved cded into the di
 
   <div class="container">
     <div class="row">
-      <div class="col-md-8"><article class="post">
+      <div><article class="post">
   
     <div class="post-date">
       <time datetime="2017-11-29T15:22:14.000Z">2017-11-29</time>
@@ -96,7 +102,12 @@ No words! I just want to copy-pasteHere you go: Once, you haved cded into the di
 <h1 id="Declutter"><a href="#Declutter" class="headerlink" title="Declutter"></a>Declutter</h1><p>First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.</p>
 <p>First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.</p>
 <h1 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h1><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">detox *.mp3</span><br><span class="line">fmpeg -i *.mp3([1]) artwork.jpg</span><br><span class="line">for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 $&#123;i/mp3/m4a&#125;; done</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done</span><br><span class="line">rm artwork.jpg &amp;&amp; rm *.mp3</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">detox *.mp3
+fmpeg -i *.mp3([1]) artwork.jpg
+for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done
+for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
+rm artwork.jpg &amp;&amp; rm *.mp3
+</code></pre>
 <a id="more"></a>
 <h1 id="Line-1-Asciify-your-filenames-with-detox"><a href="#Line-1-Asciify-your-filenames-with-detox" class="headerlink" title="Line 1: Asciify your filenames with detox"></a>Line 1: Asciify your filenames with detox</h1><p>Everything is easier on the shell if instead of having <code>my süpér s&#39;öñg.mp3</code> having a file called <code>my_super_song.mp3</code>. Detox converts all characters which you need to somehow escape on the shell to ascii characters.</p>
 <h1 id="Line-2-Extract-artwork"><a href="#Line-2-Extract-artwork" class="headerlink" title="Line 2: Extract artwork"></a>Line 2: Extract artwork</h1><p>We’ll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you’ll have a problem in line 4). This command takes the first mp3 and extracts the artwork into artwork.jpg.</p>
@@ -135,20 +146,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/">
-          Previous page
+          Vorherige Seite
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2017/12/02/How-to-streamline-cd-ripping-without-tagging-track-data/">
-          Next page
+          Nächste Seite
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Comments</h1>
+  <h2>Kommentare</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -156,27 +167,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
 
 
 </article>
-</div>
-      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
-
-  <div class="widget">
-  	  <form action=""
-    method="get"
-    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
-    accept-charset="utf-8"
-    data-js="google-search-form">
-  <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <span class="glyphicon glyphicon-search"></span> 
-      </button>
-    </span>
-  </div>
-</form>
-  </div>
-
-</div>
 </div>
     </div>
   </div>

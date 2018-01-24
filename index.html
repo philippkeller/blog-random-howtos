@@ -20,8 +20,10 @@
   <link href="/favicon.png" rel="shortcut icon">
 
   
-    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
   
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
@@ -105,7 +107,7 @@
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/#more" class="more-link">Read more »</a>
+        <a href="/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -157,7 +159,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/01/20
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2017/12/02/How-to-streamline-cd-ripping-without-tagging-track-data/#more" class="more-link">Read more »</a>
+        <a href="/2017/12/02/How-to-streamline-cd-ripping-without-tagging-track-data/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -197,14 +199,19 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/12/02
 <h1 id="Declutter"><a href="#Declutter" class="headerlink" title="Declutter"></a>Declutter</h1><p>First things first: Almost everything in life is easier if you first reduce it to the absolute necessity. I recently spoke with a colleague who told me she has converted her whole CD stack into mp3 without first trashing the CDs she never listens to. That’s insane.</p>
 <p>First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.</p>
 <h1 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h1><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">detox *.mp3</span><br><span class="line">fmpeg -i *.mp3([1]) artwork.jpg</span><br><span class="line">for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 $&#123;i/mp3/m4a&#125;; done</span><br><span class="line">for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done</span><br><span class="line">rm artwork.jpg &amp;&amp; rm *.mp3</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">detox *.mp3
+fmpeg -i *.mp3([1]) artwork.jpg
+for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done
+for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
+rm artwork.jpg &amp;&amp; rm *.mp3
+</code></pre>
     
   </div>
   
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2017/11/29/How-to-mass-convert-mp3-files-to-aac-m3a/#more" class="more-link">Read more »</a>
+        <a href="/2017/11/29/How-to-mass-convert-mp3-files-to-aac-m3a/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -248,7 +255,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2017/11/29
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/#more" class="more-link">Read more »</a>
+        <a href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -295,7 +302,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2016/05/15
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2014/01/20/How-to-attach-a-file-to-google-spreadsheet/#more" class="more-link">Read more »</a>
+        <a href="/2014/01/20/How-to-attach-a-file-to-google-spreadsheet/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -329,16 +336,16 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
   
   <div class="post-content">
     
-      <p>Google App Engine has two Python runtimes, <a href="https://developers.google.com/appengine/docs/whatisgoogleappengine#The_Application_Environment" target="_blank" rel="external">either 2.7.3 or 2.5.2</a>. You should try to develop for 2.7, as it&rsquo;s the current default on GAE and all the documentations often only describe this Python version.</p>
-<p>Additionally: If you use Python 2.5 you can only use Django up to version 1.3. (At least I couldn&rsquo;t find out how to get version 1.4 working, <code>use_library(&#39;django&#39;, &#39;1.3&#39;)</code> would fail if setting 1.4</p>
-<p>If you&rsquo;re stuck with Python below 2.7 for any reason, that&rsquo;s what you need to change following <a href="http://howto.philippkeller.com/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/">my tutorial</a> in order to get it working for Python 2.5:</p>
+      <p>Google App Engine has two Python runtimes, <a href="https://developers.google.com/appengine/docs/whatisgoogleappengine#The_Application_Environment" target="_blank" rel="external">either 2.7.3 or 2.5.2</a>. You should try to develop for 2.7, as it’s the current default on GAE and all the documentations often only describe this Python version.</p>
+<p>Additionally: If you use Python 2.5 you can only use Django up to version 1.3. (At least I couldn’t find out how to get version 1.4 working, <code>use_library(&#39;django&#39;, &#39;1.3&#39;)</code> would fail if setting 1.4</p>
+<p>If you’re stuck with Python below 2.7 for any reason, that’s what you need to change following <a href="http://howto.philippkeller.com/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/">my tutorial</a> in order to get it working for Python 2.5:</p>
     
   </div>
   
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/#more" class="more-link">Read more »</a>
+        <a href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -372,7 +379,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2013/01/01
   
   <div class="post-content">
     
-      <p><img src="https://lh5.googleusercontent.com/-lX6aq3qvV50/UOC0ONuosVI/AAAAAAAAMUE/Q_occPtbmnQ/s230/Untitled-1.png" alt=""><br>Google is running an <a href="https://developers.google.com/cloud-sql/docs/billing#intro_trial" target="_blank" rel="external">introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013</a>. That&rsquo;s the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.</p>
+      <p><img src="https://lh5.googleusercontent.com/-lX6aq3qvV50/UOC0ONuosVI/AAAAAAAAMUE/Q_occPtbmnQ/s230/Untitled-1.png" alt=""><br>Google is running an <a href="https://developers.google.com/cloud-sql/docs/billing#intro_trial" target="_blank" rel="external">introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013</a>. That’s the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.</p>
 <p>Hence I decided to give it a try and documented all into a very complete tutorial how to start a Django 1.4 project running on &ldquo;Google App Engine&rdquo;.<br>
     
   </div>
@@ -380,7 +387,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2013/01/01
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/#more" class="more-link">Read more »</a>
+        <a href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -423,7 +430,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/30
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/#more" class="more-link">Read more »</a>
+        <a href="/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -466,7 +473,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/14
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/07/21/how-to-fix-jambox-static-noise/#more" class="more-link">Read more »</a>
+        <a href="/2012/07/21/how-to-fix-jambox-static-noise/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -507,7 +514,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/21
       <div class="row">
     
       <div class="col-3 col-md-3">
-        <a href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/#more" class="more-link">Read more »</a>
+        <a href="/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/#more" class="more-link">weiterlesen »</a>
       </div>
     
     
@@ -531,10 +538,10 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14
 						
 <ul class="pager">
   
-    <li class="previous disabled"><a href="/" class="alignleft prev">Previous page</a></li>
+    <li class="previous disabled"><a href="/" class="alignleft prev">Vorherige Seite</a></li>
   
   
-    <li class="next"><a href="/page/2/" class="alignright next">Next page</a></li>
+    <li class="next"><a href="/page/2/" class="alignright next">Nächste Seite</a></li>
   
 </ul>
 
@@ -552,7 +559,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14
     accept-charset="utf-8"
     data-js="google-search-form">
   <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
+    <input class="form-control" type="search" name="q" results="0" placeholder="Suche in Beiträgen" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
     <span class="input-group-btn">
       <button class="btn btn-default" type="submit">
         <span class="glyphicon glyphicon-search"></span> 
@@ -560,6 +567,41 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14
     </span>
   </div>
 </form>
+  </div>
+
+  <div class="widget">
+  	<h3>Important posts</h3>
+<ul class="list-group">
+
+  <li class="list-group-item">
+    <a href="/2001/01/01/post-1">Important post 1</a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="/2001/01/01/post-2">Important post 2</a>
+  </li>
+
+</ul>
+
+  </div>
+
+  <div class="widget">
+  	<h3>You&#39;ll also find me on...</h3>
+<ul class="list-group">
+
+  <li class="list-group-item">
+    <a href="https://stackoverflow.com/users/1234/user_name">Stackoverflow</a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="https://github.com/user_name">Github</a>
+  </li>
+
+  <li class="list-group-item">
+    <a href="https://www.linkedin.com/in/usre_name/">LinkedIn</a>
+  </li>
+
+</ul>
   </div>
 
 </div>

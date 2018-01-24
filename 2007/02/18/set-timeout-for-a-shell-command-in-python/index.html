@@ -22,8 +22,10 @@
   <link href="/favicon.png" rel="shortcut icon">
 
   
-    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
   
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
@@ -72,7 +74,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-8"><article class="post">
+      <div><article class="post">
   
     <div class="post-date">
       <time datetime="2007-02-18T17:04:00.000Z">2007-02-18</time>
@@ -87,10 +89,25 @@
     
       <p>I wanted to run a shell command in python without knowing if the shell command is going to exit within reasonable time (<a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> that was, sometimes it simply hangs).<br><br><strong>Update:</strong> <a href="http://www.python.net/crew/hooft/" target="_blank" rel="external">the “task” module of Rob Hooft</a> seems to solve this exact problem. At the time I wrote this, the python.net website was down. I leave my solution here just for archive purpose.<br><br></p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">def timeout_command(command, timeout):</span><br><span class="line">  &quot;&quot;&quot;call shell-command and either return its output or kill it</span><br><span class="line">  if it doesn&apos;t normally exit within timeout seconds and return None&quot;&quot;&quot;</span><br><span class="line">  import subprocess, datetime, os, time, signal</span><br><span class="line">  start = datetime.datetime.now()</span><br><span class="line">  process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</span><br><span class="line">  while process.poll() is None:</span><br><span class="line">    time.sleep(0.1)</span><br><span class="line">    now = datetime.datetime.now()</span><br><span class="line">    if (now - start).seconds&amp;gt; timeout:</span><br><span class="line">      os.kill(process.pid, signal.SIGKILL)</span><br><span class="line">      os.waitpid(-1, os.WNOHANG)</span><br><span class="line">      return None</span><br><span class="line">  return process.stdout.read()</span><br></pre></td></tr></table></figure>
-<p>Note especially lines 6, 11 and 12.<br>Usage:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;10&quot;], 2)</span><br><span class="line">None</span><br><span class="line">&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;1&quot;], 2)</span><br></pre></td></tr></table></figure>
-<p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
+<pre><code>  def timeout_command(command, timeout):
+    &quot;&quot;&quot;call shell-command and either return its output or kill it
+    if it doesn&#39;t normally exit within timeout seconds and return None&quot;&quot;&quot;
+    import subprocess, datetime, os, time, signal
+    start = datetime.datetime.now()
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    while process.poll() is None:
+      time.sleep(0.1)
+      now = datetime.datetime.now()
+      if (now - start).seconds&amp;gt; timeout:
+        os.kill(process.pid, signal.SIGKILL)
+        os.waitpid(-1, os.WNOHANG)
+        return None
+    return process.stdout.read()
+</code></pre><p>Note especially lines 6, 11 and 12.<br>Usage:</p>
+<pre><code>&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;10&quot;], 2)
+None
+&gt;&gt;&gt; output = timeout_command([&quot;sleep&quot;, &quot;1&quot;], 2)
+</code></pre><p>The process can be killed when it has run for too long (the <code>os.waitpid</code> waits for the kill to end and avoids defunct-processes) and furthermore the Popen’ed process’ printed is caught and returned if it doesn’t timeout. However, <code>subprocess.Popen</code> is called with a list as argument. That means, that the command isn’t passed to a shell and furthermore you can just call one command with options, nothing more.</p>
 
     
   </div>
@@ -118,20 +135,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/18
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2007/02/10/Turn-demoscene-modules-into-mp3s/">
-          Previous page
+          Vorherige Seite
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2007/05/12/Tag-history-and-gartners-hype-cycles/">
-          Next page
+          Nächste Seite
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Comments</h1>
+  <h2>Kommentare</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -139,27 +156,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/02/18
 
 
 </article>
-</div>
-      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
-
-  <div class="widget">
-  	  <form action=""
-    method="get"
-    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
-    accept-charset="utf-8"
-    data-js="google-search-form">
-  <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <span class="glyphicon glyphicon-search"></span> 
-      </button>
-    </span>
-  </div>
-</form>
-  </div>
-
-</div>
 </div>
     </div>
   </div>

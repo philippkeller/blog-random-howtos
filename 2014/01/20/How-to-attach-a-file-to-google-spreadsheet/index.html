@@ -26,8 +26,10 @@ inserts the link to the current cell">
   <link href="/favicon.png" rel="shortcut icon">
 
   
-    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
   
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
@@ -76,7 +78,7 @@ inserts the link to the current cell">
 
   <div class="container">
     <div class="row">
-      <div class="col-md-8"><article class="post">
+      <div><article class="post">
   
     <div class="post-date">
       <time datetime="2014-01-20T15:06:00.000Z">2014-01-20</time>
@@ -103,54 +105,55 @@ inserts the link to the current cell">
 <li>in the spreadsheet where you want to upload the file: do Tools→Script Editor.. and paste the script below. Be sure to replace the id with your folders id</li>
 </ol>
 <p><strong>Update 2014</strong>: Made it working with <a href="http://googleblog.blogspot.ch/2013/12/new-google-sheets-faster-more-powerful.html" target="_blank" rel="external">the new sheets</a><br><strong>Update 2016-05</strong> Fixed the script thanks to the comments by Fede and Dov (DocsList.getFolderId was not working any more)</p>
-<pre><code>  // upload document into google spreadsheet
-  // and put link to it into current cell
+<pre><code class="javascript">// upload document into google spreadsheet
+// and put link to it into current cell
 
-  function onOpen(e) {
-    var ss = SpreadsheetApp.getActiveSpreadsheet()
-    var menuEntries = [];
-    menuEntries.push({name: &quot;File...&quot;, functionName: &quot;doGet&quot;});
-    ss.addMenu(&quot;Attach ...&quot;, menuEntries);
-  }
+function onOpen(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet()
+  var menuEntries = [];
+  menuEntries.push({name: &quot;File...&quot;, functionName: &quot;doGet&quot;});
+  ss.addMenu(&quot;Attach ...&quot;, menuEntries);
+}
 
-  function doGet(e) {
-    var app = UiApp.createApplication().setTitle(&quot;upload attachment into Google Drive&quot;);
-    SpreadsheetApp.getActiveSpreadsheet().show(app);
-    var form = app.createFormPanel().setId(&apos;frm&apos;).setEncoding(&apos;multipart/form-data&apos;);
-    var formContent = app.createVerticalPanel();
-    form.add(formContent);  
-    formContent.add(app.createFileUpload().setName(&apos;thefile&apos;));
+function doGet(e) {
+  var app = UiApp.createApplication().setTitle(&quot;upload attachment into Google Drive&quot;);
+  SpreadsheetApp.getActiveSpreadsheet().show(app);
+  var form = app.createFormPanel().setId(&#39;frm&#39;).setEncoding(&#39;multipart/form-data&#39;);
+  var formContent = app.createVerticalPanel();
+  form.add(formContent);  
+  formContent.add(app.createFileUpload().setName(&#39;thefile&#39;));
 
-    // these parameters need to be passed by form
-    // in doPost() these cannot be found out anymore
-    formContent.add(app.createHidden(&quot;activeCell&quot;, SpreadsheetApp.getActiveRange().getA1Notation()));
-    formContent.add(app.createHidden(&quot;activeSheet&quot;, SpreadsheetApp.getActiveSheet().getName()));
-    formContent.add(app.createHidden(&quot;activeSpreadsheet&quot;, SpreadsheetApp.getActiveSpreadsheet().getId()));
-    formContent.add(app.createSubmitButton(&apos;Submit&apos;));
-    app.add(form);
-    SpreadsheetApp.getActiveSpreadsheet().show(app);
-    return app;
-  }
+  // these parameters need to be passed by form
+  // in doPost() these cannot be found out anymore
+  formContent.add(app.createHidden(&quot;activeCell&quot;, SpreadsheetApp.getActiveRange().getA1Notation()));
+  formContent.add(app.createHidden(&quot;activeSheet&quot;, SpreadsheetApp.getActiveSheet().getName()));
+  formContent.add(app.createHidden(&quot;activeSpreadsheet&quot;, SpreadsheetApp.getActiveSpreadsheet().getId()));
+  formContent.add(app.createSubmitButton(&#39;Submit&#39;));
+  app.add(form);
+  SpreadsheetApp.getActiveSpreadsheet().show(app);
+  return app;
+}
 
-  function doPost(e) {
-    var app = UiApp.getActiveApplication();
-    app.createLabel(&apos;saving...&apos;);
-    var fileBlob = e.parameter.thefile;
-var doc = DriveApp.getFolderById(&apos;0B0uw1JCogWHuc29FWFJMWmc3Z1k&apos;).createFile(fileBlob);
-    var label = app.createLabel(&apos;file uploaded successfully&apos;);
+function doPost(e) {
+  var app = UiApp.getActiveApplication();
+  app.createLabel(&#39;saving...&#39;);
+  var fileBlob = e.parameter.thefile;
+  var doc = DriveApp.getFolderById(&#39;0B0uw1JCogWHuc29FWFJMWmc3Z1k&#39;).createFile(fileBlob);
+  var label = app.createLabel(&#39;file uploaded successfully&#39;);
 
-    // write value into current cell
-    var value = &apos;hyperlink(&quot;&apos; + doc.getUrl() + &apos;&quot;;&quot;&apos; + doc.getName() + &apos;&quot;)&apos;
-    var activeSpreadsheet = e.parameter.activeSpreadsheet;
-    var activeSheet = e.parameter.activeSheet;
-    var activeCell = e.parameter.activeCell;
-    var label = app.createLabel(&apos;file uploaded successfully&apos;);
-    app.add(label);
-    SpreadsheetApp.openById(activeSpreadsheet).getSheetByName(activeSheet).getRange(activeCell).setFormula(value);
-    app.close();
-    return app;
-  }
+  // write value into current cell
+  var value = &#39;hyperlink(&quot;&#39; + doc.getUrl() + &#39;&quot;;&quot;&#39; + doc.getName() + &#39;&quot;)&#39;
+  var activeSpreadsheet = e.parameter.activeSpreadsheet;
+  var activeSheet = e.parameter.activeSheet;
+  var activeCell = e.parameter.activeCell;
+  var label = app.createLabel(&#39;file uploaded successfully&#39;);
+  app.add(label);
+  SpreadsheetApp.openById(activeSpreadsheet).getSheetByName(activeSheet).getRange(activeCell).setFormula(value);
+  app.close();
+  return app;
+}
 </code></pre>
+
     
   </div>
   
@@ -177,20 +180,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/">
-          Previous page
+          Vorherige Seite
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2016/05/15/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet/">
-          Next page
+          Nächste Seite
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Comments</h1>
+  <h2>Kommentare</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -198,27 +201,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
 
 
 </article>
-</div>
-      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
-
-  <div class="widget">
-  	  <form action=""
-    method="get"
-    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
-    accept-charset="utf-8"
-    data-js="google-search-form">
-  <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <span class="glyphicon glyphicon-search"></span> 
-      </button>
-    </span>
-  </div>
-</form>
-  </div>
-
-</div>
 </div>
     </div>
   </div>

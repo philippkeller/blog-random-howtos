@@ -24,8 +24,10 @@ Update: I ran into a tool that claims to do a lot for you: import2.com/tumblr. I
   <link href="/favicon.png" rel="shortcut icon">
 
   
-    <link rel="stylesheet" href="/css/highlightjs/solarized_dark.css">
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
   
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
   <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
 
@@ -74,7 +76,7 @@ Update: I ran into a tool that claims to do a lot for you: import2.com/tumblr. I
 
   <div class="container">
     <div class="row">
-      <div class="col-md-8"><article class="post">
+      <div><article class="post">
   
     <div class="post-date">
       <time datetime="2012-12-14T10:37:00.000Z">2012-12-14</time>
@@ -163,22 +165,20 @@ Update: I ran into a tool that claims to do a lot for you: import2.com/tumblr. I
 </ol>
 <h3 id="Install-htaccess-on-your-old-webhost"><a href="#Install-htaccess-on-your-old-webhost" class="headerlink" title="Install .htaccess on your old webhost"></a>Install .htaccess on your old webhost</h3><p>IMO that&rsquo;s a bit simpler than installing a tumblr redirect for every blog post. Still it&rsquo;s a lot of work since you need to come up with a map of old_url → new_url for every blog post. If your webhost supports .htaccess then go for this method. Most probably you have such a file already for your wordpress installation.</p>
 <p>An example of a .htaccess file:</p>
-<pre>
-  RewriteEngine On
-  Redirect permanent /page/2/ [http://howto.pui.ch/page/2](http://howto.pui.ch/page/2)
-  Redirect permanent /feed/ [http://howto.pui.ch/rss](http://howto.pui.ch/rss)
-  RewriteRule ^$ [http://howto.pui.ch/](http://howto.pui.ch/) [R=301,L]
-  Redirect permanent /2007/02/25/add-bandwidth-to-a-file-download-in-python/ [http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python](http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python)
-  Redirect permanent /2007/06/08/python-find-out-cpu-time-of-a-certain-process/ [http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process](http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process)
-  Redirect permanent /2007/07/23/python-sort-a-list-of-dicts-by-dict-key/ [http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key](http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key)
-  Redirect permanent /2009/12/30/dealing-with-mysql-backend-does-not-support-timezone-aware-datetimes/ [http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support](http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support)
-  Redirect permanent /2011/01/19/python-easy-way-to-show-progress/ [http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress](http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress)
-  Redirect permanent /2012/07/17/how-to-detect-a-files-character-encoding/ [http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding](http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding)
-  Redirect permanent /2010/04/04/python-display-refreshing-status-like-top/ [http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top](http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top)
-  Redirect permanent /2011/11/03/how-to-switch-gnu-screen-windows-in-iterm2-via-keyboard-shortcuts/ [http://howto.pui.ch/404](http://howto.pui.ch/404)
-  Redirect permanent /2007/01/19/sched-20-pizza-is-ready/ [http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready](http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready)
-</pre>
-
+<pre><code class="apache">RewriteEngine On
+Redirect permanent /page/2/ [http://howto.pui.ch/page/2](http://howto.pui.ch/page/2)
+Redirect permanent /feed/ [http://howto.pui.ch/rss](http://howto.pui.ch/rss)
+RewriteRule ^$ [http://howto.pui.ch/](http://howto.pui.ch/) [R=301,L]
+Redirect permanent /2007/02/25/add-bandwidth-to-a-file-download-in-python/ [http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python](http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python)
+Redirect permanent /2007/06/08/python-find-out-cpu-time-of-a-certain-process/ [http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process](http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process)
+Redirect permanent /2007/07/23/python-sort-a-list-of-dicts-by-dict-key/ [http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key](http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key)
+Redirect permanent /2009/12/30/dealing-with-mysql-backend-does-not-support-timezone-aware-datetimes/ [http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support](http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support)
+Redirect permanent /2011/01/19/python-easy-way-to-show-progress/ [http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress](http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress)
+Redirect permanent /2012/07/17/how-to-detect-a-files-character-encoding/ [http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding](http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding)
+Redirect permanent /2010/04/04/python-display-refreshing-status-like-top/ [http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top](http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top)
+Redirect permanent /2011/11/03/how-to-switch-gnu-screen-windows-in-iterm2-via-keyboard-shortcuts/ [http://howto.pui.ch/404](http://howto.pui.ch/404)
+Redirect permanent /2007/01/19/sched-20-pizza-is-ready/ [http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready](http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready)
+</code></pre>
 <p>Note the first 3 lines, you will need the same for your redirects. Note the special syntax of line 3. That is important to not redirect a non existing url to the new domain.</p>
 <h4 id="Wait-I-just-moved-my-blog-away-from-my-old-webhost-and-now-I-need-to-keep-it-to-have-http-redirects-in-place"><a href="#Wait-I-just-moved-my-blog-away-from-my-old-webhost-and-now-I-need-to-keep-it-to-have-http-redirects-in-place" class="headerlink" title="Wait! I just moved my blog away from my old webhost, and now I need to keep it to have http redirects in place?"></a>Wait! I just moved my blog away from my old webhost, and now I need to keep it to have http redirects in place?</h4><p>Uh, yes. Alternatively, you can move to a free hoster like google apps engine and e.g. <a href="http://blog.dantup.com/2010/01/generic-redirection-script-for-google-app-engine" target="_blank" rel="external">use this</a> to redirect. Or you just wait a few months and wait until all search engines have digested your redirects and kill your old webhost only then (that&rsquo;s what I&rsquo;m probably gonna do).</p>
 <h2 id="Step-7-Migrate-your-comments-to-disqus"><a href="#Step-7-Migrate-your-comments-to-disqus" class="headerlink" title="Step 7: Migrate your comments to disqus"></a>Step 7: Migrate your comments to disqus</h2><p>Because tumblr doesn&rsquo;t offer comments by itself you need to migrate your comments to disqus:</p>
@@ -190,12 +190,10 @@ Update: I ran into a tool that claims to do a lot for you: import2.com/tumblr. I
 <p>Voilà! After a few minutes your comments should appear in your new tumblr blog.</p>
 <h2 id="Step-8-Clean-up-your-tumblr-posts"><a href="#Step-8-Clean-up-your-tumblr-posts" class="headerlink" title="Step 8: Clean up your tumblr posts"></a>Step 8: Clean up your tumblr posts</h2><p>Might be that the html markup of my wordpress posts were so bad, but I needed to fix a lot of spacing between paragraphs. I also had some CSS tweaks to right align the images which I needed to fix.</p>
 <p>Lastly, blogger adds these paragraphs to the end of every blog post:</p>
-<pre>
-  &lt;div class="blogger-post-footer"&gt;
-    &lt;img alt="" height="1" src="https://blogger.googleusercontent.com/tracker/290349385069691835-5946149615494229188?l=coderandomm.blogspot.com" width="1"&gt;
-  &lt;/div&gt;
-</pre>
-
+<pre><code class="html">&lt;div class=&quot;blogger-post-footer&quot;&gt;
+  &lt;img alt=&quot;&quot; height=&quot;1&quot; src=&quot;https://blogger.googleusercontent.com/tracker/290349385069691835-5946149615494229188?l=coderandomm.blogspot.com&quot; width=&quot;1&quot;&gt;
+&lt;/div&gt;
+</code></pre>
 <p>If you are a perfectionist you may want to remove this markup from every blog post.</p>
 <p>A word of caution: You can spend a lot of time at this step if you overdo it.</p>
 <h2 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h2><ul>
@@ -230,20 +228,20 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/14
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2012/07/21/how-to-fix-jambox-static-noise/">
-          Previous page
+          Vorherige Seite
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/">
-          Next page
+          Nächste Seite
         </a></li>
       
     </ul>
   
   
 <div class="row comments">
-  <h2>Comments</h1>
+  <h2>Kommentare</h1>
   <div id="disqus_thread">
     <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
@@ -251,27 +249,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/14
 
 
 </article>
-</div>
-      <div class="col-md-offset-1 col-md-3"><div class="sidebar-nav">
-
-  <div class="widget">
-  	  <form action=""
-    method="get"
-    data-action="https://google.com.br/search?q=site:howto.philippkeller.com"
-    accept-charset="utf-8"
-    data-js="google-search-form">
-  <div class="input-group">
-    <input class="form-control" type="search" name="q" results="0" placeholder="Search in posts" data-js="google-search-input" style="padding-left: 0; padding-right: 0">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <span class="glyphicon glyphicon-search"></span> 
-      </button>
-    </span>
-  </div>
-</form>
-  </div>
-
-</div>
 </div>
     </div>
   </div>
