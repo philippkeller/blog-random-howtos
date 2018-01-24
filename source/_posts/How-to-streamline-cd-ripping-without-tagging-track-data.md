@@ -33,8 +33,9 @@ You may take it as a starting point, you'd want to adapt:
 
 Btw: the script can be run in parallel, i.e. when the first cd is finished ripping and the aac encoding runs you can insert the next disc and start the script again.
 
-```
+```bash
 #!/bin/bash
+
 set -e
 tmp_dir=$(mktemp -d)
 cd $tmp_dir

@@ -35,19 +35,19 @@ Before you start: you might just want to wipe your pi and start fresh. Takes you
 
 Just install:
 
-```text
+```bash
 sudo apt install sane-utils -y
 ```
 
 No need to install the whole `saned` package which comes with tons of packages. sane-utils is enough. Now, when you plug your scanner to your pi and do..
 
-```
-sudo sane-find-scanner -q # shows scanner
+```bash
+sudo sane-find-scanner -q
 ```
 
 .. you should see something like this:
 
-```
+```shell
 found USB scanner (vendor=0x04c6 [FUJITSU], product=0x128d [ScanSnap S1300i]) at libusb:001:011
 found USB scanner (vendor=0x0424, product=0xec00) at libusb:001:003
 ```
@@ -56,7 +56,7 @@ That is, your scanner is already detected by sane. Now, throughout this howto I'
 
 To give your user `pi` the permission to scan you'd do:
 
-```
+```bash
 sudo usermod -a -G scanner pi # makes it available for pi
 ```
 
@@ -65,13 +65,13 @@ This works because the group `scanner` is configured in `/etc/udev/rules.d/*.con
 
 You still can't scan though because you need to install the firmware file for your scanner. First find out where the firmware needs to sit: Grep for your model (in my case scansnap 1300i):
 
-```
+```bash
 grep 1300i /etc/sane.d/*.conf
 ```
 
 Shows you something like:
 
-```
+```shell
 /etc/sane.d/epjitsu.conf:# Fujitsu S1300i
 /etc/sane.d/epjitsu.conf:firmware /usr/share/sane/epjitsu/1300i_0D12.nal
 ```

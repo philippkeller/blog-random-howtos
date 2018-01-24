@@ -7,19 +7,21 @@ date: 2010-02-27 12:55:00
 
 Sometimes I want to print list of dicts as an ascii table, like this:
 
-<pre>  | Programming Language | Language Type | Years of Experience |
-  +----------------------+---------------+---------------------+
-  | python               | script        |                    4 |
-  | php                  | script        |                    5 |
-  | java                 | compiled      |                   11 |
-  | assember             | compiled      |                   15 |
-</pre>
+```
+| Programming Language | Language Type | Years of Experience |
++----------------------+---------------+---------------------+
+| python               | script        |                   4 |
+| php                  | script        |                   5 |
+| java                 | compiled      |                  11 |
+| assember             | compiled      |                  15 |
+```
 
 I searched on Google - but without luck.<!-- more -->
 
  That&rsquo;s what I came up with - it&rsquo;s not particularly nice but it does the job:
 
-<pre>  def table_print(data, title_row):
+```python
+def table_print(data, title_row):
     """
     data: list of dicts,
     title_row: e.g. [('name', 'Programming Language'), ('type', 'Language Type')]
@@ -42,12 +44,12 @@ I searched on Google - but without luck.<!-- more -->
       if data_copy.index(row) == 0:
         underline = "-+-".join(['-' * max_widths[col] for col in cols_order])
         print '+-%s-+' % underline
+```
 
-  </pre>
+Use it like this:
 
-Use it like that:
-
-<pre>  data = [dict(name='python', type='script', years_experience=4),
+```python
+data = [dict(name='python', type='script', years_experience=4),
     dict(name='php', type='script', years_experience=5),
     dict(name='java', type='compiled', years_experience=11),
     dict(name='assember', type='compiled', years_experience=15)
@@ -56,7 +58,7 @@ Use it like that:
     ('type', 'Language Type'),
     ('years_experience', 'Years of Experience')]
   table_print(data, titles)
-  </pre>
+```
 
 It will produce the table printed above. It&rsquo;s not fancy - the only &lsquo;smart&rsquo; thing it does is **right-adjusting integers, strings are left-adjusted**.
 

@@ -11,7 +11,7 @@ alias: /post/39245389801/tutorial-django-on-appengine-using-google-cloud
 ---
 
 ![](https://lh5.googleusercontent.com/-lX6aq3qvV50/UOC0ONuosVI/AAAAAAAAMUE/Q_occPtbmnQ/s230/Untitled-1.png)
-Google is running an [introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013](https://developers.google.com/cloud-sql/docs/billing#intro_trial). That&rsquo;s the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.
+Google is running an [introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013](https://developers.google.com/cloud-sql/docs/billing#intro_trial). That's the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.
 
 Hence I decided to give it a try and documented all into a very complete tutorial how to start a Django 1.4 project running on &ldquo;Google App Engine&rdquo;.
 <!-- more -->
@@ -20,9 +20,9 @@ If you run into exceptions, check the troubleshooting part at the bottom
 
 # Requirements
 
-*   Python 2.7\. If you can&rsquo;t use 2.7 for any reason, no worries. [Here are the adaptions](http://howto.philippkeller.com/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/) you need to make for this tutorial to work
-*   OS X or Linux. I&rsquo;m on OS X 10.8.2, I marked the steps that are OS X specific. For Linux users it&rsquo;s most probably very easy to adapt those. For Windows you certainly need to do some bigger adaptations.
-*   MySQL and its python bindings (for local development)
+- **Python 2.7**: If you can't use 2.7 for any reason, no worries. [Here are the adaptions](http://howto.philippkeller.com/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/) you need to make for this tutorial to work
+- **OS X or Linux**: I'm on OS X 10.8.2, I marked the steps that are OS X specific. For Linux users it's most probably very easy to adapt those. For Windows you certainly need to do some bigger adaptations.
+- **MySQL** and its python bindings (for local development)
 
 ## What about Django &lt; 1.4?
 
@@ -33,7 +33,7 @@ All you need to do with this tutorial is to change 1.4 to 1.3 and keep in mind t
 
   Create new instance on [appengine](https://appengine.google.com/).
 
-  Your instance will be located in the US unless you&rsquo;re willing to pay [500$ a month to register for a premium account](https://cloud.google.com/pricing/)
+  Your instance will be located in the US unless you're willing to pay [500$ a month to register for a premium account](https://cloud.google.com/pricing/)
   (Europe hosting is [for premium accounts only](https://developers.google.com/appengine/docs/premier/location))
 
 # Install Google App Engine (OS X specific)
@@ -42,122 +42,125 @@ All you need to do with this tutorial is to change 1.4 to 1.3 and keep in mind t
 2.  Open the dmg, move `GoogleAppEngineLauncher` to Applications
 3.  Open GoogleAppEngineLauncher, say yes to the symlinks
 4.  Add `$PATH` and `$PYTHONPATH` to shell environment: Add these lines to `.bash_profile` (`.bashrc` on Linux):
-    <pre>
-export GAE="/usr/local/google_appengine"
-export PYTHONPATH="$PYTHONPATH:$GAE:$GAE/lib/django_1_4"
-export PATH=${PATH}:$GAE/lib/django_1_4/django/bin/</pre>Load these settings into the current session with <pre>source ~/.bash_profile</pre> and make the django binaries executable: <pre>chmod a+x $GAE/lib/django_1_4/django/bin/[a-z]*.py</pre>
+    ```bash
+    export GAE="/usr/local/google_appengine"
+    export PYTHONPATH="$PYTHONPATH:$GAE:$GAE/lib/django_1_4"
+    export PATH=${PATH}:$GAE/lib/django_1_4/django/bin/
+    ```
+
+    Load these settings into the current session with `source ~/.bash_profile` and make the django binaries executable: `chmod a+x $GAE/lib/django_1_4/django/bin/[a-z]*.py`
 
 # Create the django project
 
-1.  run this in a directory of your choice (I chose `~/python/`). This generates a stub django project. Replace mysite with the name of your django project. <pre>django-admin.py startproject mysite</pre>Switch into mysite (where `manage.py` resides, only do this if you run Django 1.4):<pre>cd mysite</pre>
+1.  run this in a directory of your choice (I chose `~/python/`). This generates a stub django project. Replace mysite with the name of your django project. `django-admin.py startproject mysite`. Switch into mysite (where `manage.py` resides, only do this if you run Django 1.4): `cd mysite`
 2.  create the file `mysite/app.yaml` with this content (replace `appproject` with the id of your appspot.com instance):
-<pre>
-application: appproject
-version: 1
-runtime: python27
-api_version: 1
-threadsafe: true
+    ```
+    application: appproject
+    version: 1
+    runtime: python27
+    api_version: 1
+    threadsafe: true
 
     libraries:
-- name: django
-  version: "1.4"
+    - name: django
+      version: "1.4"
 
     builtins:
-- django_wsgi: on
+    - django_wsgi: on
 
     handlers:
-- url: /static/admin
-  static_dir: static/admin
-  expiration: '0'
-</pre>
+    - url: /static/admin
+      static_dir: static/admin
+      expiration: '0'
+    ```
 
 3.  edit `mysite/settings.py`: Change the value of `ROOT_URLCONF` from `mysite.urls` to `urls` (else you run into an exception in your live instance)
 4.  also in `settings.py` add these 2 lines anywhere at the top:
-<pre>
-import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__)) + os.sep
-</pre>
-This is the path prefix you&rsquo;ll put before all the `xyz_ROOT` settings later.
-5.  run this one level up of your python project directory: <pre>dev_appserver.py mysite</pre>
+    ```
+    import os
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__)) + os.sep
+    ```
+This is the path prefix you'll put before all the `xyz_ROOT` settings later.
+5.  run this one level up of your python project directory: `dev_appserver.py mysite`
 
 Congrats! Your [local instance](http://localhost:8080) now shows [this](http://i.imgur.com/rXh74.png) - hopefully :-)
 
 # Set up Google Cloud SQL
 
-1.  Register Cloud SQL in the [Google API Console](https://code.google.com/apis/console/) (I think you need to add billing, but currently there&rsquo;s a free plan until June 1, 2013)
-2.  create a new instance in the **United States** (even when you&rsquo;re located in Europe). The reason is that your Cloud SQL instance needs to be at the same location as your GAE instance. Put your ID of your appspot.com instance to the Authorized Applications.
-3.  create a new database using the SQL Prompt: <pre>CREATE DATABASE my_database;</pre>
+1.  Register Cloud SQL in the [Google API Console](https://code.google.com/apis/console/) (I think you need to add billing, but currently there's a free plan until June 1, 2013)
+2.  create a new instance in the **United States** (even when you're located in Europe). The reason is that your Cloud SQL instance needs to be at the same location as your GAE instance. Put your ID of your appspot.com instance to the Authorized Applications.
+3.  create a new database using the SQL Prompt: `CREATE DATABASE my_database;`
 4.  replace the `DATABASES` section of your `settings.py` with the snippet below: (Replace `my_project:instance1` with your Cloud SQL Instance id and `my_database` with your created database name).
-<pre>
-import os
-if (os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine') or
-    os.getenv('SETTINGS_MODE') == 'prod'):
-    # Running on production App Engine, so use a Google Cloud SQL database.
-    DATABASES = {
-        'default': {
-            'ENGINE': 'google.appengine.ext.django.backends.rdbms',
-            'INSTANCE': 'my_project:instance1',
-            'NAME': 'my_database',
+
+    ```python
+    import os
+    if (os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine') or
+        os.getenv('SETTINGS_MODE') == 'prod'):
+        # Running on production App Engine, so use a Google Cloud SQL database.
+        DATABASES = {
+            'default': {
+                'ENGINE': 'google.appengine.ext.django.backends.rdbms',
+                'INSTANCE': 'my_project:instance1',
+                'NAME': 'my_database',
+            }
         }
-    }
-else:
-    # Running in development, so use a local MySQL database
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'NAME': 'my_db',
+    else:
+        # Running in development, so use a local MySQL database
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'USER': 'root',
+                'PASSWORD': '',
+                'HOST': 'localhost',
+                'NAME': 'my_db',
+            }
         }
-    }
-</pre>
-These settings configure django to use a local MySQL storage for development. That&rsquo;s very close to the cloud setup, as Google Cloud SQL is [powered by Mysql (currently 5.5)](https://developers.google.com/cloud-sql/faq#databaseengine)
+    ```
+
+These settings configure django to use a local MySQL storage for development. That's very close to the cloud setup, as Google Cloud SQL is [powered by Mysql (currently 5.5)](https://developers.google.com/cloud-sql/faq#databaseengine)
 
     I highly recommend this as on my machine every SQL query took about 1 second when run against Google Cloud SQL.
 
     That comes from the fact as first the SQL queries run over HTTP and second the Cloud SQL Instance [runs in California](https://ipdb.at/ip/74.125.132.95).
 
-5.  To trigger the oauth authorization (stored in `~/.googlesql_oauth2.dat`) run this:<pre>SETTINGS_MODE='prod' python manage.py syncdb</pre>
+5.  To trigger the oauth authorization (stored in `~/.googlesql_oauth2.dat`) run this:`SETTINGS_MODE='prod' python manage.py syncdb`
 
 If that last command worked that proves that your Cloud SQL worked so far. Congrats!
 
-Your local MySQL instance is now ready as well. You should check if `MySQLdb` is installed:
-
-<pre>python -c "import MySQLdb"</pre>
-To test the Django↔MySQL connection run
-<pre>python mysite/manage.py syncdb</pre>
+Your local MySQL instance is now ready as well. You should check if `MySQLdb` is installed: `python -c "import MySQLdb"`. To test the Django↔MySQL connection run `python mysite/manage.py syncdb`
 
 Whenever you want to sync your django models to:
 
 a) the _live_ db: `SETTINGS_MODE='prod' python manage.py syncdb`
-
 b) the _local mysql_ db: `python manage.py syncdb`
 
 # Deploy your stub app to appspot
 
-  Ready to deploy your fresh app to the cloud?
+Ready to deploy your fresh app to the cloud?
 
-  Run this (replace mysite with your project name): 
-<pre>appcfg.py --oauth2 update mysite</pre>
+Run this (replace mysite with your project name): 
 
-  After about 1 minute your fresh Django project should run perfectly on [http://your-id.appspot.com/](http://your-id.appspot.com/)
+```bash
+appcfg.py --oauth2 update mysite
+```
+
+After about 1 minute your fresh Django project should run perfectly on [http://your-id.appspot.com/](http://your-id.appspot.com/)
 
 **Why not sqlite?**
 
 Sqlite would be a lot easier to set up, actually there is nothing to install and no server to start, no passwords, etc.
 
-Apart from the fact that I couldn&rsquo;t get it working (details see [here](http://stackoverflow.com/questions/14080430)) it&rsquo;s certainly not a smart idea to run sqlite locally and MySQL (as used by Cloud SQL) in production, [it&rsquo;s very likely that you&rsquo;ll run into issues](http://stackoverflow.com/questions/2306048/django-sqlite-for-dev-mysql-for-prod).
+Apart from the fact that I couldn't get it working (details see [here](http://stackoverflow.com/questions/14080430)) it's certainly not a smart idea to run sqlite locally and MySQL (as used by Cloud SQL) in production, [it's very likely that you'll run into issues](http://stackoverflow.com/questions/2306048/django-sqlite-for-dev-mysql-for-prod).
 
 # Serving static files
 
-Django [supports serving static files](https://docs.djangoproject.com/en/dev/howto/static-files/) via `django.contrib.staticfiles`. However, I didn&rsquo;t get this to work. And since serving these files directly via GAE is faster anyways, add this to your `app.yaml`:
+Django [supports serving static files](https://docs.djangoproject.com/en/dev/howto/static-files/) via `django.contrib.staticfiles`. However, I didn't get this to work. And since serving these files directly via GAE is faster anyways, add this to your `app.yaml`:
 
-<pre>
+```
 - url: /media
   static_dir: media
   expiration: '0'
-</pre>
+```
 
 This assumes your static files are under `mysite/media`. Your static files now serve under [/media/](http://localhost:8080/media/)
 
@@ -167,30 +170,29 @@ You probably want to enable the admin interface (Steps 2-4 are actually all abou
 
 1.  Uncomment all admin specific lines in `settings.py` (in `INSTALLED_APPS`) and `urls.py` (header and urlpatterns).
 
-        Go sure you don&rsquo;t miss any of these lines by double checking [here, under &ldquo;Activate the admin site&rdquo;](https://docs.djangoproject.com/en/1.3/intro/tutorial02/#activate-the-admin-site).
-2.  Sync the new models agains live<pre>SETTINGS_MODE='prod' python mysite/manage.py syncdb</pre>and local MySQL<pre>python mysite/manage.py syncdb</pre>
-3.  in `settings.py` replace the `STATIC_ROOT` line with (you defined BASE_DIR [above](#create_the_django_project)):
-    <pre>STATIC_ROOT = BASE_DIR + 'static'</pre>
+        Go sure you don't miss any of these lines by double checking [here, under &ldquo;Activate the admin site&rdquo;](https://docs.djangoproject.com/en/1.3/intro/tutorial02/#activate-the-admin-site).
+2.  Sync the new models agains live `SETTINGS_MODE='prod' python mysite/manage.py syncdb` and local MySQL `python mysite/manage.py syncdb`
+3.  in `settings.py` replace the `STATIC_ROOT` line with (you defined BASE_DIR [above](#create_the_django_project)): `STATIC_ROOT = BASE_DIR + 'static'`
 4.  To copy all the admin media assets into `mysite/static` run:
-    <pre>python mysite/manage.py collectstatic</pre>
+    `python mysite/manage.py collectstatic`
 5.  now, [/admin](http://localhost:8080/admin/) should show your admin site, with CSS.
 
 # And now?
 
-*   If you&rsquo;re new to Django or if you want to be 100% sure everything works as expected follow the [django tutorial](https://docs.djangoproject.com/en/1.4/intro/tutorial01/)
-*   Want to port your Django app to Google App Engine? I&rsquo;ll likely come up with another article about that.
+*   If you're new to Django or if you want to be 100% sure everything works as expected follow the [django tutorial](https://docs.djangoproject.com/en/1.4/intro/tutorial01/)
+*   Want to port your Django app to Google App Engine? I'll likely come up with another article about that.
 
 # Troubleshooting
 
 **on my development machine the web app is _veeery_ slow**
 
-Chances are high that you&rsquo;re not using the local MySQL. Start dev_appserver.py with the `--debug` flag and see if it does any RPC calls (SQL queries wrapped into HTTP)
+Chances are high that you're not using the local MySQL. Start dev_appserver.py with the `--debug` flag and see if it does any RPC calls (SQL queries wrapped into HTTP)
 
-If that isn&rsquo;t the issue you might want to [track performance with appstats](https://developers.google.com/appengine/docs/python/tools/appstats#EventRecorders).
+If that isn't the issue you might want to [track performance with appstats](https://developers.google.com/appengine/docs/python/tools/appstats#EventRecorders).
 
 **I wanted to use sqlite instead of mysql as a backend, but I run into `ImportError`, `cannot import name utils`**
 
-So did I. I don&rsquo;t know how to solve it. See [here](http://stackoverflow.com/questions/14080430) for details.
+So did I. I don't know how to solve it. See [here](http://stackoverflow.com/questions/14080430) for details.
 
 **I get an `unknown locale` exception when running syncdb against MySQL**
 
@@ -206,10 +208,9 @@ Solution is [described here](http://stackoverflow.com/questions/9736975/django-a
 
 I got the exception `No module named mysite.urls` before I replaced
 
-<pre>ROOT_URLCONF = 'mysite.urls'</pre>
-with
-<pre>ROOT_URLCONF = 'urls'</pre>
-I didn&rsquo;t really understand why that error occurs.
+`ROOT_URLCONF = 'mysite.urls'` with `ROOT_URLCONF = 'urls'`.
+
+I didn't really understand why that error occurs.
 
 # Further reading
 

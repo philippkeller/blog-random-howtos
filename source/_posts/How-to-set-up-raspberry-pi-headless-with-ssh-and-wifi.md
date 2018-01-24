@@ -26,16 +26,16 @@ I found that etcher.io is a very easy way to flash, in order to do so:
 
 Etcher just created two partitions: a boot partition and a data partition. First, find out the device files of the two partitions using `sudo fdisk -l`. In my case I found:
 
-```
+```shell
 Disk /dev/mmcblk0: 14.9 GiB, 15931539456 bytes, 31116288 sectors
 Units: sectors of 1 * 512 = 512 bytes
 Sector size (logical/physical): 512 bytes / 512 bytes
 I/O size (minimum/optimal): 512 bytes / 512 bytes
 Disklabel type: dos
 Disk identifier: 0x37665771
-Device         Boot Start     End Sectors  Size Id Type
-/dev/mmcblk0p1       8192   93236   85045 41.5M  c W95 FAT32 (LBA)
-/dev/mmcblk0p2      94208 3629055 3534848  1.7G 83 Linux
+Device               Boot   Start     End Sectors Size Id Type
+/dev/mmcblk0p1       8192   93236   85045 41.5M         c W95 FAT32 (LBA)
+/dev/mmcblk0p2      94208 3629055 3534848  1.7G        83 Linux
 ```
 
 The relevant lines are 8 (boot partition) and 9 (data partition).
@@ -66,6 +66,8 @@ A good first step is to start `sudo raspi-config` in order to:
 
 And, of course add your public key to authorized_keys:
 
-```
+
+
+```bash
 cat ~/.ssh/id_rsa.pub | ssh pi@192.168.x.x "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >>  ~/.ssh/authorized_keys"
 ```

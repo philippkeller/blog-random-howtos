@@ -25,7 +25,7 @@ First, reduce your collection to, say the albums you listened in the past 12 mon
 
 Here you go: Once, you haved `cd`ed into the directory with the mp3 files you want to convert, do this:
 
-```
+```bash
 detox *.mp3
 fmpeg -i *.mp3([1]) artwork.jpg
 for i in *.mp3; do ~/bin/ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a}; done

@@ -125,21 +125,21 @@ IMO that&rsquo;s a bit simpler than installing a tumblr redirect for every blog 
 
 An example of a .htaccess file:
 
-<pre>
-  RewriteEngine On
-  Redirect permanent /page/2/ [http://howto.pui.ch/page/2](http://howto.pui.ch/page/2)
-  Redirect permanent /feed/ [http://howto.pui.ch/rss](http://howto.pui.ch/rss)
-  RewriteRule ^$ [http://howto.pui.ch/](http://howto.pui.ch/) [R=301,L]
-  Redirect permanent /2007/02/25/add-bandwidth-to-a-file-download-in-python/ [http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python](http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python)
-  Redirect permanent /2007/06/08/python-find-out-cpu-time-of-a-certain-process/ [http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process](http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process)
-  Redirect permanent /2007/07/23/python-sort-a-list-of-dicts-by-dict-key/ [http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key](http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key)
-  Redirect permanent /2009/12/30/dealing-with-mysql-backend-does-not-support-timezone-aware-datetimes/ [http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support](http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support)
-  Redirect permanent /2011/01/19/python-easy-way-to-show-progress/ [http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress](http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress)
-  Redirect permanent /2012/07/17/how-to-detect-a-files-character-encoding/ [http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding](http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding)
-  Redirect permanent /2010/04/04/python-display-refreshing-status-like-top/ [http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top](http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top)
-  Redirect permanent /2011/11/03/how-to-switch-gnu-screen-windows-in-iterm2-via-keyboard-shortcuts/ [http://howto.pui.ch/404](http://howto.pui.ch/404)
-  Redirect permanent /2007/01/19/sched-20-pizza-is-ready/ [http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready](http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready)
-</pre>
+```apache
+RewriteEngine On
+Redirect permanent /page/2/ [http://howto.pui.ch/page/2](http://howto.pui.ch/page/2)
+Redirect permanent /feed/ [http://howto.pui.ch/rss](http://howto.pui.ch/rss)
+RewriteRule ^$ [http://howto.pui.ch/](http://howto.pui.ch/) [R=301,L]
+Redirect permanent /2007/02/25/add-bandwidth-to-a-file-download-in-python/ [http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python](http://howto.pui.ch/post/37471156141/add-bandwidth-to-a-file-download-in-python)
+Redirect permanent /2007/06/08/python-find-out-cpu-time-of-a-certain-process/ [http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process](http://howto.pui.ch/post/37471156554/python-find-out-cpu-time-of-a-certain-process)
+Redirect permanent /2007/07/23/python-sort-a-list-of-dicts-by-dict-key/ [http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key](http://howto.pui.ch/post/37471157116/python-sort-a-list-of-dicts-by-dict-key)
+Redirect permanent /2009/12/30/dealing-with-mysql-backend-does-not-support-timezone-aware-datetimes/ [http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support](http://howto.pui.ch/post/37471158729/dealing-with-mysql-backend-does-not-support)
+Redirect permanent /2011/01/19/python-easy-way-to-show-progress/ [http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress](http://howto.pui.ch/post/37471159741/python-easy-way-to-show-progress)
+Redirect permanent /2012/07/17/how-to-detect-a-files-character-encoding/ [http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding](http://howto.pui.ch/post/37471161169/how-to-detect-a-files-character-encoding)
+Redirect permanent /2010/04/04/python-display-refreshing-status-like-top/ [http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top](http://howto.pui.ch/post/37471159398/python-display-refreshing-status-like-top)
+Redirect permanent /2011/11/03/how-to-switch-gnu-screen-windows-in-iterm2-via-keyboard-shortcuts/ [http://howto.pui.ch/404](http://howto.pui.ch/404)
+Redirect permanent /2007/01/19/sched-20-pizza-is-ready/ [http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready](http://howto.pui.ch/post/37471155110/sched-20-pizza-is-ready)
+```
 
 Note the first 3 lines, you will need the same for your redirects. Note the special syntax of line 3\. That is important to not redirect a non existing url to the new domain.
 
@@ -163,11 +163,11 @@ Might be that the html markup of my wordpress posts were so bad, but I needed to
 
 Lastly, blogger adds these paragraphs to the end of every blog post:
 
-<pre>
-  &lt;div class="blogger-post-footer"&gt;
-    &lt;img alt="" height="1" src="https://blogger.googleusercontent.com/tracker/290349385069691835-5946149615494229188?l=coderandomm.blogspot.com" width="1"&gt;
-  &lt;/div&gt;
-</pre>
+```html
+<div class="blogger-post-footer">
+  <img alt="" height="1" src="https://blogger.googleusercontent.com/tracker/290349385069691835-5946149615494229188?l=coderandomm.blogspot.com" width="1">
+</div>
+```
 
 If you are a perfectionist you may want to remove this markup from every blog post.
 
@@ -175,6 +175,6 @@ A word of caution: You can spend a lot of time at this step if you overdo it.
 
 ## Thanks
 
-*   Thanks to **MG Siegler** (one of my favourite bloggers, although he is an Apple fanboy and I am a google disciple): He showed me that you can [perfectly write long blog posts on tumblr](http://parislemon.com/post/15604811641/why-i-hate-android) (that linked article is actually a must read about Android vs. iPhone)
-*   **Julio Angel Ortiz**, who&rsquo;s [article](http://julioinprogress.com/2011/09/10/guide-to-moving-from-wordpress-to-tumblr/) served as the base for this howto.
-*   **TextMate** for making html editing so easy. Just found out that it&rsquo;s actually a pretty decent HTML editor. I&rsquo;ll write my blog posts in here and only then past them into the tiny tumblr HTML editor popup.
+- Thanks to **MG Siegler** (one of my favourite bloggers, although he is an Apple fanboy and I am a google disciple): He showed me that you can [perfectly write long blog posts on tumblr](http://parislemon.com/post/15604811641/why-i-hate-android) (that linked article is actually a must read about Android vs. iPhone)
+- **Julio Angel Ortiz**, who&rsquo;s [article](http://julioinprogress.com/2011/09/10/guide-to-moving-from-wordpress-to-tumblr/) served as the base for this howto.
+- **TextMate** for making html editing so easy. Just found out that it&rsquo;s actually a pretty decent HTML editor. I&rsquo;ll write my blog posts in here and only then past them into the tiny tumblr HTML editor popup.
