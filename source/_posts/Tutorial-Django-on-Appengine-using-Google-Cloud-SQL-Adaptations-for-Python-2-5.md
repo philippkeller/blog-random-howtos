@@ -1,7 +1,6 @@
 ---
 title: >-
-  Tutorial: Django on Appengine using Google Cloud SQL - Adaptations for Python
-  2.5
+  Tutorial: Django on Appengine - Adaptations for Python 2.5
 tags:
   - django
   - python 2.5

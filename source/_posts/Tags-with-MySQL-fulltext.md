@@ -55,11 +55,11 @@ Query for (del.icio.us|delicious)+(webservice|project):
 
 ![union DB result](https://lh5.googleusercontent.com/-KI8lkatasrA/UL0A4ABDj4I/AAAAAAAALEY/X2i8ehJDAiE/s508/union_result.png)
 
-<span>For union you could use the already mentioned boolean mode, but if you want to have the results ordered so that the bookmark with the most &ldquo;hits&rdquo; is the first entry of the result try this sort of query:</span>
+<span>For union you could use the already mentioned boolean mode, but if you want to have the results ordered so that the bookmark with the most "hits" is the first entry of the result try this sort of query:</span>
 
 `SELECT * FROM delicious WHERE MATCH (tags) AGAINST ('delicious clone project webservice')`
 
-If you take a look at the screenshot of the first 7 results of the query run on my DB, you can see that the first hit has got all four tags we searched for, the second has got two and the rest has got just one of them. Like this you can do a &ldquo;find similar entries&rdquo; very easily.
+If you take a look at the screenshot of the first 7 results of the query run on my DB, you can see that the first hit has got all four tags we searched for, the second has got two and the rest has got just one of them. Like this you can do a "find similar entries" very easily.
 
 ## Downsides and problems
 
@@ -67,12 +67,12 @@ If you take a look at the screenshot of the first 7 results of the query run on 
 
 ### Stopcharacters
 
-<span>If you insert tags with characters like &ldquo;-&rdquo; (as in &ldquo;my-comment&rdquo;), then MySQL will make two index entries: One for &ldquo;my&rdquo; and one for &ldquo;comment&rdquo;. Vice versa if you search for &ldquo;my-comment&rdquo; you&rsquo;ll find bookmarks with tag &ldquo;my&rdquo; and those with tag &ldquo;comment&rdquo;. It seems that this problem can be eliminated by </span>[setting the character set of the column &ldquo;tags&rdquo; to `latin1_bin`](http://dev.mysql.com/doc/mysql/en/fulltext-search.html)<span> but this feature is not available before MySQL 4.1.</span>
-But nontheless this shouldn&rsquo;t be a showstopper. You could replace &ldquo;-&rdquo; with a string, say &ldquo;_minus_&rdquo;. This is ugly but should do it..
+<span>If you insert tags with characters like "-" (as in "my-comment"), then MySQL will make two index entries: One for "my" and one for "comment". Vice versa if you search for "my-comment" you'll find bookmarks with tag "my" and those with tag "comment". It seems that this problem can be eliminated by </span>[setting the character set of the column "tags" to `latin1_bin`](http://dev.mysql.com/doc/mysql/en/fulltext-search.html)<span> but this feature is not available before MySQL 4.1.</span>
+But nontheless this shouldn't be a showstopper. You could replace "-" with a string, say "_minus_". This is ugly but should do it..
 
 ### Stopwords
 
-When searching for or indexing tags like &ldquo;against&rdquo; or &ldquo;brief&rdquo; ([full list of stopwords](http://www.databasejournal.com/features/mysql/article.php/1578331)), these tags will not be regarded. 
+When searching for or indexing tags like "against" or "brief" ([full list of stopwords](http://www.databasejournal.com/features/mysql/article.php/1578331)), these tags will not be regarded. 
 Since MySQL 4.0.10 you can [customize your stopwordlist](http://dev.mysql.com/doc/mysql/en/fulltext-fine-tuning.html).
 
 ### Minimum length of a tag

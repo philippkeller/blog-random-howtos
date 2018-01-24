@@ -31,7 +31,7 @@ The technology trigger most likely was [del.icio.us](http://del.icio.us) and sub
 In this phase there were indeed many blog posts talking about this subject, as [Louis Rosenfeld](http://louisrosenfeld.com/home/bloug_archive/000330.html)
 put it:
 
-> <span>Lately, you can&rsquo;t surf information architecture blogs for five minutes without stumbling on a </span><span>discussion of folksonomies</span>
+> <span>Lately, you can't surf information architecture blogs for five minutes without stumbling on a </span><span>discussion of folksonomies</span>
 
 <span>I guess in this phase many people said things they now feel embarassed about.</span>
 
@@ -39,15 +39,15 @@ put it:
 
 > <span>The point at which the technology becomes unfashionable and the press abandons the </span><span>topic, because the technology did not live up to its overinflated expectations.</span>
 
-<span>This is the phase we&rsquo;re in now. There are no blog posts any more. Tagging is not really</span>
+<span>This is the phase we're in now. There are no blog posts any more. Tagging is not really</span>
 
-unfashionable but the topic is &ldquo;done&rdquo; à la «if that&rsquo;s all what&rsquo;s tagging adds to the web experience, I&rsquo;m not interested in this technology any more». There isn&rsquo;t much thinking and innovation going on.
+unfashionable but the topic is "done" à la «if that's all what's tagging adds to the web experience, I'm not interested in this technology any more». There isn't much thinking and innovation going on.
 
 #### Slope of enlightenment
 
-> <span>Focused experimentation and solid hard work by an increasingly diverse range of organizations </span><span>lead to a true understanding of the technology&rsquo;s applicability, risks and benefits. Commercial </span><span>off-the-shelf methodologies and tools become available to ease the development process.</span>
+> <span>Focused experimentation and solid hard work by an increasingly diverse range of organizations </span><span>lead to a true understanding of the technology's applicability, risks and benefits. Commercial </span><span>off-the-shelf methodologies and tools become available to ease the development process.</span>
 
-<span>Let&rsquo;s hope gartner is right about the future of folksonomies!</span>
+<span>Let's hope gartner is right about the future of folksonomies!</span>
 
 #### Plateau of productivity
 
@@ -59,11 +59,11 @@ It has yet to show if folksonomies such as in del.icio.us or flickr prove themse
 
 Joe Lamantia [raises the question if tagging should be applied at all to Gartners Hype Cycles:](http://tagsonomy.com/index.php/the-tagging-hype-cycle/)
 
-> <span>Tagging in fact shows few characteristics of the enterprise technologies that Gartner&rsquo;s Hype Cycle is built around</span>
+> <span>Tagging in fact shows few characteristics of the enterprise technologies that Gartner's Hype Cycle is built around</span>
 
-<span>Joe argues rightly, that tagging has not yet reached the broad economy, it&rsquo;s not that Gartner would care to apply folksonomies to their Hype Cycles.</span>
+<span>Joe argues rightly, that tagging has not yet reached the broad economy, it's not that Gartner would care to apply folksonomies to their Hype Cycles.</span>
 
-<span>Although: Gartner apply the hype cycle to technologies such as </span>[&ldquo;corporate blogging&rdquo; or wikis](http://www.gartner.com/DisplayDocument?doc_cd=140881&amp;ref=g_SiteLink)<span>. It seems it does not lie in the nature of tagging that it won&rsquo;t ever apply to hype cycles, the only fact that hinders Gartner to apply tagging to their hype cycles is that there is no money earned with it. I&rsquo;m not into business analysis at all so I am grateful for Joes insights which he concludes with:</span>
+<span>Although: Gartner apply the hype cycle to technologies such as </span>["corporate blogging" or wikis](http://www.gartner.com/DisplayDocument?doc_cd=140881&amp;ref=g_SiteLink)<span>. It seems it does not lie in the nature of tagging that it won't ever apply to hype cycles, the only fact that hinders Gartner to apply tagging to their hype cycles is that there is no money earned with it. I'm not into business analysis at all so I am grateful for Joes insights which he concludes with:</span>
 
-> <span>If it doesn&rsquo;t cost money, the perceived risks of the technology are lower, and the big analysis firms pay less attention, because their customers see less need to pay for analysis</span>
+> <span>If it doesn't cost money, the perceived risks of the technology are lower, and the big analysis firms pay less attention, because their customers see less need to pay for analysis</span>
 <div class="blogger-post-footer">![](https://blogger.googleusercontent.com/tracker/2748783673844839576-47667312269518886?l=theneachwenttohisownhome.blogspot.com)</div>

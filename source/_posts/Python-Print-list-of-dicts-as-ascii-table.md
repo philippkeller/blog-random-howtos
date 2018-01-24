@@ -3,6 +3,9 @@ title: 'Python: Print list of dicts as ascii table'
 tags:
   - python
 date: 2010-02-27 12:55:00
+css:
+  - "pre>code.hljs.python {font-size: 80%}"
+
 ---
 
 Sometimes I want to print list of dicts as an ascii table, like this:
@@ -18,7 +21,7 @@ Sometimes I want to print list of dicts as an ascii table, like this:
 
 I searched on Google - but without luck.<!-- more -->
 
- That&rsquo;s what I came up with - it&rsquo;s not particularly nice but it does the job:
+ That's what I came up with - it's not particularly nice but it does the job:
 
 ```python
 def table_print(data, title_row):
@@ -60,6 +63,6 @@ data = [dict(name='python', type='script', years_experience=4),
   table_print(data, titles)
 ```
 
-It will produce the table printed above. It&rsquo;s not fancy - the only &lsquo;smart&rsquo; thing it does is **right-adjusting integers, strings are left-adjusted**.
+It will produce the table printed above. It's not fancy - the only &lsquo;smart' thing it does is **right-adjusting integers, strings are left-adjusted**.
 
- P.S. no, I don&rsquo;t have 15 years of experience of Assembler - I just know it since 15 years - it&rsquo;s one of the first programming languages I learned - and I even wrote a text editor with it - then I learned that&rsquo;s probably not the best language to write an editor :-)
+ P.S. no, I don't have 15 years of experience of Assembler - I just know it since 15 years - it's one of the first programming languages I learned - and I even wrote a text editor with it - then I learned that's probably not the best language to write an editor :-)

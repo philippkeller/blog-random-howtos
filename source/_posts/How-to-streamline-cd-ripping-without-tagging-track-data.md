@@ -4,6 +4,9 @@ date: 2017-12-02 16:23:53
 tags:
 - ripping
 - music
+css:
+- "pre>code.bash.hljs {font-size: 80%}"
+
 ---
 
 ![CD tower to rip](/images/automate.jpg)
@@ -41,8 +44,17 @@ tmp_dir=$(mktemp -d)
 cd $tmp_dir
 cdparanoia -BY
 eject
-for i in *.wav; do ffmpeg -i $i -c:a libfdk_aac -b:a 96k ${i/cdda.wav/m4a}; done
-total=$(ls *.m4a | wc -l); for i in *.m4a; do number=$(echo $i | sed 's/^track\([0-9]\+\).*/\1/'); AtomicParsley $i --tracknum "$number/$total" --title "Track $number" --genre "Kinder Geschichten" --overWrite; done
+
+for i in *.wav; do 
+	ffmpeg -i $i -c:a libfdk_aac -b:a 96k ${i/cdda.wav/m4a}
+done
+
+total=$(ls *.m4a | wc -l)
+for i in *.m4a; do 
+	number=$(echo $i | sed 's/^track\([0-9]\+\).*/\1/')
+	AtomicParsley $i --tracknum "$number/$total" --title "Track $number" --genre "<my genre>" --overWrite
+done
+
 echo -n "Album name>" && read album
 echo -n "Artist name>" && read artist
 search_term="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$album $artist cd")"
@@ -50,11 +62,13 @@ chrome "https://www.google.ch/search?&q=$search_term&tbm=isch" >/dev/null 2>/dev
 echo -n "Artwork url>" && read artwork_url
 wget -q "$artwork_url" -O artwork.orig
 convert artwork.orig -resize "250x" artwork.jpg
-for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --artist "$artist" --album "$album" --overWrite; done
+for i in *.m4a; do 
+	AtomicParsley $i --artwork artwork.jpg --artist "$artist" --album "$album" --overWrite
+done
 dir_name=$(echo "${artist// /_}_${album// /_}" | sed 's/Ö/oe/g; s/Ä/ae/g; s/Ü/ue/g; s/ä/ae/g; s/ö/oe/g; s/ü/ue/g' | tr '[:upper:]' '[:lower:]')
 mkdir $dir_name
 mv *.m4a $dir_name
-scp -rp $dir_name root@wdmycloud:/DataVolume/shares/Public/Shared\\\ Music/kinder
+scp -rp $dir_name user@nas:/directory/of/my/music
 python3 -c "import soco; soco.music_library.MusicLibrary().start_library_update()"
 cd -
 rm -rf $tmp_dir

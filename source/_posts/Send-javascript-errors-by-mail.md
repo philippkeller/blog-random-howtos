@@ -6,13 +6,16 @@ tags:
   - javascript
 date: 2007-10-06 15:33:00
 alias: /post/37471157855/send-javascript-errors-by-mail
+css:
+  - "pre>code.hljs.javascript {font-size: 80%}"
+
 ---
 
 I'm running [a Django-powered site for a closed user group](http://extranet.icoc.ch) and added a bit of JavaScript magic here and there (mainly [Prototype](http://www.prototypejs.org/) and [Tooltip](http://codylindley.com/Javascript/219/finding-a-javascript-tool-tip-script)).
 
 <!-- more -->
 
-Now Django sends me a mail whenever a 404 or 500 error occurs. But when one of my users encounters a JavaScript-Error, I&rsquo;m not informed. I thought anyone in the web has solved this problem but didn&rsquo;t find anything, so here&rsquo;s my take: Just send any error using Ajax (here: using [Prototypes Ajax abstraction](http://www.prototypejs.org/learn/introduction-to-ajax)) to the server
+Now Django sends me a mail whenever a 404 or 500 error occurs. But when one of my users encounters a JavaScript-Error, I'm not informed. I thought anyone in the web has solved this problem but didn't find anything, so here's my take: Just send any error using Ajax (here: using [Prototypes Ajax abstraction](http://www.prototypejs.org/learn/introduction-to-ajax)) to the server
 
 ```javascript
 onerror = Extranet.mailError;

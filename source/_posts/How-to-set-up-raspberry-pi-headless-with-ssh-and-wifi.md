@@ -8,7 +8,7 @@ tags:
 
 Setting up raspberry pi is a bit tedious when doing it over attached monitor, keyboard and mouse (I usually don't have those around anyway, being laptop only at the moment), so here's a good and easy way to get an installation directly from your laptop, making the pi automatically join your wifi and enable ssh:
 
-# Flash
+## Flash
 
 ![etcher](/images/etcher.png)
 
@@ -22,7 +22,7 @@ I found that etcher.io is a very easy way to flash, in order to do so:
 
 <!-- more -->
 
-# Enable ssh and wlan on the image
+## Enable ssh and wlan on the image
 
 Etcher just created two partitions: a boot partition and a data partition. First, find out the device files of the two partitions using `sudo fdisk -l`. In my case I found:
 
@@ -38,27 +38,49 @@ Device               Boot   Start     End Sectors Size Id Type
 /dev/mmcblk0p2      94208 3629055 3534848  1.7G        83 Linux
 ```
 
-The relevant lines are 8 (boot partition) and 9 (data partition).
+The relevant lines are the last two lines whereas `mmcblk0p1` is the boot partition and `mmcblk0p2` the data partition
 
 ## Enable ssh
 
-- create the mount point e.g. `mkdir /var/tmp/sdcard`
-- mount the boot partition with `sudo mount -t vfat /dev/mmcblk0p1 /var/tmp/sdcard` whereas you specify the file system using `-t vfar` (corresponds to W95 FAT32) and the device `/dev/mmcblk0p1` is what you take from above (be sure to take the first one, that with the lower start number)
-- `sudo touch /var/tmp/sdcard/ssh` to enable ssh on the first boot
-- `sudo umount /var/tmp/sdcard`
+Create the mount point and mount it i.e. in my case this was
+
+```bash
+mkdir /var/tmp/sdcard
+sudo mount -t vfat /dev/mmcblk0p1 /var/tmp/sdcard
+```
+
+whereas `-t vfar` is the file system (corresponds to W95 FAT32) and `/dev/mmcblk0p1` is the device from above (be sure to take the first one, that with the lower start number). Now enable ssh and unmount again:
+
+```bash
+sudo touch /var/tmp/sdcard/ssh
+sudo umount /var/tmp/sdcard
+```
 
 ## Enable wireless
 
-- mount the data partition with `sudo mount -t ext4 /dev/mmcblk0p2 /var/tmp/sdcard`, be sure to take the correct `/dev/`, `-t ext4` corresponds to the `Linux` fs type
-- run `wpa_passphrase <ssid> <password>` to create the wireless config config
-- edit `/var/tmp/sdcard/etc/wpa_supplicant/wpa_supplicant.conf` and add the config you just got from `wpa_passphrase`. Be sure to delete the plain text psk line
-- `sudo umount /var/tmp/sdcard`
+Mount the data partition (take the second `/dev/...` from the `fdisk` call)
 
-# Profit!
+```bash
+sudo mount -t ext4 /dev/mmcblk0p2 /var/tmp/sdcard
+```
 
-That's it, boot your pi, check your router for the ip address it just got and ssh in with `ssh pi@192.168.x.x` using `raspberry` as password.
+Then run 
 
-A good first step is to start `sudo raspi-config` in order to:
+```bash
+wpa_passphrase <ssid> <password>
+```
+
+to create the wireless config which you need to put into `/var/tmp/sdcard/etc/wpa_supplicant/wpa_supplicant.conf`. Be sure to delete the plain text psk line. Finally, unmount with:
+
+```bash
+sudo umount /var/tmp/sdcard
+```
+
+## Profit!
+
+Boot your pi, check your router for the ip address and ssh in with `ssh pi@192.168.x.x` using `raspberry` as password.
+
+A good first step is to `sudo raspi-config` and use it to:
 
 - change password
 - generate the locale (get rid of the `warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)`)

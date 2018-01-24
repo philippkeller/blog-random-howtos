@@ -151,10 +151,18 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 392.0,
-		"last_filter": "proj",
+		"height": 124.0,
+		"last_filter": "install",
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"wrap",
+				"Word Wrap: Toggle"
+			],
 			[
 				"proj",
 				"Project: Edit Project"
@@ -166,10 +174,6 @@
 			[
 				"json",
 				"Pretty JSON: Minify (compress) JSON"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"base64",
@@ -226,10 +230,6 @@
 			[
 				"tasks new",
 				"Tasks: New"
-			],
-			[
-				"wrap",
-				"Word Wrap: Toggle"
 			]
 		],
 		"width": 461.0
@@ -253,16 +253,45 @@
 	"expanded_folders":
 	[
 		"/home/philipp/blogs/howto",
-		"/home/philipp/blogs/howto/themes"
+		"/home/philipp/blogs/howto/themes",
+		"/home/philipp/blogs/howto/themes/ewal",
+		"/home/philipp/blogs/howto/themes/ewal/languages",
+		"/home/philipp/blogs/howto/themes/ewal/layout",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_partial",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/post",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_widget",
+		"/home/philipp/blogs/howto/themes/ewal/source",
+		"/home/philipp/blogs/howto/themes/ewal/source/css",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/highlightjs",
+		"/home/philipp/blogs/howto/themes/ewal/source/js"
 	],
 	"file_history":
 	[
+		"/home/philipp/blogs/howto/themes/ewal/source/css/_variables.less",
+		"/home/philipp/blogs/howto/themes/ewal/_config.yml",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/_post.less",
+		"/home/philipp/blogs/howto/themes/ewal/layout/index.ejs",
+		"/home/philipp/blogs/philippkeller/themes/ewal/_config.yml",
+		"/home/philipp/blogs/howto/themes/ewal/_config.example.yml",
+		"/home/philipp/blogs/howto/themes/ewal/layout/post.ejs",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/site.less",
+		"/home/philipp/blogs/howto/source/_posts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md",
+		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md",
+		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-mass-convert-mp3-files-to-aac-m3a.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-streamline-cd-ripping-without-tagging-track-data.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md",
+		"/home/philipp/blogs/howto/source/_posts/Send-javascript-errors-by-mail.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
+		"/home/philipp/blogs/howto/source/_posts/Python-Print-list-of-dicts-as-ascii-table.md",
+		"/home/philipp/blogs/howto/_config.yml",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/_abstract.less",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/head.ejs",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/highlightjs/solarized_dark.css",
 		"/home/philipp/blogs/howto/themes/landscape/source/css/_util/grid.styl",
 		"/home/philipp/blogs/howto/howto.sublime-project",
-		"/home/philipp/blogs/howto/themes/ewal/source/css/site.less",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_bootstrap/normalize.less",
-		"/home/philipp/blogs/howto/source/_posts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md",
-		"/home/philipp/blogs/howto/themes/ewal/source/css/_variables.less",
 		"/home/philipp/oss/serverless-sms-gateway/handler.py",
 		"/home/philipp/oss/ocr/ocr.py",
 		"/home/philipp/oss/ocr/handler.py",
@@ -328,24 +357,16 @@
 		"/home/philipp/blogs/howto/source/_posts/Django-Serve-big-files-via-fcgid.md",
 		"/home/philipp/blogs/howto/source/_posts/Tagsystems-performance-tests.md",
 		"/home/philipp/blogs/howto/source/_posts/Tags-with-MySQL-fulltext.md",
-		"/home/philipp/blogs/howto/_config.yml",
 		"/home/philipp/blogs/howto/source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md",
 		"/home/philipp/blogs/howto/source/_posts/set-timeout-for-a-shell-command-in-python.md",
 		"/home/philipp/blogs/howto/source/_posts/Python-Find-out-cpu-time-of-a-certain-process.md",
-		"/home/philipp/blogs/howto/source/_posts/Send-javascript-errors-by-mail.md",
 		"/home/philipp/blogs/howto/source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md",
 		"/home/philipp/blogs/howto/source/_posts/how-to-fix-jambox-static-noise.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
-		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md",
-		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md",
 		"/home/philipp/blogs/howto/source/_posts/Automated-tag-clustering.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
 		"/home/philipp/blogs/howto/source/_posts/Tag-history-and-gartners-hype-cycles.md",
 		"/home/philipp/blogs/howto/source/_posts/Tags-Database-schemas.md",
 		"/home/philipp/blogs/howto/feature-phone-with-tethering-nokia-asha-302",
-		"/home/philipp/blogs/howto/themes/ewal/source/css/_post.less",
 		"/home/philipp/blogs/philippkeller/_config.yml",
-		"/home/philipp/blogs/howto/themes/ewal/_config.yml",
 		"/home/philipp/blogs/philippkeller/.deploy_git/pages/chesterton-orthodoxie.html",
 		"/home/philipp/Downloads/cc1022.csv",
 		"/home/philipp/Downloads/cc1028.csv",
@@ -371,6 +392,34 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"<pre>",
+			"&rsquo;",
+			"pre",
+			"&rsquo;",
+			"&",
+			"htaccess",
+			"about",
+			"light",
+			".css.*",
+			"padding",
+			"1.42",
+			"padding",
+			"10.5",
+			"10.5px",
+			"pre",
+			"md-8",
+			"max",
+			"screen-xs-max",
+			"max-width",
+			"md-8",
+			"555",
+			"ddd",
+			"1.42",
+			"ddd",
+			"line_number",
+			"ighlight",
+			"line",
+			"theme",
 			"figure",
 			"gutter"
 		],
@@ -380,6 +429,8 @@
 		"regex": true,
 		"replace_history":
 		[
+			"'",
+			""
 		],
 		"reverse": false,
 		"show_context": true,
@@ -438,7 +489,7 @@
 	"project": "howto.sublime-project",
 	"replace":
 	{
-		"height": 56.0
+		"height": 78.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -448,8 +499,108 @@
 		"selected_items":
 		[
 			[
+				"_con",
+				"_config.yml"
+			],
+			[
+				"appeng",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
+			],
+			[
+				"_post",
+				"themes/ewal/source/css/_post.less"
+			],
+			[
+				"adapt",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md"
+			],
+			[
+				"appengin",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
+			],
+			[
+				"attach",
+				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
+			],
+			[
+				"mass-",
+				"source/_posts/How-to-mass-convert-mp3-files-to-aac-m3a.md"
+			],
+			[
+				"streamlin",
+				"source/_posts/How-to-streamline-cd-ripping-without-tagging-track-data.md"
+			],
+			[
+				"_post.l",
+				"themes/ewal/source/css/_post.less"
+			],
+			[
+				"exampl",
+				"themes/ewal/_config.example.yml"
+			],
+			[
+				"headless",
+				"source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md"
+			],
+			[
+				"javascript",
+				"source/_posts/Send-javascript-errors-by-mail.md"
+			],
+			[
+				"how-tomig",
+				"source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md"
+			],
+			[
+				"list-of",
+				"source/_posts/Python-Print-list-of-dicts-as-ascii-table.md"
+			],
+			[
+				"excm",
+				"themes/ewal/_config.example.yml"
+			],
+			[
+				"ex",
+				"themes/ewal/_config.example.yml"
+			],
+			[
+				"exam",
+				"themes/ewal/_config.example.yml"
+			],
+			[
+				"_conf",
+				"_config.yml"
+			],
+			[
+				"post.ejs",
+				"themes/ewal/layout/post.ejs"
+			],
+			[
+				"_config",
+				"themes/ewal/_config.yml"
+			],
+			[
+				"_va",
+				"themes/ewal/source/css/_variables.less"
+			],
+			[
+				"_post.less",
+				"themes/ewal/source/css/_post.less"
+			],
+			[
 				"site.less",
 				"themes/ewal/source/css/site.less"
+			],
+			[
+				"scan-",
+				"source/_posts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md"
+			],
+			[
+				"head",
+				"themes/ewal/layout/_partial/head.ejs"
+			],
+			[
+				"scan",
+				"source/_posts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md"
 			],
 			[
 				"read",
@@ -458,10 +609,6 @@
 			[
 				"en.yml",
 				"themes/ewal/languages/en.yml"
-			],
-			[
-				"headless",
-				"source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md"
 			],
 			[
 				"a.py",
@@ -478,10 +625,6 @@
 			[
 				"sono",
 				"sonos.py"
-			],
-			[
-				"ex",
-				"secrets-example.yml"
 			],
 			[
 				"se",
@@ -636,10 +779,6 @@
 				"source/_posts/set-timeout-for-a-shell-command-in-python.md"
 			],
 			[
-				"_config",
-				"themes/ewal/_config.yml"
-			],
-			[
 				"chest",
 				"source/pages/chesterton-orthodoxie.html"
 			],
@@ -675,7 +814,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 220.0,
 	"status_bar_visible": true,
 	"template_settings":
