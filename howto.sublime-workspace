@@ -151,17 +151,17 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 124.0,
-		"last_filter": "install",
+		"height": 154.0,
+		"last_filter": "wrap",
 		"selected_items":
 		[
 			[
-				"install",
-				"Package Control: Install Package"
-			],
-			[
 				"wrap",
 				"Word Wrap: Toggle"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
 			],
 			[
 				"proj",
@@ -267,27 +267,43 @@
 	],
 	"file_history":
 	[
+		"/home/philipp/blogs/howto/source/_posts/Automated-tag-clustering.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
+		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
+		"/home/philipp/blogs/howto/_config.yml",
+		"/home/philipp/blogs/howto/source/_posts/Python-Print-list-of-dicts-as-ascii-table.md",
+		"/home/philipp/blogs/howto/source/_posts/Send-javascript-errors-by-mail.md",
+		"/home/philipp/blogs/howto/source/_posts/Django-Serve-big-files-via-fcgid.md",
+		"/home/philipp/blogs/howto/source/_posts/Python-Find-out-cpu-time-of-a-certain-process.md",
+		"/home/philipp/blogs/howto/source/_posts/set-timeout-for-a-shell-command-in-python.md",
+		"/home/philipp/blogs/howto/source/_posts/Turn-demoscene-modules-into-mp3s.md",
+		"/home/philipp/blogs/howto/source/_posts/Tags-Database-schemas.md",
+		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-mass-convert-mp3-files-to-aac-m3a.md",
+		"/home/philipp/blogs/howto/source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md",
+		"/home/philipp/blogs/howto/source/_posts/Tag-history-and-gartners-hype-cycles.md",
+		"/home/philipp/blogs/howto/source/_posts/Tags-with-MySQL-fulltext.md",
+		"/home/philipp/blogs/howto/source/_posts/Tagsystems-performance-tests.md",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_variables.less",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/_bootstrap/variables.less",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/header.ejs",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/article.ejs",
+		"/home/philipp/blogs/howto/themes/ewal/layout/post.ejs",
+		"/home/philipp/blogs/howto/themes/ewal/_config.example.yml",
+		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/head.ejs",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/site.less",
+		"/home/philipp/blogs/howto/themes/ewal/source/css/_core.less",
+		"/home/philipp/blogs/howto/source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md",
+		"/home/philipp/blogs/howto/themes/ewal/languages/en.yml",
+		"/home/philipp/blogs/howto/source/_posts/How-to-streamline-cd-ripping-without-tagging-track-data.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md",
 		"/home/philipp/blogs/howto/themes/ewal/_config.yml",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_post.less",
 		"/home/philipp/blogs/howto/themes/ewal/layout/index.ejs",
 		"/home/philipp/blogs/philippkeller/themes/ewal/_config.yml",
-		"/home/philipp/blogs/howto/themes/ewal/_config.example.yml",
-		"/home/philipp/blogs/howto/themes/ewal/layout/post.ejs",
-		"/home/philipp/blogs/howto/themes/ewal/source/css/site.less",
 		"/home/philipp/blogs/howto/source/_posts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md",
-		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md",
-		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-mass-convert-mp3-files-to-aac-m3a.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-streamline-cd-ripping-without-tagging-track-data.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md",
-		"/home/philipp/blogs/howto/source/_posts/Send-javascript-errors-by-mail.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
-		"/home/philipp/blogs/howto/source/_posts/Python-Print-list-of-dicts-as-ascii-table.md",
-		"/home/philipp/blogs/howto/_config.yml",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_abstract.less",
-		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/head.ejs",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/highlightjs/solarized_dark.css",
 		"/home/philipp/blogs/howto/themes/landscape/source/css/_util/grid.styl",
 		"/home/philipp/blogs/howto/howto.sublime-project",
@@ -353,18 +369,7 @@
 		"/home/philipp/Downloads/cc-2017-11-27.csv",
 		"/home/philipp/Google Drive/local.ch/Localsearch.todo",
 		"/home/philipp/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/philipp/blogs/howto/source/_posts/Turn-demoscene-modules-into-mp3s.md",
-		"/home/philipp/blogs/howto/source/_posts/Django-Serve-big-files-via-fcgid.md",
-		"/home/philipp/blogs/howto/source/_posts/Tagsystems-performance-tests.md",
-		"/home/philipp/blogs/howto/source/_posts/Tags-with-MySQL-fulltext.md",
-		"/home/philipp/blogs/howto/source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md",
-		"/home/philipp/blogs/howto/source/_posts/set-timeout-for-a-shell-command-in-python.md",
-		"/home/philipp/blogs/howto/source/_posts/Python-Find-out-cpu-time-of-a-certain-process.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md",
 		"/home/philipp/blogs/howto/source/_posts/how-to-fix-jambox-static-noise.md",
-		"/home/philipp/blogs/howto/source/_posts/Automated-tag-clustering.md",
-		"/home/philipp/blogs/howto/source/_posts/Tag-history-and-gartners-hype-cycles.md",
-		"/home/philipp/blogs/howto/source/_posts/Tags-Database-schemas.md",
 		"/home/philipp/blogs/howto/feature-phone-with-tethering-nokia-asha-302",
 		"/home/philipp/blogs/philippkeller/_config.yml",
 		"/home/philipp/blogs/philippkeller/.deploy_git/pages/chesterton-orthodoxie.html",
@@ -384,6 +389,7 @@
 		"height": 119.0,
 		"where_history":
 		[
+			"*.md",
 			""
 		]
 	},
@@ -392,6 +398,28 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\\*[ ]+",
+			"query fo",
+			"</?span>",
+			"span",
+			"img",
+			"tag",
+			"tags",
+			"&rdquo;",
+			"&ldquo;",
+			"&rsquo;",
+			"page.",
+			"artwork",
+			"lang",
+			"container",
+			"color",
+			"h1",
+			"18px",
+			"height",
+			"line-height",
+			"h1",
+			"font-family",
+			"font",
 			"<pre>",
 			"&rsquo;",
 			"pre",
@@ -429,6 +457,9 @@
 		"regex": true,
 		"replace_history":
 		[
+			"- ",
+			"",
+			"\"",
 			"'",
 			""
 		],
@@ -499,6 +530,110 @@
 		"selected_items":
 		[
 			[
+				"database",
+				"source/_posts/Tags-Database-schemas.md"
+			],
+			[
+				"demo",
+				"source/_posts/Turn-demoscene-modules-into-mp3s.md"
+			],
+			[
+				"settime",
+				"source/_posts/set-timeout-for-a-shell-command-in-python.md"
+			],
+			[
+				"cputime",
+				"source/_posts/Python-Find-out-cpu-time-of-a-certain-process.md"
+			],
+			[
+				"serve",
+				"source/_posts/Django-Serve-big-files-via-fcgid.md"
+			],
+			[
+				"javasc",
+				"source/_posts/Send-javascript-errors-by-mail.md"
+			],
+			[
+				"printlist",
+				"source/_posts/Python-Print-list-of-dicts-as-ascii-table.md"
+			],
+			[
+				"_conf",
+				"_config.yml"
+			],
+			[
+				"wordpress",
+				"source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md"
+			],
+			[
+				"adapt",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md"
+			],
+			[
+				"tutoria",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
+			],
+			[
+				"mass",
+				"source/_posts/How-to-mass-convert-mp3-files-to-aac-m3a.md"
+			],
+			[
+				"attach",
+				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
+			],
+			[
+				"featu",
+				"source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md"
+			],
+			[
+				"feature",
+				"source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md"
+			],
+			[
+				"stream",
+				"source/_posts/How-to-streamline-cd-ripping-without-tagging-track-data.md"
+			],
+			[
+				"header",
+				"themes/ewal/layout/_partial/header.ejs"
+			],
+			[
+				"post.",
+				"themes/ewal/layout/post.ejs"
+			],
+			[
+				"_head",
+				"themes/ewal/layout/_partial/head.ejs"
+			],
+			[
+				"en.",
+				"themes/ewal/languages/en.yml"
+			],
+			[
+				"_config",
+				"themes/ewal/_config.example.yml"
+			],
+			[
+				"ras",
+				"source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md"
+			],
+			[
+				"article",
+				"themes/ewal/layout/_partial/article.ejs"
+			],
+			[
+				"post",
+				"themes/ewal/layout/post.ejs"
+			],
+			[
+				"less",
+				"themes/ewal/source/css/_core.less"
+			],
+			[
+				"site",
+				"themes/ewal/source/css/site.less"
+			],
+			[
 				"_con",
 				"_config.yml"
 			],
@@ -511,16 +646,8 @@
 				"themes/ewal/source/css/_post.less"
 			],
 			[
-				"adapt",
-				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md"
-			],
-			[
 				"appengin",
 				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
-			],
-			[
-				"attach",
-				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
 			],
 			[
 				"mass-",
@@ -567,16 +694,8 @@
 				"themes/ewal/_config.example.yml"
 			],
 			[
-				"_conf",
-				"_config.yml"
-			],
-			[
 				"post.ejs",
 				"themes/ewal/layout/post.ejs"
-			],
-			[
-				"_config",
-				"themes/ewal/_config.yml"
 			],
 			[
 				"_va",
@@ -769,10 +888,6 @@
 			[
 				"demosc",
 				"source/_posts/Turn-demoscene-modules-into-mp3s.md"
-			],
-			[
-				"feature",
-				"source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md"
 			],
 			[
 				"set-tim",
