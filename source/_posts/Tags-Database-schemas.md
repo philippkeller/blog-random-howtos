@@ -18,16 +18,16 @@ Apparently there are three different solutions (**Attention: **If you are build
 
 ![mysqlicious sample data](https://lh3.googleusercontent.com/-yV7B1_K6nEM/UL0AyrAz2yI/AAAAAAAALDc/3nRpzrNXMwM/s373/mysqlicious_data.png)![mysqlicious database stucture](https://lh4.googleusercontent.com/-PSV7DWIwy0Q/UL0AyyL_z0I/AAAAAAAALDg/vUhaDRz9b-4/s128/mysqlicious_structure.png)
 
-<span>In this solution, the schema has got just one table, it is </span>[denormalized](http://en.wikipedia.org/wiki/Denormalization)<span>.</span>
+In this solution, the schema has got just one table, it is [denormalized](http://en.wikipedia.org/wiki/Denormalization)
 
-<span></span><span>I named this solution "MySQLicious solution" because </span>[MySQLicious](http://nanovivid.com/projects/mysqlicious/)<span> imports del.icio.us data into a table with this structure.</span>
+I named this solution "MySQLicious solution" because [MySQLicious](http://nanovivid.com/projects/mysqlicious/) imports del.icio.us data into a table with this structure.
 
 ### Intersection (AND)
 
 Query for `search+webservice+semweb`:
 
 ```sql
-SELECT * 
+SELECT - 
 FROM `delicious` 
 WHERE tags LIKE "%search%" 
 AND tags LIKE "%webservice%" 
@@ -39,7 +39,7 @@ AND tags LIKE "%semweb%"
 Query for `search|webservice|semweb`
 
 ```sql
-SELECT * 
+SELECT - 
 FROM `delicious` 
 WHERE tags LIKE "%search%" 
 OR tags LIKE "%webservice%" 
@@ -51,7 +51,7 @@ OR tags LIKE "%semweb%"
 Query for `search+webservice-semweb`
 
 ```
-SELECT * 
+SELECT - 
 FROM `delicious` 
 WHERE tags LIKE "%search%" 
 AND tags LIKE "%webservice%" 
@@ -66,7 +66,7 @@ The advantages of this solution:
 - the queries are very straightforward
 - one can also achieve results via fulltextsearch. That might be a little faster.
 - queries are quite slow according to some commenters. Fulltext search would speed up a bit. I [did some performance tests](http://tagging.pui.ch/post/37027746608/tagsystems-performance-tests) to prove that.
-- [In my follow up post I dealt with MySQL fulltext concerning tagging](http://tagging.pui.ch/post/37027745995/tags-with-mysql-fulltext)<span>.</span>
+- [In my follow up post I dealt with MySQL fulltext concerning tagging](http://tagging.pui.ch/post/37027745995/tags-with-mysql-fulltext).
 
 Disadvantages:
 
@@ -79,83 +79,95 @@ Scuttle organizes its data in two tables. That table "scCategories" is the "tag"
 
 ### Intersection (AND)
 
-Query for "bookmark+webservice+semweb":
+Query for `bookmark+webservice+semweb`:
 
-`SELECT b.*
+```sql
+SELECT b.*
 FROM scBookmarks b, scCategories c
 WHERE c.bId = b.bId
 AND (c.category IN ('bookmark', 'webservice', 'semweb'))
 GROUP BY b.bId
-HAVING COUNT( b.bId )=3`
+HAVING COUNT( b.bId )=3
+```
 
-<span>First, all bookmark-tag combinations are searched, where the tag is "bookmark", "webservice" or "semweb" (</span>`c.category IN ('bookmark', 'webservice', 'semweb')`<span>), then just the bookmarks that have got all three tags searched for are taken into account (</span>`HAVING COUNT(b.bId)=3`<span>).</span>
+First, all bookmark-tag combinations are searched, where the tag is "bookmark", "webservice" or "semweb" (`c.category IN ('bookmark', 'webservice', 'semweb')`), then just the bookmarks that have got all three tags searched for are taken into account (`HAVING COUNT(b.bId)=3`).
 
 ### Union (OR)
 
-Query for "bookmark|webservice|semweb":
+Query for `bookmark|webservice|semweb`:
 
 Just leave out the `HAVING` clause and you have union:
 
-`SELECT b.*
+```sql
+SELECT b.*
 FROM scBookmarks b, scCategories c
 WHERE c.bId = b.bId
 AND (c.category IN ('bookmark', 'webservice', 'semweb'))
-GROUP BY b.bId`
+GROUP BY b.bId
+```
 
 ### Minus (Exclusion)
 
-<span>Query for "bookmark+webservice-semweb", that is: bookmark AND webservice AND NOT semweb.</span>
-`SELECT b. *
+Query for `bookmark+webservice-semweb`, that is: bookmark AND webservice AND NOT semweb.
+
+```sql
+SELECT b. *
 FROM scBookmarks b, scCategories c
 WHERE b.bId = c.bId
 AND (c.category IN ('bookmark', 'webservice'))
 AND b.bId NOT
 IN (SELECT b.bId FROM scBookmarks b, scCategories c WHERE b.bId = c.bId AND c.category = 'semweb')
 GROUP BY b.bId
-HAVING COUNT( b.bId ) =2`
+HAVING COUNT( b.bId ) =2
+```
 
 Leaving out the `HAVING COUNT` leads to the Query for "bookmark|webservice-semweb".
 Credits go to [Rhomboid](http://www.metafilter.com/user/26222) for [helping me out with this query](http://ask.metafilter.com/mefi/34897#544185).
 
 ### Conclusion
 
-<span>I guess the main advantage of this solution is that it is more normalized than the first solution, and that you can have unlimited number of tags per bookmark.</span>
+I guess the main advantage of this solution is that it is more normalized than the first solution, and that you can have unlimited number of tags per bookmark.
 
 ## <a id="toxi" name="toxi"></a>"Toxi" solution
 
 ![image](https://lh3.googleusercontent.com/-WmVNkFcCHOI/UL0A3982dZI/AAAAAAAALEI/GC0DI-wfiIU/s330/toxi_structure.png)
 
-[Toxi](http://toxi.co.uk/)<span> came up with a three-table structure. Via the table "tagmap" the bookmarks and the tags are n-to-m related. Each tag can be used together with different bookmarks and vice versa. This DB-schema is also used by </span>[wordpress](http://wordpress.org/)<span>.</span>
+[Toxi](http://toxi.co.uk/) came up with a three-table structure. Via the table "tagmap" the bookmarks and the tags are n-to-m related. Each tag can be used together with different bookmarks and vice versa. This DB-schema is also used by [wordpress](http://wordpress.org/).
 
-<span></span><span>The queries are quite the same as in the "scuttle" solution.</span>
+The queries are quite the same as in the "scuttle" solution.
 
 ### Intersection (AND)
 
-<span>Query for "bookmark+webservice+semweb"</span>
+Query for `bookmark+webservice+semweb`
 
-<span></span>`SELECT b.*
+```sql
+SELECT b.*
 FROM tagmap bt, bookmark b, tag t
 WHERE bt.tag_id = t.tag_id
 AND (t.name IN ('bookmark', 'webservice', 'semweb'))
 AND b.id = bt.bookmark_id
 GROUP BY b.id
-HAVING COUNT( b.id )=3`
+HAVING COUNT( b.id )=3
+```
 
 ### Union (OR)
 
-Query for “bookmark|webservice|semweb”
+Query for `bookmark|webservice|semweb`
 
-`SELECT b.*
+```sql
+SELECT b.*
 FROM tagmap bt, bookmark b, tag t
 WHERE bt.tag_id = t.tag_id
 AND (t.name IN ('bookmark', 'webservice', 'semweb'))
 AND b.id = bt.bookmark_id
-GROUP BY b.id`
+GROUP BY b.id
+```
 
 ### Minus (Exclusion)
 
-<span>Query for "bookmark+webservice-semweb", that is: bookmark AND webservice AND NOT semweb.</span>
-`
+Query for `bookmark+webservice-semweb`, that is: bookmark AND webservice AND NOT semweb.
+
+```sql
 SELECT b. *
 FROM bookmark b, tagmap bt, tag t
 WHERE b.id = bt.bookmark_id
@@ -163,24 +175,29 @@ AND bt.tag_id = t.tag_id
 AND (t.name IN ('Programming', 'Algorithms'))
 AND b.id NOT IN (SELECT b.id FROM bookmark b, tagmap bt, tag t WHERE b.id = bt.bookmark_id AND bt.tag_id = t.tag_id AND t.name = 'Python')
 GROUP BY b.id
-HAVING COUNT( b.id ) =2`
-Leaving out the `HAVING COUNT` leads to the Query for "bookmark|webservice-semweb".
+HAVING COUNT( b.id ) =2```
+
+Leaving out the `HAVING COUNT` leads to the Query for `bookmark|webservice-semweb`.
 Credits go to [Rhomboid](http://www.metafilter.com/user/26222) for [helping me out with this query](http://ask.metafilter.com/mefi/34897#544185).
 
 ### Conclusion
 
-<span>The advantages of this solution:</span>
+The advantages of this solution:
 
-*   You can save extra information on each tag (description, tag hierarchy, &hellip;)
-*   This is the most normalized solution (that is, if you go for [3NF](http://en.wikipedia.org/wiki/3NF): take this one :-)
+- You can save extra information on each tag (description, tag hierarchy, &hellip;)
+- This is the most normalized solution (that is, if you go for [3NF](http://en.wikipedia.org/wiki/3NF): take this one :-)
 
-<span>Disadvantages:</span>
+Disadvantages:
 
-*   When altering or deleting bookmarks you can end up with tag-orphans.
+- When altering or deleting bookmarks you can end up with tag-orphans.
 
 If you want to have more complicated queries like (bookmarks OR bookmark) AND (webservice or WS) AND NOT (semweb or semanticweb) the queries tend to become very complicated. In these cases I suggest the following query/computation process:
 
-1.  Run a query for each tag appearing in your "tag-query": `SELECT b.id FROM tagmap bt, bookmark b, tag t WHERE bt.tag_id = t.tag_id AND b.id = bt.bookmark_id AND t.name = "semweb"`
+1.  Run a query for each tag appearing in your "tag-query":
+    ```sql
+    SELECT b.id FROM tagmap bt, bookmark b, tag t 
+    WHERE bt.tag_id = t.tag_id AND b.id = bt.bookmark_id AND t.name = "semweb"
+    ```
 2.  Put each id-set from the result into an array (that is: in your favourite coding language). You could cache this arrays if you want..
 3.  Constrain the arrays with union or intersection or whatever.
 
@@ -189,13 +206,13 @@ This is the most flexible data structure and I guess it should scale pretty good
 
 **Update May, 2006**. This arcticle got quite some attention. I wasn't really prepared for that! It seems people keep referring to it and even some new sites that allow tagging give credit to my articles. I think the real credit goes to the contributers of the different schemas: [MySQLicious](http://nanovivid.com/projects/mysqlicious/), [scuttle](http://sourceforge.net/projects/scuttle/), [Toxi](http://toxi.co.uk/) and to all the contributors of the comments (be sure to read them!)
 
-<span>P.S. Thanks to </span>[Toxi](http://toxi.co.uk/)<span> for sending me the queries for the three-table-schema, Benjamin Reitzammer for pointing me to </span>[a loughing meme article](http://laughingmeme.org/archives/002918.html)<span> (a good reference for tag queries) and powerlinux for pointing me to </span>[scuttle](http://sourceforge.net/projects/scuttle/)<span>.</span>
+P.S. Thanks to [Toxi](http://toxi.co.uk/) for sending me the queries for the three-table-schema, Benjamin Reitzammer for pointing me to [a loughing meme article](http://laughingmeme.org/archives/002918.html) (a good reference for tag queries) and powerlinux for pointing me to [scuttle](http://sourceforge.net/projects/scuttle/).
 Further reading
 
-*   [Taglist: a mailing list dedicated to schemas with tagging](http://lists.tagschema.com/mailman/listinfo/tagdb)
-*   [Tagschema: A blog dedicated to tagging schemas](http://tagschema.com/blogs/tagschema/)
-*   [Tag-related Queries on Snippets](http://www.bigbold.com/snippets/tags/tagging)
-*   [Freetag](http://www.getluky.net/freetag/)<span> is a php "library" with which you can add tags to whatever object you like. It actually uses the "toxi schema".</span>
-*   <span>Hammy </span>[gives an insight](http://hellojoseph.com/tags-howto.php)<span> how he did his tagging system with "less DB and more code" (that is: regular expressions), interesting!</span>
-*   <span>Brad Choate </span>[has got some ideas](http://bradchoate.com/weblog/2004/10/06/delicious)<span> which tag queries should be possible</span>
-*   <span>Feedmaker has written </span>[a sort of reply to this article](http://blog.feedmarker.com/2005/04/26/tagging-in-mysql/)
+- [Taglist: a mailing list dedicated to schemas with tagging](http://lists.tagschema.com/mailman/listinfo/tagdb)
+- [Tagschema: A blog dedicated to tagging schemas](http://tagschema.com/blogs/tagschema/)
+- [Tag-related Queries on Snippets](http://www.bigbold.com/snippets/tags/tagging)
+- [Freetag](http://www.getluky.net/freetag/) is a php "library" with which you can add tags to whatever object you like. It actually uses the "toxi schema".
+- Hammy [gives an insight](http://hellojoseph.com/tags-howto.php) how he did his tagging system with "less DB and more code" (that is: regular expressions), interesting!
+- Brad Choate [has got some ideas](http://bradchoate.com/weblog/2004/10/06/delicious) which tag queries should be possible
+- Feedmaker has written [a sort of reply to this article](http://blog.feedmarker.com/2005/04/26/tagging-in-mysql/)
