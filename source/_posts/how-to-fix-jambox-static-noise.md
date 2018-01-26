@@ -6,7 +6,7 @@ date: 2012-07-21 15:07:00
 alias: /post/37471161448/how-to-fix-jambox-static-noise-and-no-bluetooth
 ---
 
-<img alt="fixed!" src="http://i.imgur.com/ofR49.png" style="float: right;"></div>
+![fixed](/images/soldered.png)
 
 Jambox is a pretty cool device: The sound quality is very good, it is small, it has a battery. I liked it. Until it broke. It just didn't play music over bluetooth any more but instead uttered static noise. This seems to be a quite severe production problem as <a href="http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/Static-and-dropping-bluetooth-My-customer-service-call/m-p/37461">many</a> <a href="http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/jambox-static-and-airplay/td-p/6676">many</a> <a href="http://www.amazon.com/review/R3GYH7DT8H8EKR/ref=cm_cr_pr_cmt?ie=UTF8&amp;ASIN=B004E10KGU">many</a> people have devices with the exact same problem. So going down the "Jambox please replace my device" way didn't sound promising to me. The possibility that the replacement device is broken as well is just too high.
 
@@ -35,9 +35,10 @@ There's <a href="http://www.youtube.com/watch?v=X5APtwqtEps">a good video descri
 
 ### What to solder?
 
-<img class="caption" alt="the two contacts you need to bridge" src="http://i.imgur.com/cAWlo.jpg" />
 
-<strong>Update</strong>: David Choi <a href="http://www.youtube.com/watch?v=nd5nF2hSFHw&amp;feature=youtu.be">has made a video</a> that shows very well which two contacts to solder. He claims that with good soldering skills you can achieve that both bluetooth and aux will still work.
+<img class="caption" alt="The two contacts you need to bridge" src="/images/aux_port.jpg" />
+
+**Update**: David Choi [has made a video](http://www.youtube.com/watch?v=nd5nF2hSFHw&amp;feature=youtu.be) that shows very well which two contacts to solder. He claims that with good soldering skills you can achieve that both bluetooth and aux will still work.
 
 It's pretty simple: Follow the aux port and where the end of the aux jack would be there are 2 metal contacts which need to be soldered together. Turn on the jambox and try to push the upper metal contact so the two metal pieces touch and you'll hear the bluetooth sound. Hearing the music should give you enough motivation now to go on. Now:
 
@@ -47,9 +48,9 @@ It's pretty simple: Follow the aux port and where the end of the aux jack would 
 
 ### How to assemble
 
-<img class="caption" src="http://i.imgur.com/8YeqZ.jpg" alt="I needed to bend the two metal pieces at the end of the grid to be able to assemble it" />
+<img class="caption" src="/images/bend.jpg" alt="I needed to bend the two metal pieces at the end of the grid to be able to assemble it" />
 
-Again <a href="http://www.youtube.com/watch?v=X5APtwqtEps&amp;t=10m40s">follow the video starting from 10:40</a>
+Again [follow the video starting from 10:40](http://www.youtube.com/watch?v=X5APtwqtEps&amp;t=10m40s)
 
 I found the assembling the hardest part. In the end I needed to bend the small metal pieces of the grid to be able to put it back together (although I didn't follow the video so you might be more successful).
 

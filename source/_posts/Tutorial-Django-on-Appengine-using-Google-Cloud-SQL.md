@@ -12,7 +12,7 @@ css:
 alias: /post/39245389801/tutorial-django-on-appengine-using-google-cloud
 ---
 
-![](https://lh5.googleusercontent.com/-lX6aq3qvV50/UOC0ONuosVI/AAAAAAAAMUE/Q_occPtbmnQ/s230/Untitled-1.png)
+![](/images/django_google.png)
 Google is running an [introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013](https://developers.google.com/cloud-sql/docs/billing#intro_trial). That's the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.
 
 Hence I decided to give it a try and documented all into a very complete tutorial how to start a Django 1.4 project running on "Google App Engine".
@@ -84,7 +84,7 @@ Your instance will be located in the US unless you're willing to pay [500$ a mon
 This is the path prefix you'll put before all the `xyz_ROOT` settings later.
 5.  run this one level up of your python project directory: `dev_appserver.py mysite`
 
-Congrats! Your [local instance](http://localhost:8080) now shows [this](http://i.imgur.com/rXh74.png) - hopefully :-)
+Congrats! Your [local instance](http://localhost:8080) now shows [this](/images/django_welcome.png) - hopefully :-)
 
 # Set up Google Cloud SQL
 

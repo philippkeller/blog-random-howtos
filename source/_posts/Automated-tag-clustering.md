@@ -12,7 +12,8 @@ alias: /post/37027750128/automated-tag-clustering
 
 After the presentation at the [tagging workshop](http://blog.rawsugar.com/wikka/wikka.php?wakka=HomePage) at www2006 we felt the need to give our paper a more www-friendly, I-don't-want-to-read-through-those-theoretical-equation-flooded-papers face.
 
-[![clustering the tag space](http://i.imgur.com/40BW8.png "clustering the tag space")](http://tagging.pui.ch/automated_tag_clustering/#cluster)
+
+![clustering the tag space](/images/cluster.png)
 
 So, here you go: [Automated Tag Clustering: Improving search and exploration in the tag space](http://tagging.pui.ch/automated_tag_clustering/).<!-- more -->
 

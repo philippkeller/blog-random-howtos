@@ -10,7 +10,7 @@ css:
   - "pre>code.hljs {font-size: 80%}"
 ---
 
-![asdf](http://i.imgur.com/UnohuzJ.png)
+![attach file](/images/attach.png)
 
 The following setup lets you
 
