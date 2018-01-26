@@ -52,7 +52,3 @@ I wrote a [python script](/files/mod2mp3.py) that converts the downloaded module
 Just call `mod2mp3.py` with your root module directory as argument and the script creates a mp3 file for each module that is convertible and isn't already converted. If you downloaded the modules with my download script, this script will use the meta information of the first script to write the id3 tags of the mp3s.
 
 If everything worked, you now should have mp3 files with correct id3 tags that can be imported into your amarok/itunes library.
-
-### What about us windows users?
-
-Sorry guys. I've got to let you down. One whole evening I tried to get any module player writing it's output to a wave file from the command line. I tried [modplug](http://www.modplug.com/playerinfo.html) and [Winamp](http://www.winamp.com) with a [module player plugin](http://www.winamp.com/plugins/details.php?id=132367) but without luck. If you succeed, let me know. Up to then, just take a linux box, copy/download all modules there and let the box convert your modules over night and import it back into your iTunes player. That's what I did.

@@ -140,5 +140,6 @@ The graphs are done using [JpGraph](http://jpgraph.net/). Very easy to use and p
 
 ### Further reading
 
+- [WebmasterWorld forum: mysql fulltext performance issues](http://www.webmasterworld.com/forum23/3557.htm)
 - [Powerpoint article of jeremy zawodny](http://jeremy.zawodny.com/mysql/mysql-optimization.html)on Mysql optimisation
 - [Pete Freitag did a sort of review of this article](http://www.petefreitag.com/item/389.cfm)

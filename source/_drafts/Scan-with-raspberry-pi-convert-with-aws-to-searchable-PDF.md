@@ -4,7 +4,7 @@ date: 2018-01-22 21:16:13
 tags:
 ---
 
-![scan flow scanner to raspberry to s3 to lambda to s3](/images/scan_flow.png)
+<img src="/images/scan_flow.png" alt="Flow from scanner to raspberry to s3 to lambda to s3"/>
 
 I have long dreamed for a setup which lets me just press the scan button on my scanner and without any further input it uploads it as a searchable PDF onto some cloud store. Thanks to the good support of scanners by SANE and the ease of use of AWS lambda it's actually *quite* easy (judging to the length of this post it looks like quite a task, but in the end it is straightforwards and is - surprisingly - quite free of hacks).
 

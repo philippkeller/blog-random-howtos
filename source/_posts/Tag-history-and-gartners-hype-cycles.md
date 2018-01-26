@@ -7,66 +7,63 @@ date: 2007-05-12 16:21:00
 alias: /post/37027751523/tag-history-and-gartners-hype-cycles
 ---
 
-For [last Webtuesday](http://www.webtuesday.ch/meetings/20070508) I gathered a few historic data of the «tag movement» (that got very quiet in the last two years).
+For last Webtuesday I gathered a few historic data of the «tag movement» (that got very quiet in the last two years).
 
-<div class="caption">[![History of tags](https://lh3.googleusercontent.com/-EFKH93Nx_sA/UL0B68HClVI/AAAAAAAALHw/pa3Ba1ha7tU/s800/tagging_history_900.gif)](/phred/images/tagging_history_900.gif)</div>
-<div class="caption">**
-**</div>
-<div class="caption">**Update September, 2007**<span>: </span>[Thomas Vander Wal wrote a very good roundup on the tag history](http://vanderwal.net/random/entrysel.php?blog=1945)[<span>.</span>](/phred/images/tagging_history_900.gif)</div>
+![](/images/tagging_history_900.gif)
 
-<a href="/asdf">asdf</a>
-<img src="boa" />
+**Update September, 2007**: [Thomas Vander Wal wrote a very good roundup on the tag history](http://vanderwal.net/random/entrysel.php?blog=1945)
 
-### <!-- more -->Gartners hype cycles applied to tag history
+<!-- more -->
 
-<span>I think </span>[gartners hype cycles](http://en.wikipedia.org/wiki/Hype_cycle)<span> prove to be right when applied to the tag history (hype cycle descriptions taken from </span>[Floor eTrends](http://www.floor.nl/ebiz/gartnershypecycle.htm)<span>):</span>
+### Gartners hype cycles applied to tag history
 
-**<span>Technology trigger</span>**
+I think [gartners hype cycles](http://en.wikipedia.org/wiki/Hype_cycle) prove to be right when applied to the tag history (hype cycle descriptions taken from [Floor eTrends](http://www.floor.nl/ebiz/gartnershypecycle.htm)):
 
-> <span>A breakthrough, public demonstration, product launch or other event that generates significant </span><span>press and industry interest.</span>
+**Technology trigger**
+
+> A breakthrough, public demonstration, product launch or other event that generates significant press and industry interest.
 
 The technology trigger most likely was [del.icio.us](http://del.icio.us) and subsequently flickr adding tagging to their service.
 
 #### Peak of inflated expectations
 
-> <span>A phase of overenthusiasm and unrealistic projections during which a flurry of publicized </span><span>activity by technology leaders results in some successes but more failures as the technology is </span><span>pushed to its limits. The only enterprises making money at this stage are conference organizers </span><span>and magazine publishers.</span>
+> A phase of overenthusiasm and unrealistic projections during which a flurry of publicized activity by technology leaders results in some successes but more failures as the technology is pushed to its limits. The only enterprises making money at this stage are conference organizers and magazine publishers.
 
 In this phase there were indeed many blog posts talking about this subject, as [Louis Rosenfeld](http://louisrosenfeld.com/home/bloug_archive/000330.html)
 put it:
 
-> <span>Lately, you can't surf information architecture blogs for five minutes without stumbling on a </span><span>discussion of folksonomies</span>
+> Lately, you can't surf information architecture blogs for five minutes without stumbling on a discussion of folksonomies
 
-<span>I guess in this phase many people said things they now feel embarassed about.</span>
+I guess in this phase many people said things they now feel embarassed about.
 
-**<span>Trough of disillusionment</span>**
+**Trough of disillusionment**
 
-> <span>The point at which the technology becomes unfashionable and the press abandons the </span><span>topic, because the technology did not live up to its overinflated expectations.</span>
+> The point at which the technology becomes unfashionable and the press abandons the topic, because the technology did not live up to its overinflated expectations.
 
-<span>This is the phase we're in now. There are no blog posts any more. Tagging is not really</span>
+This is the phase we're in now. There are no blog posts any more. Tagging is not really
 
 unfashionable but the topic is "done" à la «if that's all what's tagging adds to the web experience, I'm not interested in this technology any more». There isn't much thinking and innovation going on.
 
 #### Slope of enlightenment
 
-> <span>Focused experimentation and solid hard work by an increasingly diverse range of organizations </span><span>lead to a true understanding of the technology's applicability, risks and benefits. Commercial </span><span>off-the-shelf methodologies and tools become available to ease the development process.</span>
+> Focused experimentation and solid hard work by an increasingly diverse range of organizations lead to a true understanding of the technology's applicability, risks and benefits. Commercial off-the-shelf methodologies and tools become available to ease the development process.
 
-<span>Let's hope gartner is right about the future of folksonomies!</span>
+Let's hope gartner is right about the future of folksonomies!
 
 #### Plateau of productivity
 
-> <span>The real-world benefits of the technology are demonstrated and accepted. Tools and </span><span>methodologies are increasingly stable as they enter their second and third generation. The final </span><span>height of the plateau varies according to whether the technology is broadly applicable or only </span><span>benefits a niche market.</span>
+> The real-world benefits of the technology are demonstrated and accepted. Tools and methodologies are increasingly stable as they enter their second and third generation. The final height of the plateau varies according to whether the technology is broadly applicable or only benefits a niche market.
 
 It has yet to show if folksonomies such as in del.icio.us or flickr prove themselves for the masses.
 
-**<span>Update (September, 2007): Do folksonomies apply to hype cycles at all?</span>**
+**Update (September, 2007): Do folksonomies apply to hype cycles at all?**
 
-Joe Lamantia [raises the question if tagging should be applied at all to Gartners Hype Cycles:](http://tagsonomy.com/index.php/the-tagging-hype-cycle/)
+Joe Lamantia raised the question if tagging should be applied at all to Gartners Hype Cycles:
 
-> <span>Tagging in fact shows few characteristics of the enterprise technologies that Gartner's Hype Cycle is built around</span>
+> Tagging in fact shows few characteristics of the enterprise technologies that Gartner's Hype Cycle is built around
 
-<span>Joe argues rightly, that tagging has not yet reached the broad economy, it's not that Gartner would care to apply folksonomies to their Hype Cycles.</span>
+Joe argues rightly, that tagging has not yet reached the broad economy, it's not that Gartner would care to apply folksonomies to their Hype Cycles.
 
-<span>Although: Gartner apply the hype cycle to technologies such as </span>["corporate blogging" or wikis](http://www.gartner.com/DisplayDocument?doc_cd=140881&amp;ref=g_SiteLink)<span>. It seems it does not lie in the nature of tagging that it won't ever apply to hype cycles, the only fact that hinders Gartner to apply tagging to their hype cycles is that there is no money earned with it. I'm not into business analysis at all so I am grateful for Joes insights which he concludes with:</span>
+Although: Gartner apply the hype cycle to technologies such as ["corporate blogging" or wikis](http://www.gartner.com/DisplayDocument?doc_cd=140881&amp;ref=g_SiteLink). It seems it does not lie in the nature of tagging that it won't ever apply to hype cycles, the only fact that hinders Gartner to apply tagging to their hype cycles is that there is no money earned with it. I'm not into business analysis at all so I am grateful for Joes insights which he concludes with:
 
-> <span>If it doesn't cost money, the perceived risks of the technology are lower, and the big analysis firms pay less attention, because their customers see less need to pay for analysis</span>
-<div class="blogger-post-footer">![](https://blogger.googleusercontent.com/tracker/2748783673844839576-47667312269518886?l=theneachwenttohisownhome.blogspot.com)</div>
+> If it doesn't cost money, the perceived risks of the technology are lower, and the big analysis firms pay less attention, because their customers see less need to pay for analysis

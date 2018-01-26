@@ -8,7 +8,7 @@ alias: /post/37471161448/how-to-fix-jambox-static-noise-and-no-bluetooth
 
 ![fixed](/images/soldered.png)
 
-Jambox is a pretty cool device: The sound quality is very good, it is small, it has a battery. I liked it. Until it broke. It just didn't play music over bluetooth any more but instead uttered static noise. This seems to be a quite severe production problem as <a href="http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/Static-and-dropping-bluetooth-My-customer-service-call/m-p/37461">many</a> <a href="http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/jambox-static-and-airplay/td-p/6676">many</a> <a href="http://www.amazon.com/review/R3GYH7DT8H8EKR/ref=cm_cr_pr_cmt?ie=UTF8&amp;ASIN=B004E10KGU">many</a> people have devices with the exact same problem. So going down the "Jambox please replace my device" way didn't sound promising to me. The possibility that the replacement device is broken as well is just too high.
+Jambox is a pretty cool device: The sound quality is very good, it is small, it has a battery. I liked it. Until it broke. It just didn't play music over bluetooth any more but instead uttered static noise. This seems to be a quite severe production problem as after some internet research I found that many people have devices with the exact same problem. So going down the "Jambox please replace my device" way didn't sound promising to me. The possibility that the replacement device is broken as well is just too high.
 
 The problem lies in the aux in port. The device thinks there's an aux cable plugged in and outputs the signal from the aux input when in fact it should play the bluetooth sound.
 
