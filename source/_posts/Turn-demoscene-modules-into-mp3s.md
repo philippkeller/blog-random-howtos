@@ -17,7 +17,7 @@ If you were part of the demoscene in your former life, if you were and still are
 
 ## short version for the impatient
 
-download [downloadmod.py](https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHucXNKdUVlUGsyaGs) and [mod2mp3.py](https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHubk9CdDFCdnJXNkE) into /usr/local/bin/
+download [downloadmod.py](/files/downloadmod.py) and [mod2mp3.py](/files/mod2mp3.py) into `/usr/local/bin/`
 
 ```bash
 sudo apt-get install xmp adplay unrar lame

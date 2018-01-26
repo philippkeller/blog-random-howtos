@@ -14,14 +14,14 @@ In this article I tested tagging of bookmarks, but as you can tag pretty much an
 
 I tested the following schemas (I keep the naming from the previous article):
 
-*   **mysqlicious**: One table. Tags are space separated in column "tags"; [as introduced](/2005/04/24/Tags-Database-schemas/tags-database-schemas#mysqlicious)
+*   **mysqlicious**: One table. Tags are space separated in column "tags"; [as introduced](/2005/04/24/Tags-Database-schemas#mysqlicious)
 *   **mysqlicious fulltext**: Same schema but with [mysql fulltext](http://dev.mysql.com/doc/mysql/en/fulltext-search.html) on the tag column; [as introduced](/2005/05/05/Tags-with-MySQL-fulltext/)
-*   **scuttle**: Two tables: One for bookmarks, one for tags. Tag-table has foreign key to bookmark table; [as introduced](/2005/04/24/Tags-Database-schemas/tags-database-schemas#scuttle)
-*   **toxi**: Three tables: One for bookmarks, one for tags, one for junction; [as introduced](/2005/04/24/Tags-Database-schemas/tags-database-schemas#toxi)
+*   **scuttle**: Two tables: One for bookmarks, one for tags. Tag-table has foreign key to bookmark table; [as introduced](/2005/04/24/Tags-Database-schemas#scuttle)
+*   **toxi**: Three tables: One for bookmarks, one for tags, one for junction; [as introduced](/2005/04/24/Tags-Database-schemas#toxi)
 
 You may want to have a close watch at the details of the schemas when having a look at the [sql-create-table-queries](http://pastie.org/5480706).
 
-But let's go directly to the results. The details about the setup of this tests are mentioned at the [end of this article](#setup). The x-axis depicts the number of bookmarks in the corresponding database, on the y-axis you see how much time each query took to execute.<!-- more -->
+But let's go directly to the results. The x-axis depicts the number of bookmarks in the corresponding database, on the y-axis you see how much time each query took to execute.<!-- more -->
 
 ### <a name="#results" id="#results"></a>Results
 
@@ -29,7 +29,7 @@ But let's go directly to the results. The details about the setup of this tests 
 
 ![Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset](/images/intersection_250_3_i300.png "Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset")
 
-The first two tests are done with 250 tags in the small dataset ([see below](#setup) for explanation). I think the queries in the "1 million bookmarks database" are the only size we should pay attention to. I mean if you have a small number of bookmarks, performance isn't really a thing to bother..
+The first two tests are done with 250 tags in the small dataset. I think the queries in the "1 million bookmarks database" are the only size we should pay attention to. I mean if you have a small number of bookmarks, performance isn't really a thing to bother..
 
 We run intersection queries, like
 
@@ -41,7 +41,7 @@ What is surprising me too, is that the queries on the 3 table schema are about d
 
 #### Intersection: 999 tag set
 
-![Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset](/images/intersection_999_3_300.png "Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset")
+![Intersection test with 300 queries, up to three tags in query, 250 tags in small dataset](/images/intersection_999_3_300.png)
 Now have a look to what happens if we broaden our small tag set: MySQLicious with fulltext suddenly gets the performance leader. That means, if you have a bookmark management system with diverse tags (this most probably comes from the fact that there are many users), the fulltext solution is possibly the way to go.
 So now, as you see, choosing the right schema is all about tag distribution. In my previous post about guessing the overall tag distribution on [del.icio.us](http://del.icio.us), I came to the conclusion, that delicious' most popular tag "design" is showing up in 3.2% of all bookmarks on [del.icio.us](http://del.icio.us). So then, what is the mean tag distribution?
 
@@ -52,7 +52,6 @@ So now, as you see, choosing the right schema is all about tag distribution. In 
 So I'd suggest that if your average distribution is 1%, take "toxi", if the distribution is broader, take "MySQLicious fulltext".
 
 If you take a closer look, you can see that the fulltext schema stayed as fast as when queried in the 250 tag set. That means, if you want to go sure your tag system responds ok in every situation, you should go with the "mysql fulltext" schema.
-[Hannes has done some further investigation on mysql fulltext running on MySQL 4.1](http://hannes.magiccards.info/get/results.html) (my tests were on MySQL 4.0.21)
 
 #### Union
 
@@ -88,13 +87,13 @@ I think you could have "mysqlicous fulltext" and "toxi" running at the same time
 
 ##### Slicing and dicing
 
-You could "slice and dice" data (as Nitin proposed it in [two](http://tagschema.com/blogs/tagschema/2005/06/slicing-and-dicing-data-20-part-1.html) of his [posts](http://tagschema.com/blogs/tagschema/2005/06/slicing-and-dicing-data-20-part-2.html)): That is: you slice your user/tag/item-room and build fact tables. You "prebuild" your results in a way. This way, inserts take long but queries themself should be much faster. In our examples, you would for instance first query the tag-intersections on "toxi" and then get the facts about each bookmark out of the "mysqlicious"-fact-table. But you really should read Nitins posts, as they give a lot of insight.
+You could "slice and dice" data, that is: you slice your user/tag/item-room and build fact tables. You "prebuild" your results in a way. This way, inserts take long but queries themself should be much faster. In our examples, you would for instance first query the tag-intersections on "toxi" and then get the facts about each bookmark out of the "mysqlicious"-fact-table. But you really should read Nitins posts, as they give a lot of insight.
 
 ##### Using a non RDBMS system
 
 **Update:** It's been about a year since I wrote that article, and during that year I came to the conclusion that [RDBMS](http://en.wikipedia.org/wiki/RDBMS) systems don't scale good in systems that have more than 1 million items. Yes, this is a warning: If you are planning to build a large scale system then look for alternatives to [RDBMS](http://en.wikipedia.org/wiki/RDBMS) systems. To quote Joshua Schachter, founder of [delicious](http://del.icio.us):
 «tags doesn't map to sql at all. so use partial indexing.»[[Joshua Schachter at Carson Summit](http://www.redmonk.com/jgovernor/2006/02/08/things-weve-learned-josh-schachter-quotes-of-the-day/)]
-I didn't try any of the non-RDBMS system but it looks like [Apache Lucene](http://lucene.apache.org/java/docs/) and [Hadoop](http://lucene.apache.org/hadoop/). There has been [a discussion on the Tagdb Mailing list](http://nelson.textdrive.com/pipermail/tagdb/2006-March/thread.html#164) about these solutions.
+I didn't try any of the non-RDBMS system but it looks like [Apache Lucene](http://lucene.apache.org/java/docs/) and [Hadoop](http://lucene.apache.org/hadoop/).
 
 ### <a id="setup" name="setup"></a>Performance Tests Setup
 
@@ -141,6 +140,5 @@ The graphs are done using [JpGraph](http://jpgraph.net/). Very easy to use and p
 
 ### Further reading
 
-- [WebmasterWorld forum: mysql fulltext performance issues](http://www.webmasterworld.com/forum23/3557.htm)
 - [Powerpoint article of jeremy zawodny](http://jeremy.zawodny.com/mysql/mysql-optimization.html)on Mysql optimisation
 - [Pete Freitag did a sort of review of this article](http://www.petefreitag.com/item/389.cfm)

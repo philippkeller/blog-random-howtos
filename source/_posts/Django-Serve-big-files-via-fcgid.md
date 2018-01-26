@@ -26,7 +26,7 @@ def download(request, filename):
 
 The problem: If the download of a file exceeded 5 minutes (big files and/or low
 bandwidth) the download was canceled on the server side by a timeout. This Apache
-configuration for mod_fcgid solved the problem (see [mod_fcgid documentation for BusyTimeout](http://fastcgi.coremail.cn/doc.htm))
+configuration for mod_fcgid solved the problem (Note that this has been renamed into `FcgidBusyTimeout`, [documentation here](https://httpd.apache.org/mod_fcgid/en/mod/mod_fcgid.html#fcgidbusytimeout))
 
 ```apache
 <IfModule mod_fcgid.c>

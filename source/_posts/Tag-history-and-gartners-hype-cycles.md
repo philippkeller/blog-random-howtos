@@ -14,6 +14,9 @@ For [last Webtuesday](http://www.webtuesday.ch/meetings/20070508) I gathered a f
 **</div>
 <div class="caption">**Update September, 2007**<span>: </span>[Thomas Vander Wal wrote a very good roundup on the tag history](http://vanderwal.net/random/entrysel.php?blog=1945)[<span>.</span>](/phred/images/tagging_history_900.gif)</div>
 
+<a href="/asdf">asdf</a>
+<img src="boa" />
+
 ### <!-- more -->Gartners hype cycles applied to tag history
 
 <span>I think </span>[gartners hype cycles](http://en.wikipedia.org/wiki/Hype_cycle)<span> prove to be right when applied to the tag history (hype cycle descriptions taken from </span>[Floor eTrends](http://www.floor.nl/ebiz/gartnershypecycle.htm)<span>):</span>

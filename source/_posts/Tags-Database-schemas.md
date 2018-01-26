@@ -8,7 +8,7 @@ date: 2005-04-24 16:35:00
 alias: /post/37027745720/tags-database-schemas
 ---
 
-Recently, [on del.icio.us mailinglist](http://lists.del.icio.us/pipermail/discuss/2005-April/002827.html), I asked the question "Does anyone know the database schema of del.icio.us?". I got a few private responses so I wanted to share the knowledge with the world.
+Recently, on the del.icio.us mailinglist, I asked the question "Does anyone know the database schema of del.icio.us?". I got a few private responses so I wanted to share the knowledge with the world.
 
 The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many [tags](http://en.wikipedia.org/wiki/Tags) as you want. Later then, you want to run queries to constrain the bookmarks to a [union](http://en.wikipedia.org/wiki/Union_%28set_theory%29) or [intersection](http://en.wikipedia.org/wiki/Intersection_%28set_theory%29) of tags. You also want to exclude (say: minus) some tags from the search result.
 
@@ -207,12 +207,3 @@ This is the most flexible data structure and I guess it should scale pretty good
 **Update May, 2006**. This arcticle got quite some attention. I wasn't really prepared for that! It seems people keep referring to it and even some new sites that allow tagging give credit to my articles. I think the real credit goes to the contributers of the different schemas: [MySQLicious](http://nanovivid.com/projects/mysqlicious/), [scuttle](http://sourceforge.net/projects/scuttle/), [Toxi](http://toxi.co.uk/) and to all the contributors of the comments (be sure to read them!)
 
 P.S. Thanks to [Toxi](http://toxi.co.uk/) for sending me the queries for the three-table-schema, Benjamin Reitzammer for pointing me to [a loughing meme article](http://laughingmeme.org/archives/002918.html) (a good reference for tag queries) and powerlinux for pointing me to [scuttle](http://sourceforge.net/projects/scuttle/).
-Further reading
-
-- [Taglist: a mailing list dedicated to schemas with tagging](http://lists.tagschema.com/mailman/listinfo/tagdb)
-- [Tagschema: A blog dedicated to tagging schemas](http://tagschema.com/blogs/tagschema/)
-- [Tag-related Queries on Snippets](http://www.bigbold.com/snippets/tags/tagging)
-- [Freetag](http://www.getluky.net/freetag/) is a php "library" with which you can add tags to whatever object you like. It actually uses the "toxi schema".
-- Hammy [gives an insight](http://hellojoseph.com/tags-howto.php) how he did his tagging system with "less DB and more code" (that is: regular expressions), interesting!
-- Brad Choate [has got some ideas](http://bradchoate.com/weblog/2004/10/06/delicious) which tag queries should be possible
-- Feedmaker has written [a sort of reply to this article](http://blog.feedmarker.com/2005/04/26/tagging-in-mysql/)
