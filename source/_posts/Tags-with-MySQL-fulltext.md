@@ -1,7 +1,7 @@
 ---
 title: Tags with MySQL fulltext
 tags:
-  - Tags
+  - Tagging
   - MySQL
 date: 2005-05-05 19:09:00
 alias: /post/37027745995/tags-with-mysql-fulltext

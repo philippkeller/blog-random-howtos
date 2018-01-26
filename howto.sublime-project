@@ -2,10 +2,10 @@
 	"folders":
 	[
 		{
-			"path": ".",
+			"path": "/home/philipp/blogs/howto",
 			"file_exclude_patterns": [
 				"db.json",
-				"*.min.js"
+				"*.min.js",
 			],
 			"folder_exclude_patterns": [
 				"node_modules",

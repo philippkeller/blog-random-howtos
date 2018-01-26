@@ -75,24 +75,11 @@ deploy:
   message: hans
 
 # Theme settings:
-theme: ewal
+theme: hexo-theme-twbootstrap
 
 widgets:
  - search
  - recommended_links
-# - category
-# - tagcloud
-# - tag
-# - about
-# - subscribe_mailchimp
-# - noteworthy
-
-# noteworthy_title: Important posts
-# noteworthy:
-#   - url: /2001/01/01/post-1
-#     title: Important post 1
-#   - url: /2001/01/01/post-2
-#     title: Important post 2
 
 recommended_links_title: You'll also find me on...
 recommended_links:

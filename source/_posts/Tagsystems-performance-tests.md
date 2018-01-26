@@ -2,7 +2,7 @@
 title: 'Tagsystems: performance tests'
 tags:
   - Performance
-  - Tags
+  - Tagging
   - Del.icio.us
   - MySQL
 date: 2005-06-19 17:09:00

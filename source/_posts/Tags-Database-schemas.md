@@ -1,7 +1,7 @@
 ---
 title: 'Tags: Database schemas'
 tags:
-  - Tags
+  - Tagging
   - Del.icio.us
   - MySQL
 date: 2005-04-24 16:35:00

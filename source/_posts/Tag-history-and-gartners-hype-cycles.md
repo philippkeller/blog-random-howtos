@@ -2,7 +2,7 @@
 title: Tag history and gartners hype cycles
 tags:
   - History
-  - Tags
+  - Tagging
 date: 2007-05-12 16:21:00
 alias: /post/37027751523/tag-history-and-gartners-hype-cycles
 ---

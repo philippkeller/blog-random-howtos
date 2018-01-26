@@ -2,8 +2,6 @@
 title: Automated tag clustering
 tags:
   - RawSugar
-  - Research
-  - Tags
   - Clustering
   - Del.icio.us
 date: 2006-07-11 09:03:00
