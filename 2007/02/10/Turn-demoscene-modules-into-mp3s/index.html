@@ -6,7 +6,9 @@
   <title>Turn demoscene modules into mp3s | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
-  <meta name="description" content="If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &amp;hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won’t have read that far anyway..">
+  <meta name="description" content="Update 2018 (11 years later): I fixed the python scripts below, so they should still work! If not, then please add a comment below. Btw: Isn’t it amazing that modland is still up and running after all these years?
+
+If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &amp;hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won’t have read that far anyway..">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -90,27 +92,27 @@
   
   <div class="post-content">
     
-      <p><img src="https://lh3.googleusercontent.com/-31kHXDajZUM/UMZL5kXClbI/AAAAAAAALXE/S26QsfTYpHs/s498/itunes_purple_motion.png" alt="iTunes screenshot of purple motions tracks"></p>
+      <p><strong>Update 2018</strong> (11 years later): I fixed the python scripts below, so they should still work! If not, then please add a comment below. Btw: Isn’t it <strong>amazing</strong> that modland is still up and running after all these years?</p>
+<p><img src="/images/purple_motion.png" alt="iTunes screenshot of purple motions tracks"></p>
 <p>If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won’t have read that far anyway..</p>
 <a id="more"></a>
-<h2 id="short-version-for-the-impatient"><a href="#short-version-for-the-impatient" class="headerlink" title="short version for the impatient"></a>short version for the impatient</h2><p>download <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHucXNKdUVlUGsyaGs" target="_blank" rel="external">downloadmod.py</a> and <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHubk9CdDFCdnJXNkE" target="_blank" rel="external">mod2mp3.py</a> into /usr/local/bin/</p>
+<h2 id="short-version-for-the-impatient"><a href="#short-version-for-the-impatient" class="headerlink" title="short version for the impatient"></a>short version for the impatient</h2><p>Download <a href="/files/downloadmod.py">downloadmod.py</a> and <a href="/files/mod2mp3.py">mod2mp3.py</a> and start then with python2 (the command may be just <code>python</code> on your machine).</p>
 <pre><code class="bash">sudo apt-get install xmp adplay unrar lame
 mkdir ~/modules/
-downloadmod.py ~/modules/ &quot;Purple Motion&quot;
-mod2mp3.py ~/modules/
+python2 downloadmod.py ~/modules/ &quot;Purple Motion&quot;
+python2 mod2mp3.py ~/modules/
 </code></pre>
 <h3 id="First-get-those-modules"><a href="#First-get-those-modules" class="headerlink" title="First, get those modules"></a>First, get those modules</h3><p>The first task is to get those modules onto your computer (as you most certainly deleted them - either per accident or when you were in needed of some space on your hard drive back when hard drives where small and expensive)</p>
 <p>Afaik the most complete module resource is <a href="ftp://ftp.modland.com" target="_blank" rel="external">modland</a>. The crux is that it’s just an ftp site with deep directory structure and without a search facility. All it has got is a complete list of all the modules in a RAR file (which is kept up to date by a cron job) that holds a text file with all the available modules and their path.</p>
-<p>To download all modules of a certain artist, I wrote a little <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHucXNKdUVlUGsyaGs" target="_blank" rel="external">python script</a> that downloads the module list, unrars it, caches it for further search requests, searches for the artist and downloads all modules of that particular artist.</p>
+<p>To download all modules of a certain artist, I wrote a little <a href="/files/downloadmod.py">python script</a> that downloads the module list, unrars it, caches it for further search requests, searches for the artist and downloads all modules of that particular artist.</p>
 <p><code>downloadmod.py ~/modules/ &quot;Michael Land&quot;</code> downloads all Adlib songs of Michael Land and places them into ~/modules/Michael Land/ and writes some artist/album meta information into those newly created directories.</p>
-<p>Alternatively you can adapt a quick and dirty <a href="http://pastie.org/private/nszifsjxnw5obz8bai3ng" target="_blank" rel="external">bash function</a>. It uses wget and is quite messy but it should do the task as well. You have to download and unpack the module list before you call the shell function.</p>
 <h3 id="Then-convert-those-modules-into-mp3-files"><a href="#Then-convert-those-modules-into-mp3-files" class="headerlink" title="Then, convert those modules into mp3 files"></a>Then, convert those modules into mp3 files</h3><p>To convert the modules into mp3 files you usually take a module player and call with some special parameters in order to “play” the module into a wav-File and convert that wav into an mp3 file.</p>
 <p>On linux, I’d suggest to install this module players (both exist as debian packages and work without hassle on my ubuntu installation)</p>
 <ul>
 <li><a href="http://xmp.sourceforge.net/" target="_blank" rel="external">xmp</a> is *nix “native”</li>
 <li><a href="http://adplug.sourceforge.net/" target="_blank" rel="external">adplay</a> supports many adlib formats</li>
 </ul>
-<p>I wrote a <a href="https://docs.google.com/uc?export=download&amp;id=0B0uw1JCogWHubk9CdDFCdnJXNkE" target="_blank" rel="external">python script</a> that converts the downloaded modules into mp3s using the just mentioned module players. You need at least xmp or adplay. If you install both, you’d be able to play about 90% of all modules.</p>
+<p>I wrote a <a href="/files/mod2mp3.py">python script</a> that converts the downloaded modules into mp3s using the just mentioned module players. You need at least xmp or adplay. If you install both, you’d be able to play about 90% of all modules.</p>
 <p>Just call <code>mod2mp3.py</code> with your root module directory as argument and the script creates a mp3 file for each module that is convertible and isn’t already converted. If you downloaded the modules with my download script, this script will use the meta information of the first script to write the id3 tags of the mp3s.</p>
 <p>If everything worked, you now should have mp3 files with correct id3 tags that can be imported into your amarok/itunes library.</p>
 <h3 id="What-about-us-windows-users"><a href="#What-about-us-windows-users" class="headerlink" title="What about us windows users?"></a>What about us windows users?</h3><p>Sorry guys. I’ve got to let you down. One whole evening I tried to get any module player writing it’s output to a wave file from the command line. I tried <a href="http://www.modplug.com/playerinfo.html" target="_blank" rel="external">modplug</a> and <a href="http://www.winamp.com" target="_blank" rel="external">Winamp</a> with a <a href="http://www.winamp.com/plugins/details.php?id=132367" target="_blank" rel="external">module player plugin</a> but without luck. If you succeed, let me know. Up to then, just take a linux box, copy/download all modules there and let the box convert your modules over night and import it back into your iTunes player. That’s what I did.</p>

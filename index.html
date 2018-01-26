@@ -330,91 +330,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
   
     
   
-    <h1 class="title"><a href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/">Tutorial: Django on Appengine - Adaptations for Python 2.5</a></h1>
-  
-
-    <div class="post-date">
-      <time datetime="2013-01-01T20:53:00.000Z">2013-01-01</time>
-    </div>
-  
-  <div class="post-content">
-    
-      <p>Google App Engine has two Python runtimes, <a href="https://developers.google.com/appengine/docs/whatisgoogleappengine#The_Application_Environment" target="_blank" rel="external">either 2.7.3 or 2.5.2</a>. You should try to develop for 2.7, as it’s the current default on GAE and all the documentations often only describe this Python version.</p>
-<p>Additionally: If you use Python 2.5 you can only use Django up to version 1.3. (At least I couldn’t find out how to get version 1.4 working, <code>use_library(&#39;django&#39;, &#39;1.3&#39;)</code> would fail if setting 1.4</p>
-<p>If you’re stuck with Python below 2.7 for any reason, that’s what you need to change following <a href="http://howto.philippkeller.com/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/">my tutorial</a> in order to get it working for Python 2.5:</p>
-    
-  </div>
-  
-      <div class="row">
-    
-      <div class="col-3 col-md-3">
-        <a href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/#more" class="more-link">Read more »</a>
-      </div>
-    
-    
-    </div>
-  
-  <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/" data-addthis-title="Tutorial: Django on Appengine - Adaptations for Python 2.5">
-<a class="addthis_button_preferred_1"></a>
-<a class="addthis_button_preferred_2"></a>
-<a class="addthis_button_preferred_3"></a>
-<a class="addthis_button_preferred_4"></a>
-<a class="addthis_button_compact"></a>
-<a class="addthis_counter addthis_bubble_style"></a>
-</div>
-  
-  
-
-</article>
-
-						
-						<article class="post">
-  
-    
-  
-    <h1 class="title"><a href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/">Tutorial: Django on Appengine using Google Cloud SQL</a></h1>
-  
-
-    <div class="post-date">
-      <time datetime="2012-12-30T21:47:00.000Z">2012-12-30</time>
-    </div>
-  
-  <div class="post-content">
-    
-      <p><img src="/images/django_google.png" alt=""><br>Google is running an <a href="https://developers.google.com/cloud-sql/docs/billing#intro_trial" target="_blank" rel="external">introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013</a>. That’s the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.</p>
-<p>Hence I decided to give it a try and documented all into a very complete tutorial how to start a Django 1.4 project running on “Google App Engine”.<br>
-    
-  </div>
-  
-      <div class="row">
-    
-      <div class="col-3 col-md-3">
-        <a href="/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/#more" class="more-link">Read more »</a>
-      </div>
-    
-    
-    </div>
-  
-  <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/30/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL/" data-addthis-title="Tutorial: Django on Appengine using Google Cloud SQL">
-<a class="addthis_button_preferred_1"></a>
-<a class="addthis_button_preferred_2"></a>
-<a class="addthis_button_preferred_3"></a>
-<a class="addthis_button_preferred_4"></a>
-<a class="addthis_button_compact"></a>
-<a class="addthis_counter addthis_bubble_style"></a>
-</div>
-  
-  
-
-</article>
-
-						
-						<article class="post">
-  
-    
-  
     <h1 class="title"><a href="/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/">How to migrate your wordpress to tumblr. Including images and comments.</a></h1>
   
 
@@ -525,6 +440,95 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/21
   
   <div class="addthis_toolbox addthis_default_style 
 addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/" data-addthis-title="How to reset Jambox when bluetooth completely stopped working">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    
+  
+    <h1 class="title"><a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/">Python: Print list of dicts as ascii table</a></h1>
+  
+
+    <div class="post-date">
+      <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p>Sometimes I want to print list of dicts as an ascii table, like this:</p>
+<pre><code>| Programming Language | Language Type | Years of Experience |
++----------------------+---------------+---------------------+
+| python               | script        |                   4 |
+| php                  | script        |                   5 |
+| java                 | compiled      |                  11 |
+| assember             | compiled      |                  15 |
+</code></pre><p>I searched on Google - but without luck.
+    
+  </div>
+  
+      <div class="row">
+    
+      <div class="col-3 col-md-3">
+        <a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/#more" class="more-link">Read more »</a>
+      </div>
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/" data-addthis-title="Python: Print list of dicts as ascii table">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    
+  
+    <h1 class="title"><a href="/2007/10/06/Send-javascript-errors-by-mail/">Send javascript errors by mail</a></h1>
+  
+
+    <div class="post-date">
+      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p>I’m running <a href="http://extranet.icoc.ch" target="_blank" rel="external">a Django-powered site for a closed user group</a> and added a bit of JavaScript magic here and there (mainly <a href="http://www.prototypejs.org/" target="_blank" rel="external">Prototype</a> and <a href="http://codylindley.com/Javascript/219/finding-a-javascript-tool-tip-script" target="_blank" rel="external">Tooltip</a>).</p>
+    
+  </div>
+  
+      <div class="row">
+    
+      <div class="col-3 col-md-3">
+        <a href="/2007/10/06/Send-javascript-errors-by-mail/#more" class="more-link">Read more »</a>
+      </div>
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/06/Send-javascript-errors-by-mail/" data-addthis-title="Send javascript errors by mail">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>

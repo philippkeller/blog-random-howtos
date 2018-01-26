@@ -6,7 +6,7 @@
   <title>Tags: Database schemas | Random Howtos</title>
   <meta name="author" content="Philipp Keller">
   
-  <meta name="description" content="Recently, on del.icio.us mailinglist, I asked the question “Does anyone know the database schema of del.icio.us?”. I got a few private responses so I wanted to share the knowledge with the world.
+  <meta name="description" content="Recently, on the del.icio.us mailinglist, I asked the question “Does anyone know the database schema of del.icio.us?”. I got a few private responses so I wanted to share the knowledge with the world.
 The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many tags as you want. Later then, you want to run queries to constrain the bookmarks to a union or intersection of tags. You also want to exclude (say: minus) some tags from the search result.
 Apparently there are three different solutions (Attention: If you are building a websites that allows users to tag, be sure to have a look at my performance tests as performance seems to be a problem on larger scaled sites.)">
   
@@ -92,7 +92,7 @@ Apparently there are three different solutions (Attention: If you are building a
   
   <div class="post-content">
     
-      <p>Recently, <a href="http://lists.del.icio.us/pipermail/discuss/2005-April/002827.html" target="_blank" rel="external">on del.icio.us mailinglist</a>, I asked the question “Does anyone know the database schema of del.icio.us?”. I got a few private responses so I wanted to share the knowledge with the world.</p>
+      <p>Recently, on the del.icio.us mailinglist, I asked the question “Does anyone know the database schema of del.icio.us?”. I got a few private responses so I wanted to share the knowledge with the world.</p>
 <p>The Problem: You want to have a database schema where you can tag a bookmark (or a blog post or whatever) with as many <a href="http://en.wikipedia.org/wiki/Tags" target="_blank" rel="external">tags</a> as you want. Later then, you want to run queries to constrain the bookmarks to a <a href="http://en.wikipedia.org/wiki/Union_%28set_theory%29" target="_blank" rel="external">union</a> or <a href="http://en.wikipedia.org/wiki/Intersection_%28set_theory%29" target="_blank" rel="external">intersection</a> of tags. You also want to exclude (say: minus) some tags from the search result.</p>
 <p>Apparently there are three different solutions (<strong>Attention: </strong>If you are building a websites that allows users to tag, be sure to have a look at <a href="http://howto.philippkeller.com/2005/06/19/Tagsystems-performance-tests/">my performance tests</a> as performance seems to be a problem on larger scaled sites.)<a id="more"></a></p>
 <h2 id="“MySQLicious”-solution"><a href="#“MySQLicious”-solution" class="headerlink" title="“MySQLicious” solution"></a><a id="mysqlicious" name="mysqlicious"></a>“MySQLicious” solution</h2><p><img src="https://lh3.googleusercontent.com/-yV7B1_K6nEM/UL0AyrAz2yI/AAAAAAAALDc/3nRpzrNXMwM/s373/mysqlicious_data.png" alt="mysqlicious sample data"><img src="https://lh4.googleusercontent.com/-PSV7DWIwy0Q/UL0AyyL_z0I/AAAAAAAALDg/vUhaDRz9b-4/s128/mysqlicious_structure.png" alt="mysqlicious database stucture"></p>
@@ -212,16 +212,7 @@ WHERE bt.tag_id = t.tag_id AND b.id = bt.bookmark_id AND t.name = &quot;semweb&q
 </ol>
 <p>In this way, you can also do queries like <code>(del.icio.us|delicious)+(semweb|semantic_web)-search</code>. This type of queries (that is: the brackets) cannot be done by using the denormalized “MySQLicious solution”.<br>This is the most flexible data structure and I guess it should scale pretty good (that is: if you do some caching).</p>
 <p><strong>Update May, 2006</strong>. This arcticle got quite some attention. I wasn’t really prepared for that! It seems people keep referring to it and even some new sites that allow tagging give credit to my articles. I think the real credit goes to the contributers of the different schemas: <a href="http://nanovivid.com/projects/mysqlicious/" target="_blank" rel="external">MySQLicious</a>, <a href="http://sourceforge.net/projects/scuttle/" target="_blank" rel="external">scuttle</a>, <a href="http://toxi.co.uk/" target="_blank" rel="external">Toxi</a> and to all the contributors of the comments (be sure to read them!)</p>
-<p>P.S. Thanks to <a href="http://toxi.co.uk/" target="_blank" rel="external">Toxi</a> for sending me the queries for the three-table-schema, Benjamin Reitzammer for pointing me to <a href="http://laughingmeme.org/archives/002918.html" target="_blank" rel="external">a loughing meme article</a> (a good reference for tag queries) and powerlinux for pointing me to <a href="http://sourceforge.net/projects/scuttle/" target="_blank" rel="external">scuttle</a>.<br>Further reading</p>
-<ul>
-<li><a href="http://lists.tagschema.com/mailman/listinfo/tagdb" target="_blank" rel="external">Taglist: a mailing list dedicated to schemas with tagging</a></li>
-<li><a href="http://tagschema.com/blogs/tagschema/" target="_blank" rel="external">Tagschema: A blog dedicated to tagging schemas</a></li>
-<li><a href="http://www.bigbold.com/snippets/tags/tagging" target="_blank" rel="external">Tag-related Queries on Snippets</a></li>
-<li><a href="http://www.getluky.net/freetag/" target="_blank" rel="external">Freetag</a> is a php “library” with which you can add tags to whatever object you like. It actually uses the “toxi schema”.</li>
-<li>Hammy <a href="http://hellojoseph.com/tags-howto.php" target="_blank" rel="external">gives an insight</a> how he did his tagging system with “less DB and more code” (that is: regular expressions), interesting!</li>
-<li>Brad Choate <a href="http://bradchoate.com/weblog/2004/10/06/delicious" target="_blank" rel="external">has got some ideas</a> which tag queries should be possible</li>
-<li>Feedmaker has written <a href="http://blog.feedmarker.com/2005/04/26/tagging-in-mysql/" target="_blank" rel="external">a sort of reply to this article</a></li>
-</ul>
+<p>P.S. Thanks to <a href="http://toxi.co.uk/" target="_blank" rel="external">Toxi</a> for sending me the queries for the three-table-schema, Benjamin Reitzammer for pointing me to <a href="http://laughingmeme.org/archives/002918.html" target="_blank" rel="external">a loughing meme article</a> (a good reference for tag queries) and powerlinux for pointing me to <a href="http://sourceforge.net/projects/scuttle/" target="_blank" rel="external">scuttle</a>.</p>
 
     
   </div>
