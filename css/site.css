@@ -5850,6 +5850,12 @@ td.visible-print {
 body {
   font-size: 18px;
 }
+.col-md-8 {
+  padding-left: 0;
+}
+article {
+  padding-left: 20px;
+}
 a {
   font-weight: bold;
 }
@@ -5947,9 +5953,6 @@ h5 {
 }
 .navbar {
   font-weight: 300;
-}
-.navbar .container .navbar-header {
-  margin-left: -1em;
 }
 .navbar .navbar-form {
   font-weight: normal;

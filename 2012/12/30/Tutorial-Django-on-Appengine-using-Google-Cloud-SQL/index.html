@@ -97,7 +97,7 @@ Hence I decided to give it a try and documented all into a very complete tutoria
   
   <div class="post-content">
     
-      <p><img src="https://lh5.googleusercontent.com/-lX6aq3qvV50/UOC0ONuosVI/AAAAAAAAMUE/Q_occPtbmnQ/s230/Untitled-1.png" alt=""><br>Google is running an <a href="https://developers.google.com/cloud-sql/docs/billing#intro_trial" target="_blank" rel="external">introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013</a>. That’s the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.</p>
+      <p><img src="/images/django_google.png" alt=""><br>Google is running an <a href="https://developers.google.com/cloud-sql/docs/billing#intro_trial" target="_blank" rel="external">introductory trial for Cloud SQL that runs since Nov 2012 until June 1, 2013</a>. That’s the right hour to test Django on Google App Engine. No need to mess around with their non relational datastore. Just use their MySQL 5.5 in the cloud.</p>
 <p>Hence I decided to give it a try and documented all into a very complete tutorial how to start a Django 1.4 project running on “Google App Engine”.<br><a id="more"></a></p>
 <p>If you run into exceptions, check the troubleshooting part at the bottom</p>
 <h2 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h2><ul>
@@ -148,7 +148,7 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__)) + os.sep
 </code></pre>This is the path prefix you’ll put before all the <code>xyz_ROOT</code> settings later.</li>
 <li>run this one level up of your python project directory: <code>dev_appserver.py mysite</code></li>
 </ol>
-<p>Congrats! Your <a href="http://localhost:8080" target="_blank" rel="external">local instance</a> now shows <a href="http://i.imgur.com/rXh74.png" target="_blank" rel="external">this</a> - hopefully :-)</p>
+<p>Congrats! Your <a href="http://localhost:8080" target="_blank" rel="external">local instance</a> now shows <a href="/images/django_welcome.png">this</a> - hopefully :-)</p>
 <h1 id="Set-up-Google-Cloud-SQL"><a href="#Set-up-Google-Cloud-SQL" class="headerlink" title="Set up Google Cloud SQL"></a>Set up Google Cloud SQL</h1><ol>
 <li>Register Cloud SQL in the <a href="https://code.google.com/apis/console/" target="_blank" rel="external">Google API Console</a> (I think you need to add billing, but currently there’s a free plan until June 1, 2013)</li>
 <li>create a new instance in the <strong>United States</strong> (even when you’re located in Europe). The reason is that your Cloud SQL instance needs to be at the same location as your GAE instance. Put your ID of your appspot.com instance to the Authorized Applications.</li>
@@ -258,13 +258,13 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/30
       
         <li class="prev">
         <a class="btn btn-success" role="button" href="/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/">
-          Previous post
+          Previous
         </a></li>
       
       
         <li class="next">
         <a class="btn btn-success" role="button" href="/2013/01/01/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5/">
-          Next post
+          Next
         </a></li>
       
     </ul>
@@ -292,7 +292,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/30
     </p>
   </div>
 </div>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
 
 
 
