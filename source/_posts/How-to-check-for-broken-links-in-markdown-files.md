@@ -2,6 +2,8 @@
 title: How to check for broken links in markdown files
 date: 2018-01-26 23:49:45
 tags:
+css:
+	- "pre>code.hljs.sh {font-size: 80%}"
 ---
 
 ![dead link](/images/dead.jpg)
