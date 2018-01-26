@@ -9,7 +9,9 @@ date: 2007-02-10 19:39:00
 alias: /post/37471155417/turn-demoscene-modules-into-mp3s
 ---
 
-![iTunes screenshot of purple motions tracks](https://lh3.googleusercontent.com/-31kHXDajZUM/UMZL5kXClbI/AAAAAAAALXE/S26QsfTYpHs/s498/itunes_purple_motion.png)
+**Update 2018** (11 years later): I fixed the python scripts below, so they should still work! If not, then please add a comment below. Btw: Isn't it **amazing** that modland is still up and running after all these years?
+
+![iTunes screenshot of purple motions tracks](/images/purple_motion.png)
 
 If you were part of the demoscene in your former life, if you were and still are fond of modules (those sound files with the mod, xm, s3m, it, &hellip; ending), if you are a linux user and if you still want to listen to this music on your computer without doing all the tweaks of installing (or even compiling) music player plugins for itunes or amarok or if you simply want to listen to Purple Motions tunes on your mp3 player then this little tutorial is for you. If not, then you won't have read that far anyway..
 
@@ -17,13 +19,13 @@ If you were part of the demoscene in your former life, if you were and still are
 
 ## short version for the impatient
 
-download [downloadmod.py](/files/downloadmod.py) and [mod2mp3.py](/files/mod2mp3.py) into `/usr/local/bin/`
+Download [downloadmod.py](/files/downloadmod.py) and [mod2mp3.py](/files/mod2mp3.py) and start then with python2 (the command may be just `python` on your machine).
 
 ```bash
 sudo apt-get install xmp adplay unrar lame
 mkdir ~/modules/
 python2 downloadmod.py ~/modules/ "Purple Motion"
-mod2mp3.py ~/modules/
+python2 mod2mp3.py ~/modules/
 ```
 
 ### First, get those modules
