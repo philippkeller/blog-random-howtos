@@ -4,6 +4,8 @@ date: 2018-01-26 23:49:45
 tags:
 ---
 
+![dead link](/images/dead.jpg)
+
 Having blog articles up >10 years needs some kind of tool to check for dead links.
 
 Having googled a bit I didn't find anything convincing. So I just created a very dirty solution which did the job for me.
