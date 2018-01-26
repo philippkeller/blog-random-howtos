@@ -84,6 +84,51 @@
   
     
   
+    <h1 class="title"><a href="/2018/01/26/How-to-check-for-broken-links-in-markdown-files/">How to check for broken links in markdown files</a></h1>
+  
+
+    <div class="post-date">
+      <time datetime="2018-01-26T22:49:45.000Z">2018-01-26</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p>Having blog articles up &gt;10 years needs some kind of tool to check for dead links.</p>
+<p>Having googled a bit I didn’t find anything convincing. So I just created a very dirty solution which did the job for me.</p>
+<p>You start it with </p>
+<p><code>python3 link_checker.py path/to/md/files/ http://mysite.com</code></p>
+<p>and it iterates over all <code>.md</code> files in <code>path/to/md/files</code> for links and images in your articles, sends a <code>HTTP HEAD</code> request and prints everything which does not look right</p>
+    
+  </div>
+  
+      <div class="row">
+    
+      <div class="col-3 col-md-3">
+        <a href="/2018/01/26/How-to-check-for-broken-links-in-markdown-files/#more" class="more-link">Read more »</a>
+      </div>
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/01/26/How-to-check-for-broken-links-in-markdown-files/" data-addthis-title="How to check for broken links in markdown files">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    
+  
     <h1 class="title"><a href="/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/">How to set up raspberry pi headless with ssh and wifi</a></h1>
   
 
@@ -339,7 +384,8 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
   
   <div class="post-content">
     
-      <p><img src="https://lh3.googleusercontent.com/-Pn-aBqMjq9g/UMpMLdyLsgI/AAAAAAAALe0/zbopqqnD77M/s300/wordpresstumblr.jpg" alt="">So I’ve decided to move my wordpress blogs to tumblr. Although apparently TechCrunch <a href="http://techcrunch.com/2010/09/18/stuff-white-person-doesnt-like/" target="_blank" rel="external">thinks that’s a bad idea</a>. And although <a href="https://twitter.com/moritzadler" target="_blank" rel="external">Moritz Adler</a> would kill me for that. (Although: He doesn’t have a personal blog and hence has no licence to kill me). Anyway. With tumblr I don’t need to host a blog software myself. And I don’t end up having my blog hacked and then seeing my blog being displayed as a malware site in Chrome/Firefox (happened to me twice). And then with tumblr I create new blogs with subdomains within minutes. Cool stuff. Hail to the cloud, baby!</p>
+      <p><img src="/images/wordpresstumblr.jpg" alt=""></p>
+<p>So I’ve decided to move my wordpress blogs to tumblr. Although apparently TechCrunch <a href="http://techcrunch.com/2010/09/18/stuff-white-person-doesnt-like/" target="_blank" rel="external">thinks that’s a bad idea</a>. And although <a href="https://twitter.com/moritzadler" target="_blank" rel="external">Moritz Adler</a> would kill me for that. (Although: He doesn’t have a personal blog and hence has no licence to kill me). Anyway. With tumblr I don’t need to host a blog software myself. And I don’t end up having my blog hacked and then seeing my blog being displayed as a malware site in Chrome/Firefox (happened to me twice). And then with tumblr I create new blogs with subdomains within minutes. Cool stuff. Hail to the cloud, baby!</p>
 <p>So here you go: A complete guide how to fully migrate your wordpress blog to tumblr. Including comments and pictures. And still supporting your old url scheme.</p>
 <p><strong>Update:</strong> I ran into a tool that claims to do a lot for you: <a href="http://www.import2.com/tumblr" target="_blank" rel="external">import2.com/tumblr</a>. It doesn’t migrate images and 302 redirects. Not sure about comments migration. And it costs 24$. Still, if you can leave out some of the steps below that’d be worth the money. <a href="http://www.quora.com/Mark-Kofman/answers/Tumblr" target="_blank" rel="external">Comments of the author on quora</a></p>
     
@@ -383,7 +429,7 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/14
   <div class="post-content">
     
       <p><img src="/images/soldered.png" alt="fixed"></p>
-<p>Jambox is a pretty cool device: The sound quality is very good, it is small, it has a battery. I liked it. Until it broke. It just didn’t play music over bluetooth any more but instead uttered static noise. This seems to be a quite severe production problem as <a href="http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/Static-and-dropping-bluetooth-My-customer-service-call/m-p/37461" target="_blank" rel="external">many</a> <a href="http://forums.jawbone.com/t5/JAMBOX-Troubleshooting/jambox-static-and-airplay/td-p/6676" target="_blank" rel="external">many</a> <a href="http://www.amazon.com/review/R3GYH7DT8H8EKR/ref=cm_cr_pr_cmt?ie=UTF8&amp;ASIN=B004E10KGU" target="_blank" rel="external">many</a> people have devices with the exact same problem. So going down the “Jambox please replace my device” way didn’t sound promising to me. The possibility that the replacement device is broken as well is just too high.</p>
+<p>Jambox is a pretty cool device: The sound quality is very good, it is small, it has a battery. I liked it. Until it broke. It just didn’t play music over bluetooth any more but instead uttered static noise. This seems to be a quite severe production problem as after some internet research I found that many people have devices with the exact same problem. So going down the “Jambox please replace my device” way didn’t sound promising to me. The possibility that the replacement device is broken as well is just too high.</p>
 <p>The problem lies in the aux in port. The device thinks there’s an aux cable plugged in and outputs the signal from the aux input when in fact it should play the bluetooth sound.</p>
     
   </div>
@@ -488,47 +534,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14
   
   <div class="addthis_toolbox addthis_default_style 
 addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/" data-addthis-title="Python: Print list of dicts as ascii table">
-<a class="addthis_button_preferred_1"></a>
-<a class="addthis_button_preferred_2"></a>
-<a class="addthis_button_preferred_3"></a>
-<a class="addthis_button_preferred_4"></a>
-<a class="addthis_button_compact"></a>
-<a class="addthis_counter addthis_bubble_style"></a>
-</div>
-  
-  
-
-</article>
-
-						
-						<article class="post">
-  
-    
-  
-    <h1 class="title"><a href="/2007/10/06/Send-javascript-errors-by-mail/">Send javascript errors by mail</a></h1>
-  
-
-    <div class="post-date">
-      <time datetime="2007-10-06T13:33:00.000Z">2007-10-06</time>
-    </div>
-  
-  <div class="post-content">
-    
-      <p>I’m running <a href="http://extranet.icoc.ch" target="_blank" rel="external">a Django-powered site for a closed user group</a> and added a bit of JavaScript magic here and there (mainly <a href="http://www.prototypejs.org/" target="_blank" rel="external">Prototype</a> and <a href="http://codylindley.com/Javascript/219/finding-a-javascript-tool-tip-script" target="_blank" rel="external">Tooltip</a>).</p>
-    
-  </div>
-  
-      <div class="row">
-    
-      <div class="col-3 col-md-3">
-        <a href="/2007/10/06/Send-javascript-errors-by-mail/#more" class="more-link">Read more »</a>
-      </div>
-    
-    
-    </div>
-  
-  <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2007/10/06/Send-javascript-errors-by-mail/" data-addthis-title="Send javascript errors by mail">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>

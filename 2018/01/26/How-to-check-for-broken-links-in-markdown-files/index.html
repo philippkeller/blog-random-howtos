@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to check for broken links in markdown files | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
+  
+  <meta name="description" content="Having blog articles up &amp;gt;10 years needs some kind of tool to check for dead links.
+Having googled a bit I didn’t find anything convincing. So I just created a very dirty solution which did the job for me.
+You start it with 
+python3 link_checker.py path/to/md/files/ http://mysite.com
+and it iterates over all .md files in path/to/md/files for links and images in your articles, sends a HTTP HEAD request and prints everything which does not look right">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="How to check for broken links in markdown files"/>
+  <meta property="og:site_name" content="Random Howtos"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
+  
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+  
+
+
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div><article class="post">
+  
+    
+  
+    <h1 class="title">How to check for broken links in markdown files</h1>
+  
+
+    <div class="post-date">
+      <time datetime="2018-01-26T22:49:45.000Z">2018-01-26</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p>Having blog articles up &gt;10 years needs some kind of tool to check for dead links.</p>
+<p>Having googled a bit I didn’t find anything convincing. So I just created a very dirty solution which did the job for me.</p>
+<p>You start it with </p>
+<p><code>python3 link_checker.py path/to/md/files/ http://mysite.com</code></p>
+<p>and it iterates over all <code>.md</code> files in <code>path/to/md/files</code> for links and images in your articles, sends a <code>HTTP HEAD</code> request and prints everything which does not look right</p>
+<a id="more"></a>
+<h3 id="Some-words-of-caution"><a href="#Some-words-of-caution" class="headerlink" title="Some words of caution:"></a>Some words of caution:</h3><p>This is just a 80% solution. It will give you some false negatives:</p>
+<ul>
+<li>it does regex to find the links. It finds both markdown styled links and <code>a href=</code> styled links</li>
+<li>it sends a basic user-agent, but some sites such as google don’t allow crawling so you’ll see <code>405 Method not allowed</code></li>
+</ul>
+<h3 id="Screw-that-I-want-to-use-it-anyway"><a href="#Screw-that-I-want-to-use-it-anyway" class="headerlink" title="Screw that, I want to use it anyway"></a>Screw that, I want to use it anyway</h3><p><a href="/files/link_checker.py">Here’s the script to download</a>. And here’s how it looks (it even put the <span style="color: green">✔</span> in green and the <span style="color: red">x</span> in red) (if you use Hexo you can exactly call the script like that):</p>
+<pre><code class="sh">$ ./link_checker.py source http://localhost:4000
+How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md ‎✔
+Tagsystems-performance-tests.md x
+-------------------------------
+http://pastie.org/5480706 Got exception timed out
+http://pastie.org/5480722 Got exception timed out
+http://www.webmasterworld.com/forum23/3557.htm Got exception HTTP Error 403: Forbidden
+How-to-attach-a-file-to-google-spreadsheet.md ‎✔
+Django-Serve-big-files-via-fcgid.md ‎✔
+Python-Print-list-of-dicts-as-ascii-table.md ‎✔
+Tags-Database-schemas.md ‎✔
+Tags-with-MySQL-fulltext.md ‎✔
+How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md ‎✔
+</code></pre>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/01/26/How-to-check-for-broken-links-in-markdown-files/" data-addthis-title="How to check for broken links in markdown files">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/">
+          Previous
+        </a></li>
+      
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Comments</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2018 Philipp Keller
+      
+    </p>
+  </div>
+</div>
+  <script src="/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'randomhowtos';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>
