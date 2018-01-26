@@ -29,6 +29,4 @@ We'd be happy to get any kind of feedback on the article. Just post a comment to
 **Edit (4 years later!)**: A few guys asked me about the source code: [Source code with syntax highlighting](http://pastie.org/1098455).
 You need [kmetis](http://people.sc.fsu.edu/~jburkardt/c_src/kmetis/kmetis.html) to make this run, see `usage()` to see how it should be used.
 
-**Edit**: Robin sent me [this fixed source code](http://pastie.org/3549928), didn't test it though:
-
-<div class="blogger-post-footer">![](https://blogger.googleusercontent.com/tracker/2748783673844839576-786221472892263493?l=theneachwenttohisownhome.blogspot.com)</div>
+**Edit**: Robin sent me [this fixed source code](http://pastie.org/3549928), didn't test it though.
