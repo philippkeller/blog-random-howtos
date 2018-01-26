@@ -22,7 +22,7 @@ download [downloadmod.py](/files/downloadmod.py) and [mod2mp3.py](/files/mod2mp3
 ```bash
 sudo apt-get install xmp adplay unrar lame
 mkdir ~/modules/
-downloadmod.py ~/modules/ "Purple Motion"
+python2 downloadmod.py ~/modules/ "Purple Motion"
 mod2mp3.py ~/modules/
 ```
 

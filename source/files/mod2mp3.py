@@ -24,9 +24,9 @@ import os, re, sys, select
 module_players = []
 
 module_players.append(dict(name="xmp",
-                           command="xmp --quiet -d file -o output.raw",
-                           outputfile="output.raw",
-                           outputtype="raw",
+                           command="xmp --quiet -d file -o output.wav",
+                           outputfile="output.wav",
+                           outputtype="wave",
                            formats=["XM", "MOD", "MOD", "M15", "IT", "S3M", "STM", "STX", "MTM", "MTN", "IMF", "PTM", "MDL", "ULT", "MMD", "PTM", "EMOD", "OKT", "SFX", "FAR", "STIM", "FC-M", "KSM", "WN", "PM", "KRIS", "UNIC", "P60A", "PRU1", "PRU2", "PM01", "PM10", "PM18", "PM20", "PM40", "AC1D", "PP10", "XANN", "ZEN", "NP", "DI", "MP", "FNK", "AMD", "RADCRB", "ALM", "FT"],
                            title_command="""xmp --load-only %s 2>&1 | grep "Module title" | cut -d : -f 2 | sed 's/^[[:space:]]*//g' | sed 's/[[:space:]]*$//g';""",
                            timeout=600,
@@ -52,6 +52,7 @@ def getCommandOutput(command):
 def timeout_command(command, timeout):
     import subprocess, datetime, os, time, signal
     """call shell-command and either return its output or kill it if it doesn't normally exit within timout seconds and return None"""
+    print(command)
     start = datetime.datetime.now()
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     while process.poll() is None:
