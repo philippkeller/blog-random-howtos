@@ -160,6 +160,14 @@
 				"Word Wrap: Toggle"
 			],
 			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"qui",
+				"Git: Quick Commit (repo)"
+			],
+			[
 				"install",
 				"Package Control: Install Package"
 			],
@@ -232,7 +240,7 @@
 				"Tasks: New"
 			]
 		],
-		"width": 461.0
+		"width": 470.0
 	},
 	"console":
 	{
@@ -252,26 +260,21 @@
 	},
 	"expanded_folders":
 	[
-		"/home/philipp/blogs/howto",
-		"/home/philipp/blogs/howto/themes",
-		"/home/philipp/blogs/howto/themes/ewal",
-		"/home/philipp/blogs/howto/themes/ewal/languages",
-		"/home/philipp/blogs/howto/themes/ewal/layout",
-		"/home/philipp/blogs/howto/themes/ewal/layout/_partial",
-		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/post",
-		"/home/philipp/blogs/howto/themes/ewal/layout/_widget",
-		"/home/philipp/blogs/howto/themes/ewal/source",
-		"/home/philipp/blogs/howto/themes/ewal/source/css",
-		"/home/philipp/blogs/howto/themes/ewal/source/css/highlightjs",
-		"/home/philipp/blogs/howto/themes/ewal/source/js"
+		"/home/philipp/blogs/howto"
 	],
 	"file_history":
 	[
-		"/home/philipp/blogs/howto/source/_posts/Automated-tag-clustering.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
+		"/home/philipp/blogs/howto/source/_posts/how-to-fix-jambox-static-noise.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md",
+		"/home/philipp/blogs/howto/themes/hexo-theme-twbootstrap/languages/en.yml",
+		"/home/philipp/blogs/howto/themes/hexo-theme-twbootstrap/languages/de.yml",
 		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
 		"/home/philipp/blogs/howto/_config.yml",
+		"/home/philipp/blogs/howto/source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
+		"/home/philipp/blogs/howto/source/_posts/Automated-tag-clustering.md",
+		"/home/philipp/blogs/howto/source/_posts/Tagsystems-performance-tests.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
 		"/home/philipp/blogs/howto/source/_posts/Python-Print-list-of-dicts-as-ascii-table.md",
 		"/home/philipp/blogs/howto/source/_posts/Send-javascript-errors-by-mail.md",
 		"/home/philipp/blogs/howto/source/_posts/Django-Serve-big-files-via-fcgid.md",
@@ -284,7 +287,6 @@
 		"/home/philipp/blogs/howto/source/_posts/Feature-phone-with-tethering-Nokia-Asha-302-tune-out-of-Internet.md",
 		"/home/philipp/blogs/howto/source/_posts/Tag-history-and-gartners-hype-cycles.md",
 		"/home/philipp/blogs/howto/source/_posts/Tags-with-MySQL-fulltext.md",
-		"/home/philipp/blogs/howto/source/_posts/Tagsystems-performance-tests.md",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_variables.less",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_bootstrap/variables.less",
 		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/header.ejs",
@@ -294,10 +296,8 @@
 		"/home/philipp/blogs/howto/themes/ewal/layout/_partial/head.ejs",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/site.less",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_core.less",
-		"/home/philipp/blogs/howto/source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md",
 		"/home/philipp/blogs/howto/themes/ewal/languages/en.yml",
 		"/home/philipp/blogs/howto/source/_posts/How-to-streamline-cd-ripping-without-tagging-track-data.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md",
 		"/home/philipp/blogs/howto/themes/ewal/_config.yml",
 		"/home/philipp/blogs/howto/themes/ewal/source/css/_post.less",
 		"/home/philipp/blogs/howto/themes/ewal/layout/index.ejs",
@@ -369,7 +369,6 @@
 		"/home/philipp/Downloads/cc-2017-11-27.csv",
 		"/home/philipp/Google Drive/local.ch/Localsearch.todo",
 		"/home/philipp/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
-		"/home/philipp/blogs/howto/source/_posts/how-to-fix-jambox-static-noise.md",
 		"/home/philipp/blogs/howto/feature-phone-with-tethering-nokia-asha-302",
 		"/home/philipp/blogs/philippkeller/_config.yml",
 		"/home/philipp/blogs/philippkeller/.deploy_git/pages/chesterton-orthodoxie.html",
@@ -398,6 +397,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\\!",
+			"</?span>",
+			"\\!",
+			"intersection_",
 			"\\*[ ]+",
 			"query fo",
 			"</?span>",
@@ -457,6 +460,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"",
 			"- ",
 			"",
 			"\"",
@@ -512,6 +516,10 @@
 	{
 		"height": 0.0
 	},
+	"output.git":
+	{
+		"height": 144.0
+	},
 	"output.reg_replace":
 	{
 		"height": 594.0
@@ -529,6 +537,54 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"tagsystem",
+				"source/_posts/Tagsystems-performance-tests.md"
+			],
+			[
+				"autom",
+				"source/_posts/Automated-tag-clustering.md"
+			],
+			[
+				"en.",
+				"themes/hexo-theme-twbootstrap/languages/en.yml"
+			],
+			[
+				"de.",
+				"themes/hexo-theme-twbootstrap/languages/de.yml"
+			],
+			[
+				"tutoria",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
+			],
+			[
+				"tag-clu",
+				"source/_posts/Automated-tag-clustering.md"
+			],
+			[
+				"attach",
+				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
+			],
+			[
+				"static",
+				"source/_posts/how-to-fix-jambox-static-noise.md"
+			],
+			[
+				"reset",
+				"source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md"
+			],
+			[
+				"djangoon",
+				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
+			],
+			[
+				"rasp",
+				"source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md"
+			],
+			[
+				"_cn",
+				"_config.yml"
+			],
 			[
 				"database",
 				"source/_posts/Tags-Database-schemas.md"
@@ -570,16 +626,8 @@
 				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL-Adaptations-for-Python-2-5.md"
 			],
 			[
-				"tutoria",
-				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
-			],
-			[
 				"mass",
 				"source/_posts/How-to-mass-convert-mp3-files-to-aac-m3a.md"
-			],
-			[
-				"attach",
-				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
 			],
 			[
 				"featu",
@@ -604,10 +652,6 @@
 			[
 				"_head",
 				"themes/ewal/layout/_partial/head.ejs"
-			],
-			[
-				"en.",
-				"themes/ewal/languages/en.yml"
 			],
 			[
 				"_config",
@@ -929,7 +973,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 220.0,
 	"status_bar_visible": true,
 	"template_settings":
