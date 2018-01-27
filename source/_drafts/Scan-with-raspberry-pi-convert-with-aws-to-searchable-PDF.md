@@ -119,24 +119,41 @@ sudo scanbd -f
 
 and you'd see that scanbd is polling. When you hit the scan button then you should see output lines of scanbd trying to run `/etc/scanbd/scripts/test.script` which doesn't exist. So far, so good!
 
+Now, we'll put our script into place: Edit `/etc/scandb/scandb.conf` and set:
 
+- `script_dir=/etc/scanbd/scripts`
+- in `action scan`:
+  - `desc = "Scan to file and upload to s3"`
+  - `script = "scan.sh"`
 
-```
-sudo vim /etc/scandb/scandb.conf # set script_dir=/etc/scanbd/scripts, in action 'scan': desc="Scan to a file and upload to s3", script="scan.sh"
+Now, we'll just put a little script in place which scans to `/tmp/foo.pnm`:
+
+```bash
 sudo mkdir /etc/scanbd/scripts/
-sudo vim /etc/scanbd/scripts/scan.sh
+echo -e '#!/bin/sh\nscanimage > /tmp/foo.pnm' | sudo tee /etc/scanbd/scripts/scan2.sh
 sudo chmod a+x /etc/scanbd/scripts/scan.sh
 ```
 
-replug scanner, test with `sudo scanbd -f`
-close lid, open lid -> segementation fault
+Replug your scanner and test it with:
+
+```bash
+sudo scanbd -f
+```
+
+Hitting the scanner button should scan. Buuut: if you now power off the scanner (close the lid on my model) or unplug it or whatever, and then replug it, then scanbd crashes spectacularly with a segmentation fault. There is [this reported bug](https://bugs.launchpad.net/ubuntu/+source/scanbd/+bug/1500095) which is solved with version 1.5.1, but instead of compiling from source it's easier to start it over systemd and tell it to restart the service after crash:
+
+First, edit `/lib/systemd/system/scanbd.service` and in the `[Service]` section add the line `Restart=on-failure`.
+
+Then, reload systemd and tell it to start the service on boot time:
 
 ```
-sudo vim /lib/systemd/system/scanbd.service # add Restart=on-failure
 sudo systemctl daemon-reload
 sudo service scanbd start
 sudo update-rc.d scanbd enable
 ```
+Now, hitting the scanner button should work out of the box. Also try restarting the pi and replugging your scanner. You also may want to have a look at syslog, where all scanbds messages end up: `tail -f /var/log/syslog`
+
+<small>If, for any reasons your service would just not start, then examine `/lib/systemd/system/scanbd.service` and check if ExecStart references your scanbd (use `which scanbd`) and your scanbd.conf, and also that `SANE_CONFIG_DIR` is set correctly.</small>
 
 # s3 script
 
@@ -165,78 +182,6 @@ aws s3 cp $TMP_DIR/$tarname s3://scanner-upload/
 rm -rf $TMP_DIR
 echo 'done') &
 ```
-
-
-
-
-First, we'll do a quick test just to see that scanbd does its job: Edit `/etc/scanbd/scanbd.conf` ((if the config file is missing, as it was in my case when I initially installed with `apt` you can take [this initial scanbd.conf](https://gist.github.com/philippkeller/f2dafcd8c9e22e691b2a21ca9746303c) as a start) and:
-
-- set `debug-level=7`, that's just for the beginning until we're sure that everything works
-- set `user=root`, as we just made saned run in the root user
-
-Start scanbd with `sudo scanbd -f` and you'll the the polling. When you hit the scan button then you'll see that it tries running `/etc/scanbd/scripts/test.script` which doesn't exist yet. So far, so good!
-
-<!--
-
-Unfortunately the scanbd version which - at the time of this blog post - is in the repo has [an annoying bug which causes scanbd to crash (segfault) when you close/unplug the scanner and replug it again](https://bugs.launchpad.net/ubuntu/+source/scanbd/+bug/1500095).
-
-If `apt search scanbd` gives you a version > 1.5.1-1 then you can just install it with `sudo apt install scan scanbuttond` and skip to the next section.
-
-To compile from source, do the following:
-
-```
-sudo apt install libconfuse-dev libdbus-1-dev libsane-dev -y
-cd /var/tmp/
-wget https://sourceforge.net/projects/scanbd/files/latest/download?source=files -O scanbd.tar.gz
-tar -xzvf scanbd.tar.gz
-cd 1.5.1
-./configure
-make
-sudo make install
-```
-
-
-
-## Configure scanbd
-
-Contrary to some howtos on the net you don't need to copy files, etc. Scanbd just uses the just sane client to regularly poll the button and then starts a custom script.
-
-First, you need to check where the scanbd config file is. Do `man scanbd` and check the `-c` option. For older versions (ie.g. installed via apt) this is in `/etc/scanbd/scanbd.conf`, for newer (i.e. compiled from source) this is in `/usr/local/etc/scanbd/scanbd.conf`.
-
-Now, adapt your config file like this (if the config file is missing, as it was in my case when I initially installed with `apt` you can take [this initial scanbd.conf](https://gist.github.com/philippkeller/9d6a6ccea6c448bedd67338e8eb98870) as a start):
--->
-
-
-## Configure scanbd
-
-In `/etc/scanbd/scanbd.conf`:
-
-- set `scriptdir = /etc/scanbd/scripts`
-- in action `scan` set `desc="Scan to file and upload to s3"` and `script=scan.sh`
-
-Then, after `mkdir /etc/scanbd/scripts` put that into `/etc/scanbd/scripts/scan.sh` just to test (don't forget to `chmod a+x` the file):
-
-```
-#!/bin/sh
-scanimage > /tmp/foo.pnm
-```
-
-Start scanbd with `sudo scanbd -f` and you should see the polling and your script being called. `cat /var/tmp/foo.txt` should show a bunch of "scan button pressed" lines. Wohoo!
-
-## Test via service
-
-Now, also test if it works when you start it with `sudo service scanbd start`. If you have any problems then you might need to correct `ExecStart` and `SANE_CONFIG_DIR` with the correct directories and reload it with `sudo systemctl daemon-reload`.
-
-To see the logs, do `tail -f /var/log/syslog`
-
-Now, scanbd [has a bug so when you close/open your printer or reconnect the usb it segfaults](https://bugs.launchpad.net/ubuntu/+source/scanbd/+bug/1500095). The versions > 1.5.1.1 have fixed this bug. I tried to use those but then it just didn't carry on after replugging so I went back to the version provided by `apt`.
-
-To work around the segfault it is actually easier to
-
-- add `Restart=on-failure` to `/lib/systemd/system/scanbd.service`
-- reload `sudo systemctl daemon-reload`
-
-Now you should be able to close the lid of the scanner, see the usb disconnect message in `/var/log/syslog`, then open the lid and the scanner button should still work.
 
 # 3. Make the scanner upload to s3
 
@@ -302,12 +247,6 @@ You might want to play around with the `scanimage` command. In the above script 
 - `resolution 300`: this is the default. It is a pretty fast scan and the quality is good enough
 
 Try to call the script manually and then start `scanbd -f`. Now pressing the button will scan and upload to s3, whohoo!
-
-## Start scanbd at boot time, and secure it
-
-Make `scanbd` start at boot time: `sudo update-rc.d scanbd enable`.
-
-Secure it: tbd (what happens when you close the lid..?)
 
 ## Cleaning up
 
