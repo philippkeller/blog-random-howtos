@@ -1,19 +1,21 @@
 ---
 title: 'Scan with raspberry pi, convert with aws lambda to searchable PDF'
-date: 2018-01-22 21:16:13
+date: 2018-01-28 21:16:13
 tags:
+css:
+  - "pre>code.hljs.shell {font-size: 70%}"
 ---
 
-<img src="/images/scan_flow.png" alt="Flow from scanner to raspberry to s3 to lambda to s3"/>
+![from scanner to pi3 to s3 to lambda to s3](/images/scan_flow.png)
 
-I have long dreamed for a setup which lets me just press the scan button on my scanner and without any further input it uploads it as a searchable PDF onto some cloud store. Thanks to the good support of scanners by SANE and the ease of use of AWS lambda it's actually *quite* easy (judging to the length of this post it looks like quite a task, but in the end it is straightforwards and is - surprisingly - quite free of hacks).
+I have long dreamed for a setup which lets me just press the scan button on my scanner and --- without any further input --- uploads it as a searchable PDF onto some cloud drive. Thanks to the good support of scanners by SANE and the ease of use of AWS lambda it's actually *quite* easy (judging to the length of this post it looks like quite a task, but in the end it is straightforwards and is --- surprisingly --- quite free of hacks).
 
 In this solution you:
 
-- set up SANE on your raspberry pi 3 so it scans your document
-- set up scanbd to detect the scan button
+- set up **SANE** on your raspberry pi 3 so it scans your document
+- set up **scanbd** to detect the scan button
 - set up a S3 bucket for uploading
-- set up a lambda function which uses tesseract to create a searchable PDF
+- set up a **lambda** function which uses **tesseract** to create a searchable PDF
 
 What you need:
 
@@ -23,15 +25,14 @@ What you need:
 
 Personally I'm using Raspbian Stretch Lite as OS on my Raspberry and a Fujitsu S1300i.
 
-<!-- more -->
-
-# Set up SANE
-
-First I tried to compile SANE from source, believing that this is the only way to get my scanner to work. After hours of trying and simplifying this howto (And after I wiped the pi3 two times to start over!) I figured out that apt install works just fine! So bear in mind that this howto was done with sweat and after hours of painful try-and-error :)
-
 Before you start: you might just want to wipe your pi and start fresh. Takes you about 15 minutes extra, you can [follow my howto](http://localhost:4000/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/) so you can do that headless (without attaching monitor/keyboard to the pi).
 
-## Install Sane
+<!-- more -->
+
+## Set up SANE
+
+First I tried to compile SANE from source, believing that this is the only way to get my scanner to work. After hours of trying and simplifying this howto (And after I wiped the pi3 two times to start over!) I figured out that `apt install` works just fine! So bear in mind that this howto was done with sweat and after hours of painful try-and-error :)
+
 
 Just install:
 
@@ -39,7 +40,7 @@ Just install:
 sudo apt install sane-utils -y
 ```
 
-No need to install the whole `saned` package which comes with tons of packages. sane-utils is enough. Now, when you plug your scanner to your pi and do..
+No need to install the whole `sane` package which comes with 162 packages needing 430MB of space (sic!). `sane-utils` is enough. Now, when you plug your scanner to your pi and do..
 
 ```bash
 sudo sane-find-scanner -q
@@ -52,18 +53,18 @@ found USB scanner (vendor=0x04c6 [FUJITSU], product=0x128d [ScanSnap S1300i]) at
 found USB scanner (vendor=0x0424, product=0xec00) at libusb:001:003
 ```
 
-That is, your scanner is already detected by sane. Now, throughout this howto I'll use user `pi` to run the processes. You can choose to go for another user, but please don't use `root` for it. 
+That is, your scanner is already detected by sane. Now, throughout this howto, I'll use user `pi` to run the processes. You can choose to go for another user, but please don't use `root` for it. 
 
 To give your user `pi` the permission to scan you'd do:
 
 ```bash
-sudo usermod -a -G scanner pi # makes it available for pi
+sudo usermod -a -G scanner pi
 ```
 
 This works because the group `scanner` is configured in `/etc/udev/rules.d/*.conf` to access the scanner. If this step does not work then [this section](https://wiki.archlinux.org/index.php/SANE#Permission_problem) might help you to troubleshoot.
 
 
-You still can't scan though because you need to install the firmware file for your scanner. First find out where the firmware needs to sit: Grep for your model (in my case scansnap 1300i):
+You still cannot scan though, because you need to install the firmware file for your scanner. First, find out where the firmware needs to sit: Grep for your model (in my case scansnap 1300i):
 
 ```bash
 grep 1300i /etc/sane.d/*.conf
@@ -76,7 +77,7 @@ Shows you something like:
 /etc/sane.d/epjitsu.conf:firmware /usr/share/sane/epjitsu/1300i_0D12.nal
 ```
 
-So all you'd need to do is get this `1300i_0D12.nal` file. From you installation files you got with your scanner, or just google for your firmware file and hope that there's no security concerns.. In my case I found it on github and installed it with:
+So all you'd need to do is get this `1300i_0D12.nal` file. Get it from installation files (i.e. that old CD rom), or just google for your firmware file and hope that there's no security concerns.. In my case I found it on github and installed it with:
 
 ```
 sudo mkdir /usr/share/sane/epjitsu/
@@ -91,13 +92,34 @@ scanimage >/tmp/out.pnm
 
 .. should produce a nice [PNM file](https://en.wikipedia.org/wiki/Image_file_formats#PPM,_PGM,_PBM,_and_PNM) ready to be further processed.
 
-# scanbd
+## Set up scanbd
 
-```
+Scanbd is [very badly documented](https://sourceforge.net/projects/scanbd/reviews/#reviews-n-ratings). It's sad, because once you get it working, it's doing its job very well. Plus: there's really no alternative to scanbd.
+
+Scanbd is just a daemon which regularly polls the scanner to see if a button was pressed. If it was, it just starts a shell script which itself then uses sane to scan. I found [this stackoverflow answer](https://superuser.com/a/1044684/33963) a good explanation how scanbd works.
+
+There are a few howtos on the web which are overly complicated (i.e. copying all files of sane to scanbd), after 2-3 fresh installs I found out a quite forward way to get it working.
+
+Fist, install it via
+
+```bash
 sudo apt install scanbd -y
-sudo vim /etc/scandb/scandb.conf # set debug-level=7, user=pi
+```
+
+then, edit `/etc/scandb/scandb.conf` and set <small>(if your scanbd.conf is missing --- as it was missing for me on the first try --- take [this conf file as a start](/files/scanbd.conf))</small>:
+
+- `debug-level = 7`: to see errors more easily while setting up
+- `user = pi`: to run script and the scanning process as user `pi`
+
+Start scanbd with 
+
+```bash
 sudo scanbd -f
 ```
+
+and you'd see that scanbd is polling. When you hit the scan button then you should see output lines of scanbd trying to run `/etc/scanbd/scripts/test.script` which doesn't exist. So far, so good!
+
+
 
 ```
 sudo vim /etc/scandb/scandb.conf # set script_dir=/etc/scanbd/scripts, in action 'scan': desc="Scan to a file and upload to s3", script="scan.sh"
@@ -146,56 +168,6 @@ echo 'done') &
 
 
 
-# 1. Make sane work with fujitsu 1300i
-
-There are plenty of howtos out there how to get Fujitsu 1300i running with raspberry pi (my favourite one was [this one](https://www.splitbrain.org/blog/2014-08/23-paper_backup_1_scanner_setup)), but for completeness sake here it is again (and the bottom doc bases on this exact setup)
-
-## Install driver/sane/...
-
-
-```
-sudo apt install git-core libusb-dev -y
-cd /var/tmp/
-git clone git://git.debian.org/sane/sane-backends.git
-cd sane-backends/
-BACKENDS=epjitsu ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var
-make
-sudo make install
-cd /usr/share/sane/epjitsu/
-sudo curl https://github.com/ckunte/sfware/raw/master/1300i_0D12.nal -L -O
-```
-
-
-
-```
-sudo vim 
-```
-
-
-## Test with root
-
-Now, `sudo sane-find-scanner -q` should show something like:
-
-```
-found USB scanner (vendor=0x04c6 [FUJITSU], product=0x128d [ScanSnap S1300i]) at libusb:001:011
-found USB scanner (vendor=0x0424, product=0xec00) at libusb:001:003
-```
-
-Do a test scan: `sudo scanimage >/tmp/out.pnm`
-
-Now you could try to get it to run with user `pi` but after some messing around I gave it up. The setup [mentioned in this doc](https://www.splitbrain.org/blog/2014-08/23-paper_backup_1_scanner_setup#sane_permissions) did not work for me
-
-# 2. Detect scanner button pressed
-
-## Install scanbd
-
-Install scanbd via `apt`. Be sure to hit `N` when being asked about overwriting `dll.conf` and `epjitsu.conf`:
-
-```
-sudo apt install scanbd
-```
-
-Scanbd is a daemon which polls the scanner button and starts a custom scripts when the button is pressed. In the script you'll use the sane setup you just did.
 
 First, we'll do a quick test just to see that scanbd does its job: Edit `/etc/scanbd/scanbd.conf` ((if the config file is missing, as it was in my case when I initially installed with `apt` you can take [this initial scanbd.conf](https://gist.github.com/philippkeller/f2dafcd8c9e22e691b2a21ca9746303c) as a start) and:
 
