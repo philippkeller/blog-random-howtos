@@ -151,10 +151,26 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 154.0,
-		"last_filter": "wrap",
+		"height": 392.0,
+		"last_filter": "com",
 		"selected_items":
 		[
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"quick",
+				"Git: Quick Commit (repo)"
+			],
+			[
+				"json",
+				"Pretty JSON: Format (Pretty Print) JSON"
+			],
 			[
 				"wrap",
 				"Word Wrap: Toggle"
@@ -178,10 +194,6 @@
 			[
 				"project",
 				"Project: Save As"
-			],
-			[
-				"json",
-				"Pretty JSON: Minify (compress) JSON"
 			],
 			[
 				"base64",
@@ -260,18 +272,23 @@
 	},
 	"expanded_folders":
 	[
-		"/home/philipp/blogs/howto"
+		"/home/philipp/blogs/howto",
+		"/home/philipp/blogs/howto/source",
+		"/home/philipp/blogs/howto/source/files"
 	],
 	"file_history":
 	[
+		"/home/philipp/blogs/howto/source/files/scanbd.conf",
+		"/home/philipp/blogs/howto/_config.yml",
+		"/home/philipp/blogs/howto/source/_drafts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md",
+		"/home/philipp/oss/ocr/README.md",
+		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
 		"/home/philipp/blogs/howto/source/_posts/how-to-fix-jambox-static-noise.md",
 		"/home/philipp/blogs/howto/source/_posts/How-to-reset-Jambox-when-bluetooth-completely-stopped-working.md",
 		"/home/philipp/blogs/howto/themes/hexo-theme-twbootstrap/languages/en.yml",
 		"/home/philipp/blogs/howto/themes/hexo-theme-twbootstrap/languages/de.yml",
 		"/home/philipp/blogs/howto/source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md",
-		"/home/philipp/blogs/howto/_config.yml",
 		"/home/philipp/blogs/howto/source/_posts/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi.md",
-		"/home/philipp/blogs/howto/source/_posts/How-to-attach-a-file-to-google-spreadsheet.md",
 		"/home/philipp/blogs/howto/source/_posts/Automated-tag-clustering.md",
 		"/home/philipp/blogs/howto/source/_posts/Tagsystems-performance-tests.md",
 		"/home/philipp/blogs/howto/source/_posts/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments.md",
@@ -311,7 +328,6 @@
 		"/home/philipp/oss/serverless-sms-gateway/handler.py",
 		"/home/philipp/oss/ocr/ocr.py",
 		"/home/philipp/oss/ocr/handler.py",
-		"/home/philipp/oss/ocr/README.md",
 		"/home/philipp/oss/ocr/context.json",
 		"/home/philipp/oss/ocr/event.js",
 		"/home/philipp/install-scanner-pi3.md",
@@ -397,6 +413,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"scandb",
+			"scanbd.conf",
+			"300",
+			"note the",
+			"seg",
+			"bin/sh",
+			">>",
 			"\\!",
 			"</?span>",
 			"\\!",
@@ -538,6 +561,18 @@
 		"selected_items":
 		[
 			[
+				"attach",
+				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
+			],
+			[
+				"scan",
+				"source/_drafts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md"
+			],
+			[
+				"_con",
+				"_config.yml"
+			],
+			[
 				"tagsystem",
 				"source/_posts/Tagsystems-performance-tests.md"
 			],
@@ -560,10 +595,6 @@
 			[
 				"tag-clu",
 				"source/_posts/Automated-tag-clustering.md"
-			],
-			[
-				"attach",
-				"source/_posts/How-to-attach-a-file-to-google-spreadsheet.md"
 			],
 			[
 				"static",
@@ -678,10 +709,6 @@
 				"themes/ewal/source/css/site.less"
 			],
 			[
-				"_con",
-				"_config.yml"
-			],
-			[
 				"appeng",
 				"source/_posts/Tutorial-Django-on-Appengine-using-Google-Cloud-SQL.md"
 			],
@@ -760,10 +787,6 @@
 			[
 				"head",
 				"themes/ewal/layout/_partial/head.ejs"
-			],
-			[
-				"scan",
-				"source/_posts/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF.md"
 			],
 			[
 				"read",

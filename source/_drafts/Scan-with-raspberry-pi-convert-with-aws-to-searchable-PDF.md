@@ -171,8 +171,8 @@ So in the next step we'll alter the script so it uploads to s3. But before we ca
 
 ![](/images/locked.jpg)
 
-- **S3**: Create a bucket, e.g. `scanner-upload` (be sure to choose a region close to you. Upload speed is a lot faster for closer regions). Note the ARN of the bucket.
-- **IAM**: create a policy `scanner-upload`, swith into JSON editor and paste this (replace the arn):
+- **S3**: Create two buckets: A temporary upload bucket e.g. `temporary-upload` and a bucket where the OCRed documents will be stored stored e.g. `ocr-documents`  (be sure to choose a region close to you. Upload speed is a lot faster for closer regions). Note the ARN of both buckets.
+- **IAM**: create a policy `ReadWriteOCR`, switch into JSON editor and paste this (replace the arns):
 
 ```json
 {
@@ -181,22 +181,41 @@ So in the next step we'll alter the script so it uploads to s3. But before we ca
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": ["arn:aws:s3:::scanner-upload"]
+      "Resource": ["arn:aws:s3:::<temporary-upload-bucket>"]
     },
     {
       "Effect": "Allow",
       "Action": [
-        "s3:PutObject",
         "s3:GetObject",
+        "s3:PutObject",
         "s3:DeleteObject"
       ],
-      "Resource": ["arn:aws:s3:::scanner-upload/*"]
+      "Resource": ["arn:aws:s3:::<temporary-upload-bucket>/*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": ["arn:aws:s3:::<ocr-document-bucket>/*"]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
     }
   ]
 }
+
 ```
 
-- **IAM**: Create a user with programmatic access only and attach the `scanner-upload` policy. Download the csv which contains the key and secret of this user
+- **IAM**: Create a user with programmatic access only and attach the `ReadWriteOCR` policy. Download the csv which contains the key and secret of this user
+
+Now, this policy has a little too much right for just uploading the files from your pi, but that way we can reuse the policy for the lambda function later and we don't need to create two policies.
 
 Back on Raspberry, first install and configure aws cli (use the key and secret from the downloaded csv):
 
@@ -252,6 +271,47 @@ Now, pressing the button on your scanner should upload the file to s3.. whohoo!
 
 If everything works then you can set `debug-level=3` in `/etc/scandb/scanbd.conf` so it does less verbose logging into syslog.
 
-## Set up lambda
+## Set up AWS lambda
 
-tbd
+Now to the second part -- the one I was looking forward the most: create a lambda function which triggers automatically once the raw scan files are uploaded on s3. Once the trigger fires, it will 
+
+1. start a lambda instance
+2. download and unpack the `tar.gz` file from the temp bucket
+3. run tesseract with pdf output, remove empty pages
+4. upload the OCRed pdf to the final bucket
+5. delete the tar.gz file from the temp bucket
+
+To cut this howto a little short I created a ready made zip file which contains the lambda function. You can [have a look at it](https://github.com/philippkeller/lambda-scanner-ocr/blob/master/ocr.py) but it's not particularly beautiful. It's mainly just a wrapper around calling the tesseract binaries. You could go ahead and fork that git repo and adapt it. In this guide we'll just use it as-is:
+
+- Download `ocr-lambda.zip` from [the release page](https://github.com/philippkeller/lambda-scanner-ocr/releases)
+- Upload the zip file into an s3 bucket of your choice (the bucket needs to be in the same region you want your lambda function to run in)
+
+Now, set up a lambda function with:
+
+- `Name`: e.g. `scan-ocr`
+- `Runtime`: `Python 3.6`
+- `Role`: `Choose an existing role`
+- `Existing role`: the role you created earlier: `ReadWriteOCR`
+
+Then, in the lambda function set
+
+- Function code: `Handler` = `handler.handler`
+- Einvornment variables: 
+  + `S3_DEST_BUCKET=<ocr-document-bucket>` Destination bucket name where lambda will upload the OCRed pdf
+  + `EMPTY_PAGE_THRESHOLD=200` if tesseract finds less than 200 characters on a page it's --- from experience --- likely to be empty and will be removed (assumes you're using a duplex scanner). If you want to disable empty page removal, just put this to 0
+- Basic settings:
+  + Description: e.g. `take tar.gz and turn it into OCRed PDF`
+  + `Timeout`: `5:00` minutes: This is the max value which lambda allows. For 6 page scans my lambda needed about 12s, so with 5 minutes you should be fine handling ~150 pages :)
+  + `Memory`: I chose 2048MB. The more memory you take, the faster the execution time (see also [the official doc](https://docs.aws.amazon.com/lambda/latest/dg/resource-model.html)). 128MB is not enough. It will lead to out of memory exceptions.
+
+Now, load in the zip file you just uploaded to s3:
+
+- Function code:
+  + `Code entry type`: `upload from s3`
+  + `S3 link URL`: the zip file location in the form `https://s3.<region>.amazonaws.com/<bucket>/ocr-lambda.zip`
+
+## Test it
+
+![](/images/magic_card.jpg)
+
+In theory 
