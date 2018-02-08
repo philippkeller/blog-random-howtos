@@ -1,6 +1,6 @@
 ---
 title: 'Scan with raspberry pi, convert with aws lambda to searchable PDF'
-date: 2018-01-28 21:16:13
+date: 2018-02-08 22:15:00
 tags:
 css:
   - "pre>code.hljs.shell {font-size: 70%}"
@@ -17,6 +17,7 @@ In this solution you:
 - set up **scanbd** to detect the scan button
 - set up a S3 bucket for uploading
 - set up a **lambda** function which uses **tesseract** to create a searchable PDF
+- (optionally) set up **google api** to store the PDF to google drive
 
 What you need:
 
@@ -31,8 +32,6 @@ Before you start: you might just want to wipe your pi and start fresh. Takes you
 <!-- more -->
 
 ## Set up SANE
-
-<img src="/images/sane.png" alt="Sane: Scanner Access Now Easy" class="caption" />
 
 First I tried to compile SANE from source, believing that this is the only way to get my scanner to work. After hours of trying and simplifying this howto (And after I wiped the pi3 two times to start over!) I figured out that `apt install` works just fine! So bear in mind that this howto was done with sweat and after hours of painful try-and-error :)
 
@@ -97,9 +96,9 @@ scanimage >/tmp/out.pnm
 
 ## Set up scanbd
 
-![](/images/button.jpg)
+<img src="/images/bacon.jpg" alt="Random button image to keep you motivated throughout this guide. And we're not even at half.. sheesh" class="caption" />
 
-Scanbd is [very badly documented](https://sourceforge.net/projects/scanbd/reviews/#reviews-n-ratings). It's sad, because once you get it working, it's doing its job very well. Plus: there's really no alternative to scanbd.
+Scanbd is [very badly documented](https://sourceforge.net/projects/scanbd/reviews/#reviews-n-ratings). This is sad, because once you get it working, it's doing its job very well. Plus: there's really no alternative to scanbd.
 
 Scanbd is just a daemon which regularly polls the scanner to see if a button was pressed. If it was, it just starts a shell script which itself then uses sane to scan. I found [this stackoverflow answer](https://superuser.com/a/1044684/33963) a good explanation how scanbd works.
 
@@ -122,16 +121,16 @@ Start scanbd with
 sudo scanbd -f
 ```
 
-and you'd see that scanbd is polling. When you hit the scan button then you should see output lines of scanbd trying to run `/etc/scanbd/scripts/test.script` which doesn't exist. So far, so good!
+and you'd see that scanbd is polling. When you hit the scan button, then you should see output lines of scanbd trying to run `/etc/scanbd/scripts/test.script` which doesn't exist. So far, so good!
 
-Now, we'll put our script into place: Edit `/etc/scanbd/scanbd.conf` and set:
+Next, put your own script into place: Edit `/etc/scanbd/scanbd.conf` and set:
 
 - `script_dir=/etc/scanbd/scripts`
 - in `action scan`:
   - `desc = "Scan to file and upload to s3"`
   - `script = "scan.sh"`
 
-Now, we'll just put a little script in place which scans to `/tmp/foo.pnm`:
+Then put this sample script into `/tmp/foo.pnm`:
 
 ```bash
 sudo mkdir /etc/scanbd/scripts/
@@ -144,6 +143,8 @@ Replug your scanner and test it with:
 ```bash
 sudo scanbd -f
 ```
+
+<img src="/images/segfault.jpg" alt="C++ developers aiding a comrade facing SEGFAULT, 1890 - Frederic Remington" class="caption" />
 
 Hitting the scanner button should scan. Buuut: if you now power off the scanner (close the lid on my model) or unplug it or whatever, and then replug it, then scanbd crashes spectacularly with a segmentation fault. There is [this reported bug](https://bugs.launchpad.net/ubuntu/+source/scanbd/+bug/1500095) which is solved with version 1.5.1, but instead of compiling from source it's easier to start it over systemd and tell it to restart the service after crash:
 
@@ -171,7 +172,7 @@ So in the next step we'll alter the script so it uploads to s3. But before we ca
 
 ![](/images/locked.jpg)
 
-- **S3**: Create two buckets: A temporary upload bucket e.g. `temporary-upload` and a bucket where the OCRed documents will be stored stored e.g. `ocr-documents`  (be sure to choose a region close to you. Upload speed is a lot faster for closer regions). Note the ARN of both buckets.
+- **S3**: Create a temporary upload bucket e.g. `temporary-upload` (be sure to choose a region close to you. Upload speed is a lot faster for closer regions). Note the ARN of the bucket.
 - **IAM**: create a policy `ReadWriteOCR`, switch into JSON editor and paste this (replace the arns):
 
 ```json
@@ -195,13 +196,6 @@ So in the next step we'll alter the script so it uploads to s3. But before we ca
     {
       "Effect": "Allow",
       "Action": [
-        "s3:PutObject"
-      ],
-      "Resource": ["arn:aws:s3:::<ocr-document-bucket>/*"]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
         "logs:PutLogEvents"
@@ -210,7 +204,6 @@ So in the next step we'll alter the script so it uploads to s3. But before we ca
     }
   ]
 }
-
 ```
 
 - **IAM**: Create a user with programmatic access only and attach the `ReadWriteOCR` policy. Download the csv which contains the key and secret of this user
@@ -230,23 +223,23 @@ It's important that you start `aws configure` as the user with which you run you
 Now, test that s3 access works: 
 
 ```bash
-aws s3 ls s3://scanner-upload/
-s3 cp some_file.txt s3://scanner-upload/
+aws s3 ls s3://<temporary-upload-bucket>/
+s3 cp some_file.txt s3://<temporary-upload-bucket>/
 ```
 
 ## Write the scanner script
 
-Now -- finally.. -- all the things are in place to finish the scanner script.
+Now -- finally -- all the things are in place to finish the scanner script.
 
 The below script..
 
 - scans in batch mode: creates multiple files until the feeder is empty
 - does a duplex scan (there's no detection if both sides contain content. It means that if it's a one sided paper the second page is just empty)
-- scan with `resolution 300`: this is the default. It is a pretty fast scan and the quality is good enough
+- scan with `resolution 300`: this is the default. It is a pretty fast scan and the quality is just what OCR (tesseract) recommends
 - does a `.tar.gz` archive. I did some speed tests and in my case it was quicker to first gzip the file before uploading. But that greatly depends on your upload speed
 - does the compression and uploading in the background so the scanner is ready to do the next scan
 
-Take the script and save it in `/etc/scanbd/scripts/scan.sh`, the only thing you'd need to adapt is the s3 bucket name.
+Take the script and save it in `/etc/scanbd/scripts/scan.sh`, the only thing you'd need to adapt is the s3 bucket name. You may also comment out the `rm -rf` in the second last line until you're sure your lambda function doesn't eat up your files)
 
 ```bash
 #!/bin/sh
@@ -262,7 +255,7 @@ echo 'packaging and uploading in subshell'
 cd $TMP_DIR
 tar -czf $tarname *.pnm
 echo 'uploading..'
-aws s3 cp $TMP_DIR/$tarname s3://scanner-upload/
+aws s3 cp $TMP_DIR/$tarname s3://<temporary-upload-bucket>/
 rm -rf $TMP_DIR
 echo 'done') &
 ```
@@ -273,15 +266,19 @@ If everything works then you can set `debug-level=3` in `/etc/scandb/scanbd.conf
 
 ## Set up AWS lambda
 
+<img src="/images/magic_card.jpg" alt="Another random motivational picutre" class="caption" />
+
 Now to the second part -- the one I was looking forward the most: create a lambda function which triggers automatically once the raw scan files are uploaded on s3. Once the trigger fires, it will 
 
 1. start a lambda instance
 2. download and unpack the `tar.gz` file from the temp bucket
 3. run tesseract with pdf output, remove empty pages
-4. upload the OCRed pdf to the final bucket
+4. upload the OCRed pdf to S3 or google drive
 5. delete the tar.gz file from the temp bucket
 
-To cut this howto a little short I created a ready made zip file which contains the lambda function. You can [have a look at it](https://github.com/philippkeller/lambda-scanner-ocr/blob/master/ocr.py) but it's not particularly beautiful. It's mainly just a wrapper around calling the tesseract binaries. You could go ahead and fork that git repo and adapt it. In this guide we'll just use it as-is:
+To cut this howto a little short I created a ready made zip file which contains the lambda function. You can [have a look at it](https://github.com/philippkeller/lambda-scanner-ocr/blob/master/ocr.py) but it's not particularly beautiful. It's mainly just a wrapper around calling the tesseract binaries. The tesseract binaries are built on an EC2 host which is [the same execution environment as is used for AWS lambda](https://docs.aws.amazon.com/lambda/latest/dg/current-supported-versions.html).
+
+You could go ahead and fork that git repo and adapt it. In this guide we'll just use it as-is:
 
 - Download `ocr-lambda.zip` from [the release page](https://github.com/philippkeller/lambda-scanner-ocr/releases)
 - Upload the zip file into an s3 bucket of your choice (the bucket needs to be in the same region you want your lambda function to run in)
@@ -296,9 +293,10 @@ Now, set up a lambda function with:
 Then, in the lambda function set
 
 - Function code: `Handler` = `handler.handler`
-- Einvornment variables: 
+- Environment variables: 
   + `S3_DEST_BUCKET=<ocr-document-bucket>` Destination bucket name where lambda will upload the OCRed pdf
   + `EMPTY_PAGE_THRESHOLD=200` if tesseract finds less than 200 characters on a page it's --- from experience --- likely to be empty and will be removed (assumes you're using a duplex scanner). If you want to disable empty page removal, just put this to 0
+  + `UPLOAD_TYPE`: `discard`: just to get going for now, the OCRed file will be discarded. Later on you'll configure this lambda function to upload to S3 or Google Drive.
 - Basic settings:
   + Description: e.g. `take tar.gz and turn it into OCRed PDF`
   + `Timeout`: `5:00` minutes: This is the max value which lambda allows. For 6 page scans my lambda needed about 12s, so with 5 minutes you should be fine handling ~150 pages :)
@@ -312,12 +310,75 @@ Now, load in the zip file you just uploaded to s3:
 
 ## Test it
 
-![](/images/magic_card.jpg)
+![](/images/first_try.jpg)
 
-In theory 
+In theory this all would work out of the box of course. But let's try it out. Upload a tar.gz from a test scan to your temporary s3 bucket. Then, hit `configure test event` from the dropdown at the top of your lambda function. Now, put this json into the editor:
+
+```json
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "<temporary-upload-bucket>"
+        },
+        "object": {
+          "key": "<uploaded-file>.tar.gz"
+        }
+      }
+    }
+  ]
+}
+```
+
+After saving the test you can run it and you'll see all the text output of the lambda function, and hopefully the line `all fine, discarding file, but not deleting source file`.
+
+## Upload to S3 / Google Drive
 
 
-## Google Drive
+Originally I just had the lambda function upload the file to S3 and hoped to find a nice frontend above S3 (but failed. Apparently there's nothing really decent), but then I realized that I'd need some text search anyway. Otherwise, half the fun of OCR (apart from copy-pasting lines from invoices into my ebanking, which is my main use case) is gone anyway, I decided to go for Google Drive support.
 
-https://developers.google.com/drive/v3/web/quickstart/python
-take 'Gdrive uploader' as name
+<div class="alert alert-warning" role="alert" style="font-size: 85%">
+<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> If you don't need Google Drive and just want uploads to another S3 bucket, then you could skip this section and instead put the env vars `UPLOAD_TYPE` = `s3`, and set `S3_BUCKET` to your destination bucket name add this json to your policy and you'll be fine:
+<pre style="font-size: 85%">
+{
+  "Effect": "Allow",
+  "Action": [
+    "s3:PutObject"
+  ],
+  "Resource": ["arn:aws:s3:::&lt;dest-bucket&gt;/*"]
+}
+</pre>
+Then, proceed to the last section to add the lambda trigger.
+</div>
+
+<img src="/images/hoops.jpg" alt="Yay, the final hoops to jump through.." class="caption" />
+
+First, follow through steps a-h in [this documentation](https://developers.google.com/drive/v3/web/quickstart/python#step_1_turn_on_the_api_name). This makes you enable gdrive on your google api account. In the end you'll end up with a `client_secret.json` file.
+
+Now, git clone the ocr-scanner repo you already used for downloading the zip release file and trigger the oauth flow:
+
+```
+git clone https://github.com/philippkeller/lambda-scanner-ocr.git
+cd lambda-scanner-ocr
+pip install oauth2client
+python scripts/get_drive_credentials.py
+```
+
+Your browser should open and asks if you'd like to authenticate your lambda function to go over your google api account and created files in your google drive and access the files it created (which it won't need). See [here](https://developers.google.com/drive/v2/web/about-auth) for more details about the right you're granting.
+
+Once you grant the right, you'll see a bunch of environment variables you need to copy-paste over to your lambda function.
+
+Optionally, if you wish your PDFs to be stored in a specific folder, go to that folder in your google drive, copy the part in the url after `/folders/` and put that into an additional environment variabled named `GDRIVE_FOLDER`
+
+## Add trigger
+
+Now, to the very very last thing: Your lambda function should auto-trigger once your raspberry pi3 uploads a file into your temporary s3 bucket. First, reload the page of your lambda function, then, from the `Add triggers` menu of your lambda function (top left) choose `S3`, then in `Configure trigger` dialogue:
+
+- `Bucket`: the bucket where the lambda function should listen to
+- `Event tpye`: `Object Created (All)`
+- `Prefix` and `Suffix` you can leave empty
+
+That's it! Now, pressing your button on your scanner should make the whole chain reaction start and you should see your OCRed file in Google Drive (or S3, if you chose so). If it does not, you should be able to go to the `Monitoring` "tab" top of your lambda function and see if it triggered at all and head over to its log file.
+
+That's all guys. I'd be happy if you leave some comments, whatever. It has been a (much much too big) effort writing up this guide :)
