@@ -7,7 +7,7 @@ css:
   - "pre>code.hljs.json {font-size: 80%}"
 ---
 
-![from scanner to pi3 to s3 to lambda to s3](/images/scan_flow.png)
+<img src="/images/scan_flow.png" alt="What we're building today :)" class="caption" />
 
 I have long dreamed for a setup which lets me just press the scan button on my scanner and --- without any further input --- uploads it as a searchable PDF onto some cloud drive. Thanks to the good support of scanners by SANE and the ease of use of AWS lambda it's actually *quite* easy (judging to the length of this post it looks like quite a task, but in the end it is straightforwards and is --- surprisingly --- quite free of hacks).
 
@@ -315,3 +315,9 @@ Now, load in the zip file you just uploaded to s3:
 ![](/images/magic_card.jpg)
 
 In theory 
+
+
+## Google Drive
+
+https://developers.google.com/drive/v3/web/quickstart/python
+take 'Gdrive uploader' as name
