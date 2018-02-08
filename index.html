@@ -84,6 +84,64 @@
   
     
   
+    <h1 class="title"><a href="/2018/02/08/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF/">Scan with raspberry pi, convert with aws lambda to searchable PDF</a></h1>
+  
+
+    <div class="post-date">
+      <time datetime="2018-02-08T21:15:00.000Z">2018-02-08</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p><img src="/images/scan_flow.png" alt="What we're building today :)" class="caption"></p>
+<p>I have long dreamed for a setup which lets me just press the scan button on my scanner and — without any further input — uploads it as a searchable PDF onto some cloud drive. Thanks to the good support of scanners by SANE and the ease of use of AWS lambda it’s actually <em>quite</em> easy (judging to the length of this post it looks like quite a task, but in the end it is straightforwards and is — surprisingly — quite free of hacks).</p>
+<p>In this solution you:</p>
+<ul>
+<li>set up <strong>SANE</strong> on your raspberry pi 3 so it scans your document</li>
+<li>set up <strong>scanbd</strong> to detect the scan button</li>
+<li>set up a S3 bucket for uploading</li>
+<li>set up a <strong>lambda</strong> function which uses <strong>tesseract</strong> to create a searchable PDF</li>
+<li>(optionally) set up <strong>google api</strong> to store the PDF to google drive</li>
+</ul>
+<p>What you need:</p>
+<ul>
+<li>Raspberry Pi 3 (I guess the other models serve equally well)</li>
+<li>Paper scanner with a “scan” button which is <a href="http://www.sane-project.org/sane-mfgs.html" target="_blank" rel="external">supported by saned</a></li>
+<li>an AWS account</li>
+</ul>
+<p>Personally I’m using Raspbian Stretch Lite as OS on my Raspberry and a Fujitsu S1300i.</p>
+<p>Before you start: you might just want to wipe your pi and start fresh. Takes you about 15 minutes extra, you can <a href="http://localhost:4000/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/" target="_blank" rel="external">follow my howto</a> so you can do that headless (without attaching monitor/keyboard to the pi).</p>
+    
+  </div>
+  
+      <div class="row">
+    
+      <div class="col-3 col-md-3">
+        <a href="/2018/02/08/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF/#more" class="more-link">Read more »</a>
+      </div>
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/02/08/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF/" data-addthis-title="Scan with raspberry pi, convert with aws lambda to searchable PDF">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    
+  
     <h1 class="title"><a href="/2018/01/26/How-to-check-for-broken-links-in-markdown-files/">How to check for broken links in markdown files</a></h1>
   
 
@@ -487,54 +545,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/21
   
   <div class="addthis_toolbox addthis_default_style 
 addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/14/How-to-reset-Jambox-when-bluetooth-completely-stopped-working/" data-addthis-title="How to reset Jambox when bluetooth completely stopped working">
-<a class="addthis_button_preferred_1"></a>
-<a class="addthis_button_preferred_2"></a>
-<a class="addthis_button_preferred_3"></a>
-<a class="addthis_button_preferred_4"></a>
-<a class="addthis_button_compact"></a>
-<a class="addthis_counter addthis_bubble_style"></a>
-</div>
-  
-  
-
-</article>
-
-						
-						<article class="post">
-  
-    
-  
-    <h1 class="title"><a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/">Python: Print list of dicts as ascii table</a></h1>
-  
-
-    <div class="post-date">
-      <time datetime="2010-02-27T11:55:00.000Z">2010-02-27</time>
-    </div>
-  
-  <div class="post-content">
-    
-      <p>Sometimes I want to print list of dicts as an ascii table, like this:</p>
-<pre><code>| Programming Language | Language Type | Years of Experience |
-+----------------------+---------------+---------------------+
-| python               | script        |                   4 |
-| php                  | script        |                   5 |
-| java                 | compiled      |                  11 |
-| assember             | compiled      |                  15 |
-</code></pre><p>I searched on Google - but without luck.
-    
-  </div>
-  
-      <div class="row">
-    
-      <div class="col-3 col-md-3">
-        <a href="/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/#more" class="more-link">Read more »</a>
-      </div>
-    
-    
-    </div>
-  
-  <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2010/02/27/Python-Print-list-of-dicts-as-ascii-table/" data-addthis-title="Python: Print list of dicts as ascii table">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
