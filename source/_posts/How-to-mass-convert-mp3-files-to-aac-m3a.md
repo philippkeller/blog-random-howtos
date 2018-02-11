@@ -29,7 +29,7 @@ Here you go: Once, you haved `cd`ed into the directory with the mp3 files you wa
 
 ```bash
 detox *.mp3
-fmpeg -i *.mp3([1]) artwork.jpg
+ffmpeg -i *.mp3([1]) artwork.jpg
 for i in *.mp3; do ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a} done
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
 rm artwork.jpg && rm *.mp3
