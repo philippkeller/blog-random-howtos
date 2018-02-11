@@ -380,5 +380,3 @@ Now, to the very very last thing: Your lambda function should auto-trigger once 
 - `Prefix` and `Suffix` you can leave empty
 
 That's it! Now, pressing your button on your scanner should make the whole chain reaction start and you should see your OCRed file in Google Drive (or S3, if you chose so). If it does not, you should be able to go to the `Monitoring` "tab" top of your lambda function and see if it triggered at all and head over to its log file.
-
-That's all guys. I'd be happy if you leave some comments, whatever. It has been a (much much too big) effort writing up this guide :)
