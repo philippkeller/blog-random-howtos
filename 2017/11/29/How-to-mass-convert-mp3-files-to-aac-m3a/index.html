@@ -12,7 +12,7 @@ DeclutterFirst things first: Almost everything in life is easier if you first re
 First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.
 No words! I just want to copy-pasteHere you go: Once, you haved cded into the directory with the mp3 files you want to convert, do this:
 detox *.mp3
-fmpeg -i *.mp3([1]) artwork.jpg
+ffmpeg -i *.mp3([1]) artwork.jpg
 for i in *.mp3; do ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a} done
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
 rm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
@@ -112,7 +112,7 @@ rm artwork.jpg &amp;amp;&amp;amp; rm *.mp3">
 <p>First, reduce your collection to, say the albums you listened in the past 12 months. Make it 24. But anything beyond is just an overly burden you don’t need to carry.</p>
 <h3 id="No-words-I-just-want-to-copy-paste"><a href="#No-words-I-just-want-to-copy-paste" class="headerlink" title="No words! I just want to copy-paste"></a>No words! I just want to copy-paste</h3><p>Here you go: Once, you haved <code>cd</code>ed into the directory with the mp3 files you want to convert, do this:</p>
 <pre><code class="bash">detox *.mp3
-fmpeg -i *.mp3([1]) artwork.jpg
+ffmpeg -i *.mp3([1]) artwork.jpg
 for i in *.mp3; do ffmpeg -i $i -c:a libfdk_aac -b:a 128k -vf scale=1280:-2 ${i/mp3/m4a} done
 for i in *.m4a; do AtomicParsley $i --artwork artwork.jpg --overWrite; done
 rm artwork.jpg &amp;&amp; rm *.mp3
