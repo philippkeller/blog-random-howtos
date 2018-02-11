@@ -419,9 +419,9 @@ def download(request, filename):
     </summary>
     
     
-      <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
-    
       <category term="History" scheme="http://howto.philippkeller.com/tags/History/"/>
+    
+      <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
     
   </entry>
   
@@ -491,9 +491,9 @@ def download(request, filename):
     
       <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
     
-      <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
-    
       <category term="Del.icio.us" scheme="http://howto.philippkeller.com/tags/Del-icio-us/"/>
+    
+      <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
     
       <category term="Performance" scheme="http://howto.philippkeller.com/tags/Performance/"/>
     
@@ -541,9 +541,9 @@ def download(request, filename):
     
       <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
     
-      <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
-    
       <category term="Del.icio.us" scheme="http://howto.philippkeller.com/tags/Del-icio-us/"/>
+    
+      <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
     
   </entry>
   
