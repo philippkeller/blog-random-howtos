@@ -45,7 +45,7 @@ Everything is easier on the shell if instead of having `my süpér s'öñg.mp3` 
 
 We'll use ffmpeg to convert from mp3 to aac. Sadly the convert command does not transport your artworks, so you need to first extract the artwork. Use the correct ending (otherwise you'll have a problem in line 4). This command takes the first mp3 and extracts the artwork into artwork.jpg.
 
-### Lines 3-5: Convert
+### Lines 3: Convert
 
 Now, in my version of Ubuntu (Xenial, 16.04) ffmpeg does not come with the compiled in converter from mp3 to aac, so I needed to first [compile ffmpeg from source](http://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu). This was quite straightforward for me except that it kept saying I had x265 not installed even after doing `sudo apt install libx265-dev`. I needed to follow [these steps](https://bitbucket.org/multicoreware/x265/issues/125/x265-not-found-using-pkg-config#comment-17635086) to have this resolved. 
 
@@ -56,10 +56,10 @@ If you don't want to compile from source then [here](https://superuser.com/a/370
 - `-b:a 128k`: this sets a fixed bitrate. If you'd wish a variable bitrate (having more details for more "dynamic" sections of the track) then you can use `-vbr 4` instead, or lower it for lower quality/higher compression.
 - the `-vf scale=1280:-2` bit is needed to circumvent the `height not divisible by 2` error. Taken from [here](https://stackoverflow.com/a/20848224/119861)
 
-### Line 6: Set artwork
+### Line 4: Set artwork
 
 This just sets back the artwork you extracted in line 2. This was taken from [here](https://superuser.com/a/524120).
 
-### Line 7: Cleanup
+### Line 5: Cleanup
 
 Yeah, finally delete all the old file and enjoy the smaller filesize :)
