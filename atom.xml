@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://howto.philippkeller.com/"/>
-  <updated>2018-03-11T16:16:18.321Z</updated>
+  <updated>2018-03-11T16:42:50.628Z</updated>
   <id>http://howto.philippkeller.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://howto.philippkeller.com/2018/03/11/How-to-remove-browser-shortcuts-interferring-with-cloud9/"/>
     <id>http://howto.philippkeller.com/2018/03/11/How-to-remove-browser-shortcuts-interferring-with-cloud9/</id>
     <published>2018-03-11T15:31:19.000Z</published>
-    <updated>2018-03-11T16:16:18.321Z</updated>
+    <updated>2018-03-11T16:42:50.628Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="images/cloud9.png" alt="cloud9"></p><p>I just started playing around with cloud9, particularly because it looks like the ideal IDE to develop lambda functions.</p><p>One thing which bothered me from the start: Emacs keybindings such as <code>ctrl-n</code> for next line won’t work because this makes the browser (in my case firefox) open a new window. I’d like to have <em>all</em> shortcuts available for cloud9, so ideally cloud9 would run in some minimalistic browser window.</p><p>Because Firefox and also Chrome don’t support <em>removing</em> shortcuts I found <a href="https://stackoverflow.com/a/25995884/119861" target="_blank" rel="external">this nice solution</a>:</p><a id="more"></a><p>First, install nw.js (requires node.js)</p><pre><code>sudo npm install nw -g</code></pre><p>then install package.json into e.g. ~/bin/:</p><pre><code>mkdir ~/bin/cloud9vim ~/bin/cloud9/package.json</code></pre><p>and put this into package.json:</p><pre><code class="json">{    &quot;name&quot; : &quot;cloud9 launcher&quot;,    &quot;window&quot; : {        &quot;fullscreen&quot; : true,        &quot;toolbar&quot; : false    },    &quot;main&quot; : &quot;https://console.aws.amazon.com/cloud9/home&quot;}</code></pre><p>You can directly launch that with <code>nw ~/bin/cloud9/</code>. To also have a desktop entry for Ubuntu: First install the icon of cloud9:</p><pre><code>cd /usr/share/pixmaps/wget http://howto.philippkeller.com/images/cloud9.png -O cloud9.png</code></pre><p>Then put this into <code>~/.local/share/applications/Cloud9.desktop</code>:</p><pre><code class="txt">[Desktop Entry]Type=ApplicationName=Cloud9Exec=nw bin/cloud9Icon=cloud9Categories=Development;IDEComment=Start Cloud9 in kiosk modeTerminal=false</code></pre>]]></content>
+    <content type="html"><![CDATA[<p><img src="images/cloud9.png" alt="cloud9"></p><p>I just started playing around with cloud9, particularly because it looks like the ideal IDE to develop lambda functions.</p><p>One thing which bothered me from the start: Emacs keybindings such as <code>ctrl-n</code> for next line won’t work because this makes the browser (in my case firefox) open a new window. I’d like to have <em>all</em> shortcuts available for cloud9, so ideally cloud9 would run in some minimalistic browser window.</p><p>Because Firefox and also Chrome don’t support <em>removing</em> shortcuts I found <a href="https://stackoverflow.com/a/25995884/119861" target="_blank" rel="external">this nice solution</a>:</p><a id="more"></a><p>First, install nw.js (requires node.js)</p><pre><code>sudo npm install nw -g</code></pre><p>then install package.json into e.g. ~/bin/:</p><pre><code>mkdir ~/bin/cloud9wget http://howto.philippkeller.com/images/cloud9.pngvim ~/bin/cloud9/package.json</code></pre><p>and put this into package.json:</p><pre><code class="json">{    &quot;name&quot;: &quot;cloud9 launcher&quot;,    &quot;window&quot;: {        &quot;fullscreen&quot;: true,        &quot;toolbar&quot;: false,        &quot;icon&quot;: &quot;cloud9.png&quot;    },    &quot;main&quot;: &quot;https://console.aws.amazon.com/cloud9/home&quot;}</code></pre><p>You can directly launch that with <code>nw ~/bin/cloud9/</code>. To also have a desktop entry for Ubuntu, put this into <code>~/.local/share/applications/Cloud9.desktop</code> (replace <code>philipp</code> with your user..)</p><pre><code class="txt">[Desktop Entry]Type=ApplicationName=Cloud9Exec=nw /home/philipp/bin/cloud9Icon=/home/philipp/bin/cloud9/cloud9.pngCategories=Development;IDEComment=Start Cloud9 in kiosk modeTerminal=false</code></pre>]]></content>
     
     <summary type="html">
     
@@ -440,9 +440,9 @@ def download(request, filename):
     </summary>
     
     
-      <category term="History" scheme="http://howto.philippkeller.com/tags/History/"/>
-    
       <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
+    
+      <category term="History" scheme="http://howto.philippkeller.com/tags/History/"/>
     
   </entry>
   
