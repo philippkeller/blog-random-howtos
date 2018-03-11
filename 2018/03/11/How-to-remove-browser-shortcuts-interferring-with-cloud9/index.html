@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>How to remove browser shortcuts interferring with cloud9 | Random Howtos</title>
+  <meta name="author" content="Philipp Keller">
+  
+  <meta name="description" content="I just started playing around with cloud9, particularly because it looks like the ideal IDE to develop lambda functions.
+One thing which bothered me from the start: Emacs keybindings such as ctrl-n for next line won’t work because this makes the browser (in my case firefox) open a new window. I’d like to have all shortcuts available for cloud9, so ideally cloud9 would run in some minimalistic browser window.
+Because Firefox and also Chrome don’t support removing shortcuts I found this nice solution:">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="generator" content="Hexo 2.6.0"/>
+
+  <meta property="og:title" content="How to remove browser shortcuts interferring with cloud9"/>
+  <meta property="og:site_name" content="Random Howtos"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  <link href="/favicon.png" rel="shortcut icon">
+
+  
+    <link rel="stylesheet" href="/css/highlightjs/atelier-estuary-light.css">
+  
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <link rel="alternate" href="/atom.xml" title="Random Howtos" type="application/atom+xml">
+
+  <link href="/css/site.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.caption.min.js"></script>
+  <link href="/css/captionjs.min.css" rel="stylesheet"/>
+  <script type="text/javascript" src="/js/ewal.js"></script>
+
+  
+  
+
+
+
+
+</head>
+
+<body>
+  
+
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><span class="text-primary">Random Howtos</span></a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right">
+      <ul class="nav navbar-nav">
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+      
+      
+      
+      
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      <div><article class="post">
+  
+    
+  
+    <h1 class="title">How to remove browser shortcuts interferring with cloud9</h1>
+  
+
+    <div class="post-date">
+      <time datetime="2018-03-11T15:31:19.000Z">2018-03-11</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p>I just started playing around with cloud9, particularly because it looks like the ideal IDE to develop lambda functions.</p>
+<p>One thing which bothered me from the start: Emacs keybindings such as <code>ctrl-n</code> for next line won’t work because this makes the browser (in my case firefox) open a new window. I’d like to have <em>all</em> shortcuts available for cloud9, so ideally cloud9 would run in some minimalistic browser window.</p>
+<p>Because Firefox and also Chrome don’t support <em>removing</em> shortcuts I found <a href="https://stackoverflow.com/a/25995884/119861" target="_blank" rel="external">this nice solution</a>:</p>
+<a id="more"></a>
+<p>First, install nw.js (requires node.js)</p>
+<pre><code>sudo npm install nw -g
+</code></pre><p>then install package.json into e.g. ~/bin/:</p>
+<pre><code>mkdir ~/bin/cloud9
+vim ~/bin/cloud9/package.json
+</code></pre><p>and put this into package.json:</p>
+<pre><code class="json">{
+    &quot;name&quot; : &quot;cloud9 launcher&quot;,
+    &quot;window&quot; : {
+        &quot;fullscreen&quot; : true,
+        &quot;toolbar&quot; : false
+    },
+    &quot;main&quot; : &quot;https://console.aws.amazon.com/cloud9/home&quot;
+}
+</code></pre>
+<p>You can directly launch that with <code>nw ~/bin/cloud9/</code>. To also have a desktop entry for Ubuntu: First install the icon of cloud9:</p>
+<pre><code>cd /usr/share/pixmaps/
+wget https://static.c9.io/nc-3.1.4187-b42238cf/static/homepage/images/AWSCloud9_logo_color_400x400.png -O cloud9.png
+</code></pre><p>Then put this into <code>~/.local/share/applications/Cloud9.desktop</code>:</p>
+<pre><code class="txt">[Desktop Entry]
+Type=Application
+Name=Cloud9
+Exec=nw bin/cloud9
+Icon=cloud9
+Categories=Development;IDE
+Comment=Start Cloud9 in kiosk mode
+Terminal=false
+</code></pre>
+
+    
+  </div>
+  
+    
+
+    
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/03/11/How-to-remove-browser-shortcuts-interferring-with-cloud9/" data-addthis-title="How to remove browser shortcuts interferring with cloud9">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+    <ul class="next_prev">
+      
+        <li class="prev">
+        <a class="btn btn-success" role="button" href="/2018/02/08/Scan-with-raspberry-pi-convert-with-aws-to-searchable-PDF/">
+          Previous
+        </a></li>
+      
+      
+    </ul>
+  
+  
+<div class="row comments">
+  <h2>Comments</h1>
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div>
+
+
+</article>
+</div>
+    </div>
+  </div>
+  <div id="push"></div>
+  <div class="navbar navbar-footer">
+  <div class="container">
+    <p class="navbar-center navbar-text">
+      
+      &copy; 2018 Philipp Keller
+      
+    </p>
+  </div>
+</div>
+  <script src="/js/bootstrap.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'randomhowtos';
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+</body>
+</html>
