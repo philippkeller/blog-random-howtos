@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://howto.philippkeller.com/"/>
-  <updated>2018-03-11T16:49:31.317Z</updated>
+  <updated>2018-03-13T20:24:36.836Z</updated>
   <id>http://howto.philippkeller.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>How to extract text from pdf in python</title>
+    <link href="http://howto.philippkeller.com/2018/03/13/How-to-extract-text-from-pdf-in-python/"/>
+    <id>http://howto.philippkeller.com/2018/03/13/How-to-extract-text-from-pdf-in-python/</id>
+    <published>2018-03-13T20:04:48.000Z</published>
+    <updated>2018-03-13T20:24:36.836Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/xpdf.jpg" alt="xpdf"></p><p>I’m trying to get text extraction from pdfs working on lambda for a little fun project of mine.</p><p>Now, there are <a href="https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python" target="_blank" rel="external">a lot of possibilities how to extract text from pdfs using python</a> but nothing really worked for me:</p><ul><li>pypdf2 just returned newlines for my test pdfs</li><li>tika (which calls apache tika) was too slow (needs to start a java server first on localhost)</li></ul><p>Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is very easy and the resulting binary works out of the box:</p><a id="more"></a><pre><code>sudo yum install -y cmake freetype-devel clangcmake -DCMAKE_BUILD_TYPE=Releasemake</code></pre><p>There will be warnings about qt missing, but this is not relevant as we’re only interested in the xpdf tools.</p><p>Make produces <code>xpdf/pdftotext</code> which turns out to work out of the box in a lambda environment. So, copy it into the root of your lambda function and then add something like this:</p><pre><code class="python">import os, subprocessSCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))args = [&quot;{}/pdftotext&quot;.format(SCRIPT_DIR),         &#39;-enc&#39;,        &#39;UTF-8&#39;,        &quot;{}/rechnung.pdf&quot;.format(SCRIPT_DIR),        &#39;-&#39;]res = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)output = res.stdout.decode(&#39;utf-8&#39;)</code></pre><p>In my case I was only interested in non-whitespace characters so I added <code>words = re.sub(&quot;\W+&quot;, &quot; &quot;, output)</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/images/xpdf.jpg&quot; alt=&quot;xpdf&quot;&gt;&lt;/p&gt;
+&lt;p&gt;I’m trying to get text extraction from pdfs working on lambda for a little fun project of mine.&lt;/p&gt;
+&lt;p&gt;Now, there are &lt;a href=&quot;https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;a lot of possibilities how to extract text from pdfs using python&lt;/a&gt; but nothing really worked for me:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;pypdf2 just returned newlines for my test pdfs&lt;/li&gt;
+&lt;li&gt;tika (which calls apache tika) was too slow (needs to start a java server first on localhost)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is very easy and the resulting binary works out of the box:&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>How to remove browser shortcuts interferring with cloud9</title>
@@ -517,28 +542,6 @@ def download(request, filename):
       <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
     
       <category term="Performance" scheme="http://howto.philippkeller.com/tags/Performance/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tags with MySQL fulltext</title>
-    <link href="http://howto.philippkeller.com/2005/05/05/Tags-with-MySQL-fulltext/"/>
-    <id>http://howto.philippkeller.com/2005/05/05/Tags-with-MySQL-fulltext/</id>
-    <published>2005-05-05T17:09:00.000Z</published>
-    <updated>2018-01-26T10:32:06.255Z</updated>
-    
-    <content type="html"><![CDATA[<p>While setting up the promised performance test in my <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas" target="_blank" rel="external">last post</a>, I did some tests with the <a href="http://dev.mysql.com/doc/mysql/en/fulltext-search.html" target="_blank" rel="external">MySQL fulltext features</a> and it seems that they are built for tagging systems. Take a look at the queries (if it is not clear for you what is done here, please read <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas" target="_blank" rel="external">my previous post</a>).<a id="more"></a></p><p>I took the <a href="http://nanovivid.com/projects/mysqlicious/" target="_blank" rel="external">MySQLicious</a> schema and added <code>ALTER TABLE</code>delicious<code>ADD FULLTEXT (</code>tags<code>)</code>.<br>The full schema:</p><blockquote><div><br><div><code>CREATE TABLE</code>delicious<code>(</code>id<code>int(11) NOT NULL auto_increment,</code>url<code>text,</code>description<code>text,</code>extended<code>text,</code>tags<code>text,</code>date<code>datetime default NULL,</code>hash<code>varchar(255) default NULL, PRIMARY KEY (</code>id<code>), KEY</code>date<code>(</code>date<code>), FULLTEXT KEY</code>tags<code>(</code>tags<code>)) ENGINE=MyISAM</code></div><br></div></blockquote><h2 id="Queries"><a href="#Queries" class="headerlink" title="Queries"></a>Queries</h2><h3 id="Intersection"><a href="#Intersection" class="headerlink" title="Intersection"></a>Intersection</h3><p>Intersections can be done using <a href="http://dev.mysql.com/doc/mysql/en/fulltext-boolean.html" target="_blank" rel="external">boolean fulltext search</a> (since MySQL 4.01):<br>Query for semweb+search:</p><p><code>SELECT * FROM delicious WHERE MATCH (tags) AGAINST (&#39;+semweb +search&#39; IN BOOLEAN MODE)</code></p><p>Now this was easy. And, you guess it, Minus is very similar:</p><h3 id="Minus"><a href="#Minus" class="headerlink" title="Minus"></a>Minus</h3><p><span>Query for search+webservice-search:</span></p><p><span></span><code>SELECT * FROM delicious WHERE MATCH (tags) AGAINST (&#39;+search +webservice -search&#39; IN BOOLEAN MODE)</code></p><h3 id="Brackets"><a href="#Brackets" class="headerlink" title="Brackets"></a>Brackets</h3><p><span>Even brackets are possible:</span><br>Query for (del.icio.us|delicious)+(webservice|project):</p><p><code>SELECT * FROM delicious WHERE MATCH (tags) AGAINST (&#39;+(del.icio.us delicious) +(webservice project)&#39; IN BOOLEAN MODE)</code></p><h3 id="Union"><a href="#Union" class="headerlink" title="Union"></a>Union</h3><p><img src="https://lh5.googleusercontent.com/-KI8lkatasrA/UL0A4ABDj4I/AAAAAAAALEY/X2i8ehJDAiE/s508/union_result.png" alt="union DB result"></p><p><span>For union you could use the already mentioned boolean mode, but if you want to have the results ordered so that the bookmark with the most “hits” is the first entry of the result try this sort of query:</span></p><p><code>SELECT * FROM delicious WHERE MATCH (tags) AGAINST (&#39;delicious clone project webservice&#39;)</code></p><p>If you take a look at the screenshot of the first 7 results of the query run on my DB, you can see that the first hit has got all four tags we searched for, the second has got two and the rest has got just one of them. Like this you can do a “find similar entries” very easily.</p><h2 id="Downsides-and-problems"><a href="#Downsides-and-problems" class="headerlink" title="Downsides and problems"></a>Downsides and problems</h2><p><span>There are two points where difficulties can accur: When MySQL builds its index out of the tags and when searching for specific tags. I stumbled on three problems:</span></p><h3 id="Stopcharacters"><a href="#Stopcharacters" class="headerlink" title="Stopcharacters"></a>Stopcharacters</h3><p><span>If you insert tags with characters like “-“ (as in “my-comment”), then MySQL will make two index entries: One for “my” and one for “comment”. Vice versa if you search for “my-comment” you’ll find bookmarks with tag “my” and those with tag “comment”. It seems that this problem can be eliminated by </span><a href="http://dev.mysql.com/doc/mysql/en/fulltext-search.html" target="_blank" rel="external">setting the character set of the column “tags” to <code>latin1_bin</code></a><span> but this feature is not available before MySQL 4.1.</span><br>But nontheless this shouldn’t be a showstopper. You could replace “-“ with a string, say “<em>minus</em>“. This is ugly but should do it..</p><h3 id="Stopwords"><a href="#Stopwords" class="headerlink" title="Stopwords"></a>Stopwords</h3><p>When searching for or indexing tags like “against” or “brief” (<a href="http://www.databasejournal.com/features/mysql/article.php/1578331" target="_blank" rel="external">full list of stopwords</a>), these tags will not be regarded.<br>Since MySQL 4.0.10 you can <a href="http://dev.mysql.com/doc/mysql/en/fulltext-fine-tuning.html" target="_blank" rel="external">customize your stopwordlist</a>.</p><h3 id="Minimum-length-of-a-tag"><a href="#Minimum-length-of-a-tag" class="headerlink" title="Minimum length of a tag"></a>Minimum length of a tag</h3><p>Per default, the minimal length of a word indexed by MySQL fulltext is 4 characters. You should therefor <a href="http://dev.mysql.com/doc/mysql/en/fulltext-fine-tuning.html" target="_blank" rel="external">edit <code>my.cnf</code></a> in order to set the minimal tag length to 1.</p><h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p>This solution scales ok. I did tests with tables from 1000 to 1 million bookmarks.<br>The time for inserting a bookmark is the same for small as for big tables. The time for an intersection query was 0.001 (finding 0.7 urls averaged) in the 1000-table and 0.1 seconds in the 1 million-table(finding 70 bookmarks averaged). There are some <a href="http://dev.mysql.com/doc/mysql/en/fulltext-search.html" target="_blank" rel="external">discussions about if MySQLs fulltext search is fast or not (have a look at the user comments)</a>. Quick performance tests showed that it is about 10 times as fast as the LIKE-queries mentioned in <a href="http://tagging.pui.ch/post/37027745720/tags-database-schemas" target="_blank" rel="external">my previous post</a>. But I guess it is not fast enough for webservices like <a href="http://del.icio.us" target="_blank" rel="external">del.icio.us</a>, I guess this services have to run more than 10 queries a second and then this solution is too slow..<br>Update: <a href="http://tagging.pui.ch/post/37027746608/tagsystems-performance-tests" target="_blank" rel="external">I tested the performance of this setup</a>.</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;While setting up the promised performance test in my &lt;a href=&quot;http://tagging.pui.ch/post/37027745720/tags-database-schemas&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;last post&lt;/a&gt;, I did some tests with the &lt;a href=&quot;http://dev.mysql.com/doc/mysql/en/fulltext-search.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;MySQL fulltext features&lt;/a&gt; and it seems that they are built for tagging systems. Take a look at the queries (if it is not clear for you what is done here, please read &lt;a href=&quot;http://tagging.pui.ch/post/37027745720/tags-database-schemas&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;my previous post&lt;/a&gt;).
-    
-    </summary>
-    
-    
-      <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
-    
-      <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
     
   </entry>
   

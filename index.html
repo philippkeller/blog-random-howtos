@@ -84,6 +84,54 @@
   
     
   
+    <h1 class="title"><a href="/2018/03/13/How-to-extract-text-from-pdf-in-python/">How to extract text from pdf in python</a></h1>
+  
+
+    <div class="post-date">
+      <time datetime="2018-03-13T20:04:48.000Z">2018-03-13</time>
+    </div>
+  
+  <div class="post-content">
+    
+      <p><img src="/images/xpdf.jpg" alt="xpdf"></p>
+<p>I’m trying to get text extraction from pdfs working on lambda for a little fun project of mine.</p>
+<p>Now, there are <a href="https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python" target="_blank" rel="external">a lot of possibilities how to extract text from pdfs using python</a> but nothing really worked for me:</p>
+<ul>
+<li>pypdf2 just returned newlines for my test pdfs</li>
+<li>tika (which calls apache tika) was too slow (needs to start a java server first on localhost)</li>
+</ul>
+<p>Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is very easy and the resulting binary works out of the box:</p>
+    
+  </div>
+  
+      <div class="row">
+    
+      <div class="col-3 col-md-3">
+        <a href="/2018/03/13/How-to-extract-text-from-pdf-in-python/#more" class="more-link">Read more »</a>
+      </div>
+    
+    
+    </div>
+  
+  <div class="addthis_toolbox addthis_default_style 
+addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2018/03/13/How-to-extract-text-from-pdf-in-python/" data-addthis-title="How to extract text from pdf in python">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+  
+  
+
+</article>
+
+						
+						<article class="post">
+  
+    
+  
     <h1 class="title"><a href="/2018/03/11/How-to-remove-browser-shortcuts-interferring-with-cloud9/">How to remove browser shortcuts interferring with cloud9</a></h1>
   
 
@@ -505,49 +553,6 @@ addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2014/01/20
   
   <div class="addthis_toolbox addthis_default_style 
 addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/12/14/How-to-migrate-your-wordpress-to-tumblr-Including-images-and-comments/" data-addthis-title="How to migrate your wordpress to tumblr. Including images and comments.">
-<a class="addthis_button_preferred_1"></a>
-<a class="addthis_button_preferred_2"></a>
-<a class="addthis_button_preferred_3"></a>
-<a class="addthis_button_preferred_4"></a>
-<a class="addthis_button_compact"></a>
-<a class="addthis_counter addthis_bubble_style"></a>
-</div>
-  
-  
-
-</article>
-
-						
-						<article class="post">
-  
-    
-  
-    <h1 class="title"><a href="/2012/07/21/how-to-fix-jambox-static-noise/">How to fix Jambox’ “static noise and no bluetooth sound” problem(includes soldering)</a></h1>
-  
-
-    <div class="post-date">
-      <time datetime="2012-07-21T13:07:00.000Z">2012-07-21</time>
-    </div>
-  
-  <div class="post-content">
-    
-      <p><img src="/images/soldered.png" alt="fixed"></p>
-<p>Jambox is a pretty cool device: The sound quality is very good, it is small, it has a battery. I liked it. Until it broke. It just didn’t play music over bluetooth any more but instead uttered static noise. This seems to be a quite severe production problem as after some internet research I found that many people have devices with the exact same problem. So going down the “Jambox please replace my device” way didn’t sound promising to me. The possibility that the replacement device is broken as well is just too high.</p>
-<p>The problem lies in the aux in port. The device thinks there’s an aux cable plugged in and outputs the signal from the aux input when in fact it should play the bluetooth sound.</p>
-    
-  </div>
-  
-      <div class="row">
-    
-      <div class="col-3 col-md-3">
-        <a href="/2012/07/21/how-to-fix-jambox-static-noise/#more" class="more-link">Read more »</a>
-      </div>
-    
-    
-    </div>
-  
-  <div class="addthis_toolbox addthis_default_style 
-addthis_32x32_style" data-addthis-url="http://howto.philippkeller.com/2012/07/21/how-to-fix-jambox-static-noise/" data-addthis-title="How to fix Jambox’ “static noise and no bluetooth sound” problem(includes soldering)">
 <a class="addthis_button_preferred_1"></a>
 <a class="addthis_button_preferred_2"></a>
 <a class="addthis_button_preferred_3"></a>
