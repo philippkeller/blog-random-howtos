@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://howto.philippkeller.com/"/>
-  <updated>2018-03-13T20:24:36.836Z</updated>
+  <updated>2018-03-14T07:28:07.091Z</updated>
   <id>http://howto.philippkeller.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://howto.philippkeller.com/2018/03/13/How-to-extract-text-from-pdf-in-python/"/>
     <id>http://howto.philippkeller.com/2018/03/13/How-to-extract-text-from-pdf-in-python/</id>
     <published>2018-03-13T20:04:48.000Z</published>
-    <updated>2018-03-13T20:24:36.836Z</updated>
+    <updated>2018-03-14T07:28:07.091Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/images/xpdf.jpg" alt="xpdf"></p><p>I’m trying to get text extraction from pdfs working on lambda for a little fun project of mine.</p><p>Now, there are <a href="https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python" target="_blank" rel="external">a lot of possibilities how to extract text from pdfs using python</a> but nothing really worked for me:</p><ul><li>pypdf2 just returned newlines for my test pdfs</li><li>tika (which calls apache tika) was too slow (needs to start a java server first on localhost)</li></ul><p>Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is very easy and the resulting binary works out of the box:</p><a id="more"></a><pre><code>sudo yum install -y cmake freetype-devel clangcmake -DCMAKE_BUILD_TYPE=Releasemake</code></pre><p>There will be warnings about qt missing, but this is not relevant as we’re only interested in the xpdf tools.</p><p>Make produces <code>xpdf/pdftotext</code> which turns out to work out of the box in a lambda environment. So, copy it into the root of your lambda function and then add something like this:</p><pre><code class="python">import os, subprocessSCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))args = [&quot;{}/pdftotext&quot;.format(SCRIPT_DIR),         &#39;-enc&#39;,        &#39;UTF-8&#39;,        &quot;{}/rechnung.pdf&quot;.format(SCRIPT_DIR),        &#39;-&#39;]res = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)output = res.stdout.decode(&#39;utf-8&#39;)</code></pre><p>In my case I was only interested in non-whitespace characters so I added <code>words = re.sub(&quot;\W+&quot;, &quot; &quot;, output)</code></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="/images/xpdf.jpg" alt="xpdf"></p><p>I’m trying to get text extraction from pdfs working on lambda for a little fun project of mine.</p><p>Now, there are <a href="https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python" target="_blank" rel="external">a lot of possibilities how to extract text from pdfs using python</a> but nothing really worked for me:</p><ul><li>pypdf2 just returned newlines for my test pdfs</li><li>tika (which calls apache tika) was too slow (needs to start a java server first on localhost)</li></ul><p>Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is quite straigtforward:</p><a id="more"></a><pre><code>sudo yum install -y cmake freetype-devel clangcmake -DCMAKE_BUILD_TYPE=Releasemake</code></pre><p>There will be warnings about qt missing, but this is not relevant as we’re only interested in the xpdf tools.</p><p>Make produces <code>xpdf/pdftotext</code> which has only one shared lib dependency (<code>/usr/lib64/libstdc++.so.6</code>) you’d need to fix in order to make it work on AWS lambda:</p><p>Copy <code>pdftotext</code> into your lambda root and <code>/usr/lib64/libstdc++.so.6</code> into <code>lib/libstdc++.so.6</code> and then you can call pdftotext like this:</p><pre><code class="python">    import os, subprocess    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))    LIB_DIR = os.path.join(SCRIPT_DIR, &#39;lib&#39;)    args = [&quot;{}/pdftotext&quot;.format(SCRIPT_DIR),             &#39;-enc&#39;,            &#39;UTF-8&#39;,            &quot;my.pdf&quot;,            &#39;-&#39;]    env = os.environ.copy()    env.update(dict(LD_LIBRARY_PATH=LIB_DIR))    res = subprocess.run(args,         stdout=subprocess.PIPE,        stderr=subprocess.PIPE,        env=env)    if res.returncode &gt; 0:        print(&quot;pdftotext exited with {}:\n{}&quot;.format(res.returncode, res.stderr))        raise Exception    output = res.stdout.decode(&#39;utf-8&#39;)</code></pre><p>In my case I was only interested in non-whitespace characters so I added <code>words = re.sub(&quot;\W+&quot;, &quot; &quot;, output)</code></p>]]></content>
     
     <summary type="html">
     
@@ -34,7 +34,7 @@
 &lt;li&gt;pypdf2 just returned newlines for my test pdfs&lt;/li&gt;
 &lt;li&gt;tika (which calls apache tika) was too slow (needs to start a java server first on localhost)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is very easy and the resulting binary works out of the box:&lt;/p&gt;
+&lt;p&gt;Finally I ended up using xpdfs pdftotext. Sadly I couldn’t install xpdf on AWS EC2 (Amazon Linux), so I needed to compile it, but turned out it is quite straigtforward:&lt;/p&gt;
     
     </summary>
     
@@ -537,9 +537,9 @@ def download(request, filename):
     
       <category term="Tagging" scheme="http://howto.philippkeller.com/tags/Tagging/"/>
     
-      <category term="Del.icio.us" scheme="http://howto.philippkeller.com/tags/Del-icio-us/"/>
-    
       <category term="MySQL" scheme="http://howto.philippkeller.com/tags/MySQL/"/>
+    
+      <category term="Del.icio.us" scheme="http://howto.philippkeller.com/tags/Del-icio-us/"/>
     
       <category term="Performance" scheme="http://howto.philippkeller.com/tags/Performance/"/>
     
