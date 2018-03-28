@@ -73,11 +73,17 @@ pagination_dir: page
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
+# deploy:
+#   type: git
+#   repo: git@github.com:philippkeller/blog-random-howtos.git
+#   branch: gh-pages
+#   message: hans
+
 deploy:
-  type: git
-  repo: git@github.com:philippkeller/blog-random-howtos.git
-  branch: gh-pages
-  message: hans
+  type: s3
+  bucket: howto.philippkeller.com
+  aws_cli_profile: default
+  region: eu-west-1
 
 # Theme settings:
 theme: hexo-theme-twbootstrap

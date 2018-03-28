@@ -9,6 +9,7 @@
     "hexo": "^3.2.0",
     "hexo-browsersync": "^0.3.0",
     "hexo-deployer-git": "^0.3.1",
+    "hexo-deployer-s3": "^0.2.4",
     "hexo-generator-alias": "git+https://github.com/hexojs/hexo-generator-alias.git",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-category": "^0.1.3",
