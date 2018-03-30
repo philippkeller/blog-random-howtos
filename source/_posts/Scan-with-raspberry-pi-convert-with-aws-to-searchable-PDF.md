@@ -102,8 +102,6 @@ Check if `sudo scanimage -L` works. If this does, then there is a permission pro
 
 ## Set up scanbd
 
-<img src="/images/bacon.jpg" alt="Random button image to keep you motivated throughout this guide. And we're not even at half.. sheesh" class="caption" />
-
 Scanbd is [very badly documented](https://sourceforge.net/projects/scanbd/reviews/#reviews-n-ratings). This is sad, because once you get it working, it's doing its job very well. Plus: there's really no alternative to scanbd.
 
 Scanbd is just a daemon which regularly polls the scanner to see if a button was pressed. If it was, it just starts a shell script which itself then uses sane to scan. I found [this stackoverflow answer](https://superuser.com/a/1044684/33963) a good explanation how scanbd works.
@@ -131,12 +129,12 @@ and you'd see that scanbd is polling. When you hit the scan button, then you sho
 
 Next, put your own script into place: Edit `/etc/scanbd/scanbd.conf` and set:
 
-- `script_dir=/etc/scanbd/scripts`
+- `scriptdir=/etc/scanbd/scripts`
 - in `action scan`:
   - `desc = "Scan to file and upload to s3"`
   - `script = "scan.sh"`
 
-Then put this sample script into `/tmp/foo.pnm`:
+Then put this sample script into `/etc/scanbd/scripts/scan.sh`:
 
 ```bash
 sudo mkdir /etc/scanbd/scripts/
