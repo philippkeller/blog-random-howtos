@@ -27,7 +27,7 @@ What you need:
 
 Personally I'm using Raspbian Stretch Lite as OS on my Raspberry and a Fujitsu S1300i.
 
-Before you start: you might just want to wipe your pi and start fresh. Takes you about 15 minutes extra, you can [follow my howto](http://localhost:4000/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/) so you can do that headless (without attaching monitor/keyboard to the pi).
+Before you start: you might just want to wipe your pi and start fresh. Takes you about 15 minutes extra, you can [follow my howto](/2018/01/20/How-to-set-up-raspberry-pi-headless-with-ssh-and-wifi/) so you can do that headless (without attaching monitor/keyboard to the pi).
 
 <!-- more -->
 
@@ -63,8 +63,7 @@ To give your user `pi` the permission to scan you'd do:
 sudo usermod -a -G scanner pi
 ```
 
-This works because the group `scanner` is configured in `/etc/udev/rules.d/*.conf` to access the scanner. If this step does not work then [this section](https://wiki.archlinux.org/index.php/SANE#Permission_problem) might help you to troubleshoot.
-
+This works because the group `scanner` is configured in `/etc/udev/rules.d/*.conf` to access the scanner.
 
 You still cannot scan though, because you need to install the firmware file for your scanner. First, find out where the firmware needs to sit: Grep for your model (in my case scansnap 1300i):
 
@@ -82,7 +81,7 @@ Shows you something like:
 So all you'd need to do is get this `1300i_0D12.nal` file. Get it from installation files (i.e. that old CD rom), or just google for your firmware file and hope that there's no security concerns.. In my case I found it on github and installed it with:
 
 ```
-sudo mkdir /usr/share/sane/epjitsu/
+sudo mkdir -p /usr/share/sane/epjitsu/
 sudo wget https://github.com/ckunte/sfware/raw/master/1300i_0D12.nal -O /usr/share/sane/epjitsu/1300i_0D12.nal
 ```
 
@@ -93,6 +92,13 @@ scanimage >/tmp/out.pnm
 ```
 
 .. should produce a nice [PNM file](https://en.wikipedia.org/wiki/Image_file_formats#PPM,_PGM,_PBM,_and_PNM) ready to be further processed.
+
+If this doesn't work..
+
+Check if `sudo scanimage -L` works. If this does, then there is a permission problem with your user `pi`. 
+
+- Check if you have conf files in `/etc/udev/rules.d`. If not, then restart (yes..!) your raspberry pi.
+- For more debugging check [this guide](https://wiki.archlinux.org/index.php/SANE#Permission_problem).
 
 ## Set up scanbd
 
