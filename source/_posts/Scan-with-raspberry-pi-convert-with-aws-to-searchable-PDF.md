@@ -228,7 +228,7 @@ Now, test that s3 access works:
 
 ```bash
 aws s3 ls s3://<temporary-upload-bucket>/
-s3 cp some_file.txt s3://<temporary-upload-bucket>/
+aws s3 cp some_file.txt s3://<temporary-upload-bucket>/
 ```
 
 ## Write the scanner script
