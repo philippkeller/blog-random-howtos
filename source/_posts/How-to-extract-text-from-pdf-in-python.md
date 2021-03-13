@@ -8,7 +8,7 @@ tags:
 
 I'm trying to get text extraction from pdfs working on lambda for a little fun project of mine.
 
-Now, there are [a lot of possibilities how to extract text from pdfs using python](https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python) but nothing really worked for me:
+Now. There are [a lot of possibilities how to extract text from pdfs using python](https://stackoverflow.com/questions/34837707/extracting-text-from-a-pdf-file-using-python) but nothing really worked for me:
 
 - pypdf2 just returned newlines for my test pdfs
 - tika (which calls apache tika) was too slow (needs to start a java server first on localhost)
