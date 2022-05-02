@@ -9,6 +9,9 @@ I've rooted many smartphones before. Probably about 6. But I never had so much p
 
 The exact phone model I have is `SM-A505FN` but I guess it work with any A50 model.
 
+What works: basically everything, including fingerprint scanner  
+What doesn't: Family Link
+
 <!-- more -->
 
 ## Download needed files
@@ -16,8 +19,10 @@ The exact phone model I have is `SM-A505FN` but I guess it work with any A50 mod
 - get latest TWRP *with* Magisk patched from [here](https://forum.xda-developers.com/f/samsung-galaxy-a50-guides-news-discussion.8682/) I got version 3.5.0 from [here](https://forum.xda-developers.com/t/guide-recovery-unofficial-twrp-v3-5-0-for-samsung-galaxy-a50.4216765/). If you want root this is crucial because Samsung A50 has no ramdisk and that means you cannot flash Magisk later on, you *need* to start with a patched TWRP
 - get Lineage version of your wishes. I *think* the only version existing is from AndyYan. For Samsung A50 choose the `treble_a64_bv` version. You need to unzip the `.xz` file so you'll have a `.img` file.
 	- [17.1](https://sourceforge.net/projects/andyyan-gsi/files/lineage-17.x/) is Android 10 based (worked for me well)
-	- [18.1](https://sourceforge.net/projects/andyyan-gsi/files/lineage-18.x/) is Android 11 based (but as of March 2021 there were no open gapps for Android 11 yet and I couldn't get other gapps distros to work)
-- Get [google apps of your wishes](https://opengapps.org/). Personally I went for pico which didn't have google search but google app store. But depends on your use case of course. Important is that you choose the right Android version. Platform for A50 is ARM64.
+	- [18.1](https://sourceforge.net/projects/andyyan-gsi/files/lineage-18.x/) is Android 11 based
+- Google Apps:
+	- For 17.1: Get [from opengapps](https://opengapps.org/). Personally I went for pico which didn't have google search but google app store. But depends on your use case of course. Important is that you choose the right Android version. Platform for A50 is ARM64.
+	- For 18.1 Get [from NigGapps](https://sourceforge.net/projects/nikgapps/files/Releases/NikGapps-R/) (opengapps doesn't support 18.1 at the time of this post)
 
 ## Prepare phone
 
