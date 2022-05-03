@@ -109,7 +109,7 @@ sudo systemctl start nginx
 sudo systemctl enable nginx
 ```
 
-To install the reverse proxy, create `/etc/nginx/conf.d/`:
+To install the reverse proxy, create `/etc/nginx/conf.d/app.conf` (this is loaded because `/etc/nginx/nginx.conf` contains this line: `include /etc/nginx/conf.d/*.conf;`):
 
 ```
 server {
@@ -131,8 +131,6 @@ server {
 ```
 
 The config is taken from the [flask documentation](https://flask.palletsprojects.com/en/2.1.x/deploying/wsgi-standalone/#proxy-setups) which also explains the `proxy_set_header` lines.
-
-This works because `/etc/nginx/nginx.conf` contains this line: `include /etc/nginx/conf.d/*.conf;`
 
 To test if the config is correct: `sudo nginx -t` and if there are no errors you can reload: `sudo systemctl reload nginx`.
 
