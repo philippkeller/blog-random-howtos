@@ -138,8 +138,9 @@ I got the error: `(13: Permission denied) while connecting to upstream`. The pro
 chmod a+x ~
 ```
 
-## Restarting app on app changes
+Now you should be able to see your app on http://public_ip_address
 
-Now of course you'd want your own app in `~/app/`
+## And then…
 
-TODO: flask suggests using http forwarding https://flask.palletsprojects.com/en/2.1.x/deploying/wsgi-standalone/
+- did changes to your app? Store the new files on ec2 and then run `sudo systemctl restart flaskapp` to make gunicorn refresh the webpage
+- an alternative to the socket forward is forwarding via http, this way you can also fix some HTTP headers: See [flask documentation](https://flask.palletsprojects.com/en/2.1.x/deploying/wsgi-standalone/#proxy-setups), and if you think that sockets are more performant, they're not, see [this stackoverflow answer](https://stackoverflow.com/a/54013893).
