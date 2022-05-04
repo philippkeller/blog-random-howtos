@@ -11,6 +11,8 @@ This howto…
 - sets postgres password
 - makes postgres to be reachable from outside
 
+<!-- more -->
+
 I assume that you…
 
 - have an amazon linux 2 instance (ec2 or lightsail)
