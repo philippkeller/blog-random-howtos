@@ -9,7 +9,7 @@ This howto…
 - installs postgres13
 - creates a first database
 - sets postgres password
-- makes postgres to be reachable from outside
+- makes postgres reachable from outside
 
 <!-- more -->
 
