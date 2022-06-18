@@ -153,7 +153,7 @@ If all goes well then you get redirected to the login flow and are then greeted 
 
 The code is pretty much production ready. Of course you'd want to use a different sqlalchemy database, and get rid of db.create_all() and db.session.commit()
 
-You might want to style that login page a bit, for this, create a new template in `templates/firebase_auth/widget.html` and do something like this:
+You might want to style that login page a bit, for this, create a new template in your own templates directory `templates/firebase_auth/widget.html` and do something like this:
 
 ```
 {% extends "firebase_auth/widget_base.html" %}
