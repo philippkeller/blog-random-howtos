@@ -149,4 +149,36 @@ Now, you need to run the server with SSL enabled, otherwise the social login pro
 Therefore start the server with `export FLASK_DEBUG=1 && venv/bin/flask run --with-threads --cert adhoc`
 If all goes well then you get redirected to the login flow and are then greeted in the index() view with your name.
 
+## Use it in production
+
+The code is pretty much production ready. Of course you'd want to use a different sqlalchemy database, and get rid of db.create_all() and db.session.commit()
+
+You might want to style that login page a bit, for this, create a new template in `templates/firebase_auth/widget.html` and do something like this:
+
+```
+{% extends "firebase_auth/widget_base.html" %}
+
+{% block scripts %}
+<!-- include your js files here -->
+{% endblock %}
+
+{% block styles %}
+<style>
+    body {
+      margin: auto;
+      padding: auto;
+      text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block header %}
+<!-- include your header/navigation/… here -->
+{% endblock %}
+
+{% block footer %}
+<!-- include your footer here -->
+{% endblock %}
+
+```
 
