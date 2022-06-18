@@ -159,25 +159,25 @@ You might want to style that login page a bit, for this, create a new template i
 {% extends "firebase_auth/widget_base.html" %}
 
 {% block scripts %}
-<!-- include your js files here -->
+&lt;!-- include your js files here --&gt;
 {% endblock %}
 
 {% block styles %}
-<style>
+&lt;style&gt;
     body {
       margin: auto;
       padding: auto;
       text-align: center;
     }
-</style>
+&lt;/style&gt;
 {% endblock %}
 
 {% block header %}
-<!-- include your header/navigation/… here -->
+&lt;!-- include your header/navigation here --&gt;
 {% endblock %}
 
 {% block footer %}
-<!-- include your footer here -->
+&lt;!-- include your footer here --&gt;
 {% endblock %}
 
 ```
