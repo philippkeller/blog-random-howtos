@@ -34,7 +34,7 @@ disqus_shortname:
 highlight:
   enable: false
 
-highlightjs: atelier-estuary-light
+highlightjs: foundation
 
 # shows a loading animation if image takes some moments to load
 # see https://imagesloaded.desandro.com/
