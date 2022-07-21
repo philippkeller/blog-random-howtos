@@ -166,8 +166,55 @@ That makes that your python client can only *read* secrets, never write them. It
 
 - enable approle: Access -> enable new method -> AppRole
 - leave the Path at `approle`, click Enable Method
-- ssh into your server or open a new shell, then run the following commands:
+- ssh into your server or open a new shell, then run the following commands (use your root token you got while setting up the server):
 
 ```
 export VAULT_ADDR='http://127.0.0.1:8200'
 export VAULT_TOKEN="hvs.1324ASDF1324ASDF1324Aasd"
+```
+
+Then run the following (replace `flask` line 1 by your wished role name and `flask` in the last name by the name of your ACL policy):
+
+```
+vault write auth/approle/role/flask \
+    token_num_uses=10 \
+    token_ttl=20m \
+    token_max_ttl=30m \
+    secret_id_num_uses=0 \
+    token_policies=flask
+```
+
+This creates a new role named `flask` and attaches it to the ACL policy `flask` which can only read secrets.
+
+Now, you can create a access role-id/secret pair:
+
+- `vault read -field=role_id auth/approle/role/flask/role-id` -> creates a role-id
+- `vault write -f -field=secret_id auth/approle/role/flask/secret-id` -> creates a secret
+- store both away into a safe place, e.g. 1password
+
+## test python setup
+
+Let's create a first dummy secret:
+
+- In the UI go to Secrets -> kv -> create new secret
+- name the secret `foo`, store whatever key/value things you want
+
+On your laptop…
+
+- start a new virtual env
+- run `pip install hvac`
+- open a python shell
+
+then do the following:
+
+```
+import hvac
+client = hvac.Client(url='https://mysite.com:8201') # depending on if you run this on server or dev needs different address, there might be a better way to do this
+client.auth.approle.login('role-id-from-above', 'secret-from-above')
+client.is_authenticated() # should be True
+client.secrets.kv.read_secret_version(path='foo', mount_point='kv')['data']['data']
+```
+
+The last line creates `{'bar': 'baz'}`
+
+That's it, hope I didn't forget anything, else please use the comments below!
