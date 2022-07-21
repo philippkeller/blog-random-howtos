@@ -113,7 +113,7 @@ That should have been it, you can test it by starting `sudo vault server -config
 
 Vault offers an API. This is used by your python clients to retrieve secrets. Likely, not all your python clients reside on your ec2 server (at least your dev environment would be on your laptop), you need to expose the api to outside. No worries, this is safe, but it should be secured by HTTPS.
 
-The Vault docs [use Kubernetes to create SSL certificates](https://www.vaultproject.io/docs/platform/k8s/helm/examples/standalone-tls) - since I had letsencrypt SSL certificates already and didn't want to use Kubernetes *just* for creating SSL certificates I chose to use nginx as a SSL proxy.
+The Vault docs [use Kubernetes to create SSL certificates](https://www.vaultproject.io/docs/platform/k8s/helm/examples/standalone-tls) - since I had letsencrypt SSL certificates already (see [this howto](http://howto.philippkeller.com/2022/05/04/How-to-install-letsencrypt-for-nginx-on-Amazon-Linux-2/) and didn't want to use Kubernetes *just* for creating SSL certificates I chose to use nginx as a SSL proxy.
 
 In your nginx conf create this:
 

@@ -10,13 +10,43 @@ css:
   - "pre>code.hljs {font-size: 80%}"
 ---
 
+![](/images/sheet-upload.gif)
+
+**Update 2022**: There is a new solution which **actually works**! DropSpread is a google sheet extension which let's you…
+
+1. choose a file from your computer to upload
+2. upload it to a defined folder on google drive
+3. inserts the link to the current cell
+
+In order to use it:
+
+1. Click Extensions -> Add-Ons -> Get add-ons
+2. Search for DropSpread and install it
+3. Reload the spreadsheet
+4. Click Extensions -> DropSpread -> Open DropSpread.io -> opens a sidebar
+5. in the sidebar next to settings, click "show"
+6. in Folder ID paste in the id of your google drive folder you want the files to go to. Look at the URL of your google drive folder, you'll see something like <pre>drive.google.com/drive/u/0/folders/<strong style="color: red">0A0ab1ABabABabmAabSTUqrFkTkk</strong>?resourcekey=0-vWjySqCUUgZUcgvA2Kno8A</pre> The red part is what you need to past into there
+
+That's it, now you can move your mouse into any cell, do Extensions -> DropSpread -> Open DropSpread.io, drag'n'drop your file into the sidebar and the file is uploaded into drive and the link is pasted into the current cell.
+
+If you're happy about the solution, then please give [the author a good review](https://workspace.google.com/marketplace/app/dropspread/1038626361348).
+
+-----------
+
+&nbsp;
+
+-----------
+
+&nbsp;
+
+-----------
+
+The old solution, for history reasons. I couldn't get it to work again, if anyone is interested, I think [this stackoverflow answer](https://stackoverflow.com/questions/57090349/uploading-file-to-spreadsheet-shows-uiapp-has-been-deprecated-please-use-htmls) is pointing into the right direction.
+
 ![attach file](/images/attach.png)
 
 The following setup lets you
 
-*   choose a file from your computer to upload
-*   upload it to a defined folder on google drive
-*   inserts the link to the current cell
 
 <!-- more -->
 
