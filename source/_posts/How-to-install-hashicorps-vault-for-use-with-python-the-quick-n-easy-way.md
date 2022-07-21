@@ -10,7 +10,7 @@ I wanted to get rid of AWS secrets manager - both because it was eating 7% of my
 
 The number one alternative is [Hashicorp Vault](https://www.vaultproject.io/). From the same company who built Terraform, Consul and Vagrant.
 
-The learning curve is not steep - I followed their [https://learn.hashicorp.com/collections/vault/getting-started](excellent getting started guide). But if you want to have it even quicker, then use this guide.
+The learning curve is not steep - I followed their [excellent getting started guide](https://learn.hashicorp.com/collections/vault/getting-started). But if you want to have it even quicker, then use this guide.
 
 For this how-to I chose:
 
