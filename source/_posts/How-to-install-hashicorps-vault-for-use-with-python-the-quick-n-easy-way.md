@@ -173,24 +173,9 @@ export VAULT_ADDR='http://127.0.0.1:8200'
 export VAULT_TOKEN="hvs.1324ASDF1324ASDF1324Aasd"
 ```
 
-Then run the following (replace `flask` line 1 by your wished role name and `flask` in the last name by the name of your ACL policy):
+Then run `vault token create -policy="flask" -field=token` (replace `flask` by the ACL policy name you created above).
 
-```
-vault write auth/approle/role/flask \
-    token_num_uses=10 \
-    token_ttl=20m \
-    token_max_ttl=30m \
-    secret_id_num_uses=0 \
-    token_policies=flask
-```
-
-This creates a new role named `flask` and attaches it to the ACL policy `flask` which can only read secrets.
-
-Now, you can create a access role-id/secret pair:
-
-- `vault read -field=role_id auth/approle/role/flask/role-id` -> creates a role-id
-- `vault write -f -field=secret_id auth/approle/role/flask/secret-id` -> creates a secret
-- store both away into a safe place, e.g. 1password
+This creates a token you'll use for python later, so store it away into a safe place, e.g. 1password
 
 ## test python setup
 
@@ -209,9 +194,12 @@ then do the following:
 
 ```
 import hvac
-client = hvac.Client(url='https://mysite.com:8201') # depending on if you run this on server or dev needs different address, there might be a better way to do this
-client.auth.approle.login('role-id-from-above', 'secret-from-above')
-client.is_authenticated() # should be True
+
+# depending on if you run this on server or dev needs different address, there might be a better way to do this
+url = 'https://mysite.com:8201'
+
+client = hvac.Client(url=url, token='hvs.…')  # token you got with vault token create
+client.is_authenticated()                     # should be True
 client.secrets.kv.read_secret_version(path='foo', mount_point='kv')['data']['data']
 ```
 
