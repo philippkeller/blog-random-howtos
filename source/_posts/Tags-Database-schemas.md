@@ -175,7 +175,8 @@ AND bt.tag_id = t.tag_id
 AND (t.name IN ('Programming', 'Algorithms'))
 AND b.id NOT IN (SELECT b.id FROM bookmark b, tagmap bt, tag t WHERE b.id = bt.bookmark_id AND bt.tag_id = t.tag_id AND t.name = 'Python')
 GROUP BY b.id
-HAVING COUNT( b.id ) =2```
+HAVING COUNT( b.id ) =2
+```
 
 Leaving out the `HAVING COUNT` leads to the Query for `bookmark|webservice-semweb`.
 Credits go to [Rhomboid](http://www.metafilter.com/user/26222) for [helping me out with this query](http://ask.metafilter.com/mefi/34897#544185).
