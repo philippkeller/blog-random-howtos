@@ -5,7 +5,7 @@ tags:
 ---
 
 This howto assumes that you
-- created your ec2 already with **Amazon Linux** on it (I personally use lightsail as have great prices and IMO are a bit cheaper than ec2 instances, but there's no different on OS level)
+- created your ec2 already with **Amazon Linux** on it (I personally use lightsail as have great prices and IMO are a bit cheaper than ec2 instances, but there's no difference on OS level)
 - opened port 80 (http) and 22 (ssh)
 
 <!--more-->
@@ -30,7 +30,7 @@ Let's use virtualenv (important especially if you run more than just this one we
 
 The following does:
 - create the `venv` folder
-- make the current shell use the venv folder (exit again with `deactivate`
+- make the current shell use the venv folder (exit again with `deactivate`)
 - install flask and gunicorn into venv
 - store the used pip package versions into requirements.txt
 
@@ -39,6 +39,8 @@ The following does:
 ```
 virtualenv -p python3 venv
 source venv/bin/activate
+pip install flask
+pip install gunicorn
 pip freeze > requirements.txt
 ```
 
