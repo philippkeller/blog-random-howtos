@@ -47,6 +47,7 @@ PHP 8.0.20 (cli) (built: Jun 23 2022 20:34:07)
 …
 ```
 
+
 ## Install mysql
 
 Same as php, mysql does not come as a first citizen package in amazon linux 2.
@@ -91,6 +92,8 @@ sudo wget https://builds.matomo.org/matomo-latest.zip
 sudo unzip matomo-latest.zip
 sudo chown -R nginx:nginx /opt/matomo
 ```
+
+Matomo also needs mysqli so install it with `yum install php-mysqli`
 
 ## Add Nginx config
 
@@ -144,4 +147,8 @@ group = nginx
 - Run `sudo systemctl enable php-fpm` to start php-fpm at boot time
 - Run `sudo systemctl start php-fpm` to start the service
 
-Now, https://matomo.mydomain.com/ should show a running matomo! If all goes well… 🤞 I hope I have covered everything. The installation was not super straight forward for me (that's why I created this howto!), if I forgot something, please put a comment.
+Now, https://matomo.mydomain.com/ should show a running matomo! If all goes well… 🤞 
+
+Now, before you start that setup process, go sure to create a mysql database and user for matomo, see [this official documentation](https://matomo.org/faq/how-to-install/faq_23484/). Please not that you need `mysql -u root -p` to start the mysql shell.
+
+I hope I covered everything. The installation was not super straight forward for me (that's why I created this howto!), if I forgot something, please put a comment.
