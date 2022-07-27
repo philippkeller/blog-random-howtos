@@ -1,5 +1,5 @@
 ---
-title: How to install hashicorp vault for secrets manager usage - the quick'n'easy way
+title: How to install and use hashicorp vault as secrets manager - the quick'n'easy way
 date: 2022-07-21 10:46:09
 tags:
 ---
