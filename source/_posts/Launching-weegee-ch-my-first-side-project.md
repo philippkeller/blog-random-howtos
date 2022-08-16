@@ -12,6 +12,8 @@ During the past few months I've been busy creating my first side project. This w
 
 <a href="https://apps.apple.com/app/id1632452144"><img src="/images/ios_store.png" onclick="window.open('https://apps.apple.com/app/id1632452144'); return false;" /></a>
 
+<a href="https://play.google.com/store/apps/details?id=ch.weegee"><img src="/images/play_store.png" onclick="window.open('https://play.google.com/store/apps/details?id=ch.weegee'); return false;" /></a>
+
 <div style="clear: both" />
 
 The data is coming from crawling shared flats from wgzimmer, flatfox, urbanhome, ronorp and tutti - creating a shared flat search which is twice as big as any of the other portals!
