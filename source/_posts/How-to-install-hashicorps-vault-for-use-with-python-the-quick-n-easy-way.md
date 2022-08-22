@@ -178,6 +178,10 @@ export VAULT_TOKEN="hvs.1324ASDF1324ASDF1324Aasd"
 
 Then run `vault token create -policy="python" -field=token` (replace `python` by the ACL policy name you created above).
 
+Keep in mind that the TTL for this token is 31 days per default. That means you need to create fresh tokens every 31 days.
+
+To change this you can run e.g. `vault write sys/auth/token/tune default_lease_ttl=1000000h max_lease_ttl=1000000h` to never have them expire (they expire in more than 100 years which should be enough :))
+
 This creates a token you'll use for python later, so store it away into a safe place, e.g. 1password
 
 ## test python setup

@@ -10,9 +10,11 @@ During the past few months I've been busy creating my first side project. This w
 
 [weegee.ch](https://weegee.ch) - the biggest shared flat search in Switzerland. In Switzerland, shared flats are called WGs (for **W**ohn**G**emeinschaft), pronounced "weegee", that's where the domain name comes from.
 
-<a href="https://apps.apple.com/app/id1632452144"><img src="/images/ios_store.png" onclick="window.open('https://apps.apple.com/app/id1632452144'); return false;" /></a>
+It's available for [web](https://weegee.ch), [iOS](https://apps.apple.com/app/id1632452144) and [android](https://play.google.com/store/apps/details?id=ch.weegee).
 
-<a href="https://play.google.com/store/apps/details?id=ch.weegee"><img src="/images/play_store.png" onclick="window.open('https://play.google.com/store/apps/details?id=ch.weegee'); return false;" /></a>
+<img src="/images/ios_store.png" onclick="window.open('https://apps.apple.com/app/id1632452144'); return false;" />
+
+<img src="/images/play_store.png" onclick="window.open('https://play.google.com/store/apps/details?id=ch.weegee'); return false;" />
 
 <div style="clear: both" />
 
