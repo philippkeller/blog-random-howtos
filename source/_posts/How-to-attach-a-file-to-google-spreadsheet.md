@@ -12,24 +12,21 @@ css:
 
 ![](/images/sheet-upload.gif)
 
-**Update 2022**: There is a new solution which **actually works**! DropSpread is a google sheet extension which let's you…
+**Update 2022**: There is a new solution which **actually works**! [FileDrop](https://getfiledrop.com) is a google sheet extension which let's you…
 
 1. choose a file from your computer to upload
-2. upload it to a defined folder on google drive
-3. inserts the link to the current cell
+2. inserts the link to the file into the current cell
 
 In order to use it:
 
-1. Click Extensions -> Add-Ons -> Get add-ons
-2. Search for DropSpread and install it
-3. Reload the spreadsheet
-4. Click Extensions -> DropSpread -> Open DropSpread.io -> opens a sidebar
-5. in the sidebar next to settings, click "show"
-6. in Folder ID paste in the id of your google drive folder you want the files to go to. Look at the URL of your google drive folder, you'll see something like <pre>drive.google.com/drive/u/0/folders/<strong style="color: red">0A0ab1ABabABabmAabSTUqrFkTkk</strong>?resourcekey=0-vWjySqCUUgZUcgvA2Kno8A</pre> The red part is what you need to past into there
+1. go to https://getfiledrop.com and click "install addon"
+2. on the spreadsheet you want to use it click extensions -> FileDrop -> Start FileDrop
+3. put the focus on the cell you want to add the link
+4. drag and drop the file into the sidebar
 
-That's it, now you can move your mouse into any cell, do Extensions -> DropSpread -> Open DropSpread.io, drag'n'drop your file into the sidebar and the file is uploaded into drive and the link is pasted into the current cell.
+The file will be uploaded into your google drive into a folder "FileDrop" which you can move to any position of your drive tree. If you want to define the upload location then you need to switch to the paid version.
 
-If you're happy about the solution, then please give [the author a good review](https://workspace.google.com/marketplace/app/dropspread/1038626361348).
+Alternatively you can use [dropspread](https://workspace.google.com/marketplace/app/dropspread/1038626361348) - but I found dropspread harder to use (it has a few UI quirks)
 
 -----------
 
