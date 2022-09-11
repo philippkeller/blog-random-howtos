@@ -34,6 +34,11 @@ To install it client+server:
 sudo yum install postgresql postgresql-server
 ```
 
+Some extensions you might want to have on top:
+
+- postgis: `sudo yum install postgis`
+- contrib extensions (e.g. for earthdistance): `sudo yum install postgresql-contrib`
+
 ## Setup postgres
 
 Create the initial `postgres` database:
