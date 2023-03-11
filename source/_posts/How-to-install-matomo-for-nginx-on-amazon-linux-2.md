@@ -144,6 +144,13 @@ user = nginx
 group = nginx
 ```
 
+In order to not have php-fpm eats tons of memory, limit the number of processes to 1 (search for the appropriate lines and replace the settings)
+```
+pm = static
+pm.max_children = 1
+pm.start_servers = 1
+```
+
 - Run `sudo systemctl enable php-fpm` to start php-fpm at boot time
 - Run `sudo systemctl start php-fpm` to start the service
 
