@@ -14,6 +14,8 @@ css:
 
 ---
 
+<img class="caption" alt="What you'll have at the end of this howto" src="/images/firebaseui.png" width="368" />
+
 I'm migrating my frontend away from Flask to next.js, reducing my flask app to only backend apis.
 
 This blogpost explains how a next.js app authenticates against flask backend using flask-login.
@@ -211,3 +213,32 @@ export async function fetchJson(path) {
 ```
 
 That's it! I hope I didn't forget any caveat in my howto, otherwise, please leave a comment below and I'll add the missing part.
+
+
+## Styling
+
+I was not too happy with the default styling of firebaseui, so I  included custom styling. See [firebaseui documentation](https://github.com/firebase/firebaseui-web-react#styling) on more details, basically it needs importing a css file in `_app.jsx`:
+
+```
+import '@/styles/firebaseui.global.css'
+```
+
+Into the css file I put this to make the buttons bigger:
+
+```css
+
+#firebase .firebaseui-container {
+    max-width: 50em;
+}
+
+#firebase .firebaseui-idp-button,
+#firebase .firebaseui-tenant-button {
+    max-width: none;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#firebase .firebaseui-idp-text {
+    font-size: 18px;
+}
+```
