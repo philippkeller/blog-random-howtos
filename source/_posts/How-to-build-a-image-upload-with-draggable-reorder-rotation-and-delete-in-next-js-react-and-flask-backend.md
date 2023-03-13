@@ -1,6 +1,6 @@
 ---
 title: >-
-  How to build a image upload with draggable reorder, rotation and delete in
+  How to build image upload with draggable reorder, rotation and delete in
   next.js/react and python backend
 date: 2023-03-12 16:11:15
 tags:
@@ -24,7 +24,10 @@ This howto covers:
 - frontend in next.js (97% is react, so if you're using react this howto should work for you too)
 - backend in python: uploading to s3 (I'm using Flask but 97% is framework agnostic)
 - image reordering with [dndkit](https://dndkit.com/)
+- image deletion
 - image rotation in python using Pillow
+
+<!-- more -->
 
 <div style="clear: both; margin-bottom: 5em" />
 
