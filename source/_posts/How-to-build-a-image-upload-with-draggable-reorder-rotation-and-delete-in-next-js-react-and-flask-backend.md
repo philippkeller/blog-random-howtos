@@ -312,7 +312,7 @@ const handleRotateLeft = (e) => {
 Again some explanations:
 
 - Line 1: `direction` is a string, either `left` or `right`, an enum would have been cleaner but let's stay brief here
-- Line 2,12: as the image rotation takes about 1s, I'm showing a little loading animation under the image which is rotating. I'm leaving the html part as an exercise for the reader 👨‍🏫.
+- Line 2,12: as the image rotation takes about half a second, I'm showing a little loading animation under the image which is rotating. I'm leaving the html part as an exercise for the reader 👨‍🏫.
 - Line 7: If you omit sending the content-type, it will cause [strange exceptions in the python backend](https://stackoverflow.com/a/20001283/119861)
 - Line 10: The backend will rotate the image and will respond with a new image path. It was easier to change the path, as this way I'm sure the client fetches the image afresh. Replacing the image without changing the path/filename would create lots of caching issues which was not worth to deal with.
 
