@@ -244,6 +244,7 @@ Some explanations about the code:
 
 - Line 1: `collisionDetection` defines when images should move by the side. If you want to play with this, [see the docs](https://docs.dndkit.com/api-documentation/context-provider/collision-detection-algorithms)
 - Line 10: I created a 4/3 aspect via tailwindcss config (see [doc](https://tailwindcss.com/docs/aspect-ratio#customizing-your-theme))
+- Line 12: I'm serving the image from s3 through cloudfront. This is needed for SSL. If you don't need SSL, you can serve them directly from S3 once you make the bucket world-readable.
 - Line 11-14: Instead of the Image component, img works as well, I had some problems with showing portrait mode images properly (without having them filling the whole canvas). Only `<Image>` solved this issue for me. If you're a skilled CSS/React person, you can solve this with some additional styling I'm sure.
 
 That's it already for ordering the images! Congrats on reaching this far. If you don't need deletion and rotation then you can stop at this point!
