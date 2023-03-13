@@ -21,20 +21,18 @@ css:
 This howto covers:
 
 - image upload with `<input type="file" multiple />` component
-- frontend in next.js/react
-- backend in python, uploading to s3
-- image reordering with dndkit
-- image rotation in python using imagemagick
+- frontend in next.js (97% is react, so if you're using react this howto should work for you too)
+- backend in python: uploading to s3 (I'm using Flask but 97% is framework agnostic)
+- image reordering with [dndkit](https://dndkit.com/)
+- image rotation in python using Pillow
 
 <div style="clear: both; margin-bottom: 5em" />
 
 ## Uploading images
 
-<img class="caption" alt="Choose image dialogue" src="/images/choose_images.png"  />
+There's a popular library called [Dropzone](https://www.dropzone.dev/) which offers a [react library](https://react-dropzone.js.org/) but I never really saw the point of a "drag and drop landing zone". I'm an old fashioned "click this button to upload" guy.
 
-There's a popular library called [Dropzone](https://www.dropzone.dev/) which offers a [react library](https://react-dropzone.js.org/) but I never really saw the point of this drag and drop, I'm an old fashioned "click this button to upload" guy.
-
-This code shows a button, when the button is clicked it opens the file dialogue which lets the user choose **multiple files** but only those of type image:
+The following code shows a button, when the button is clicked it opens the file dialogue which lets the user choose **multiple files** but only those of type image:
 
 <div style="clear: both" />
 
@@ -50,7 +48,7 @@ export default function Example() {
                 <input id="file_upload" type="file" multiple
                     accept="image/*" className='hidden' 
                     ref={inputFileRef}
-                    // onChange={onImageUpload} 
+                    onChange={onImageUpload} 
                     />
                 <button
                     type="button"
@@ -66,7 +64,7 @@ export default function Example() {
 }
 ```
 
-I'm using tailwindCSS and the `PhotoIcon` is from heroicons, but of course you can adapt this to your liking.
+I'm using tailwindCSS and the `PhotoIcon` is from heroicons (`npm i @heroicons/react`), but of course you can adapt this to your liking.
 
 Next is of course to add the code for uploading the images. On javascript side that's what I use:
 
@@ -93,10 +91,10 @@ Some explanations:
 
 - Line 1,9,15: I want to let the user know a file is uploading -> I'm using `isUploading` for this
 - Line 6: granted, that's an ugly way to loop over the images. You might know a nicer way, but this was good enough for me
-- Line 10: `fetchJson` is a helper function I have which adds servername, error handling etc. I'm leaving this out as I'm assuming you have a similar function already
-- Line 14: the backend will return with an array of filenames with paths which I'm saving in the `images` variable
+- Line 10: `fetchJson` is a helper function I use which adds servername, error handling etc. I'm leaving this out as I'm assuming you have a similar function already
+- Line 14: the backend will return an array of filenames with paths which I'm saving in the `images` variable
 
-This is all very much straight forward really! So really no need to use any libraries for this. Let's have a look at the backend code. I'm using flask but the code is pretty much the same in any framework
+This is all very much straight forward! So really no need to use any libraries for this. Let's have a look at the backend code. I'm using flask but the code is pretty much the same in any framework:
 
 ```python
 from flask import request, jsonify
@@ -114,7 +112,7 @@ def upload():
     paths = []
     for _,file in files:
         ending = file.filename.split('.')[-1]
-        if ending in ['jpe', 'jpeg']:
+        if ending in ['jpg', 'jpeg']:
             content_type = 'image/jpeg'
         else:
             content_type = f'image/{ending}'
@@ -128,9 +126,11 @@ def upload():
 
 Again, some explanations:
 
-- Line 20: in order to have no filename clashes on s3 I'm generating a random 10 length string, containing upper+lowercase letters and numbers. That's 10^17 possible strings, pretty safe I'd say. You'd need to `pip install shortuuid` to use this
-- Line 16-19: In order that s3 responds with the right mimetype headers you need to specify the file type on upload. I guess there are better ways to do this, but this code has done the trick for me so far
+- Line 20: in order to have no filename clashes on s3, I'm generating a random 10 length string, containing upper+lowercase letters and numbers. That's 10^17 possible strings, pretty safe I'd say. You'd need to `pip install shortuuid` to use this
+- Line 16-19: In order that the browsers correctly show the images from s3, you need to specify the mime type on upload. I guess there are better ways to do this, but this code has done the trick for me so far
 - Line 22: note that the file is uploaded from memory, no messing around with temporary files
+
+If you care for speed, you'd want to run this with multi-threading or multi-processing, but for my case it seemed fast enough.
 
 What's missing on the client side is the loading animation: After `Upload images` paste this code:
 
@@ -145,9 +145,9 @@ If you want to use my `LoadingAnimation` then copy-paste [this code](https://gis
 
 ## Show images and make them draggable
 
-I used **hours** to find a good library which supports drag and drop for react. Every library was either no longer supported (react-beautiful-dnd) or looked complicated to use (react-dnd), I ended up using [dnd kit](https://dndkit.com/), the »new kit on the block«, started November 2020 but has already 7.2K stars on github at the time of this blogpost (March 2023).
+I used **hours** to find a good library which supports drag and drop for react. Every library was either no longer supported (react-beautiful-dnd) or looked complicated to use (react-dnd), I ended up using [dnd kit](https://dndkit.com/), the »new kit on the block«. It doesn't yet show up on the first page of google search, but has already 7.2K stars on github at the time of this blogpost (March 2023).
 
-I was unsure if mobile was supported, as their doc is not clear about this part (and their example on their homepage does **not** work with mobile), but res assured, it totally works on mobile too!
+I was unsure if mobile was supported, as their doc is not clear about this part (and their example on their homepage does **not** work with mobile), but rest assured, the code covered in this howto works on mobile too!
 
 To install it:
 
@@ -198,8 +198,8 @@ const handleDragEnd = (event) => {
 
 `sensors` defines with what you can move the images:
 
-- a pointer sensor (mouse on desktop, touch on mobile). I added `activationContraint` to be able to click on elements (delete, rotate) later without the drag operation to start already
-- a keyboard sensor which lets you move the items using tab, space, left/right control. Not really useful but fancy nonetheless
+- a **pointer sensor** is needed for moving the images with a mouse (on desktop) or touch (on mobile). I added `activationContraint` to be able to click on elements (delete, rotate) later without the drag operation to start already
+- a **keyboard sensor** lets you move the items using tab, space, left/right control. Not super intuitive, but fancy nonetheless
 
 ### handleDragEnd
 
@@ -241,13 +241,13 @@ Some explanations about the code:
 
 - Line 1: `collisionDetection` defines when images should move by the side. If you want to play with this, [see the docs](https://docs.dndkit.com/api-documentation/context-provider/collision-detection-algorithms)
 - Line 10: I created a 4/3 aspect via tailwindcss config (see [doc](https://tailwindcss.com/docs/aspect-ratio#customizing-your-theme))
-- Line 11-14: Instead of the Image component, img works as well, I had some problems with showing portrait mode images properly which for me only Image solved but a skilled CSS guy can solve this with some additional styling
+- Line 11-14: Instead of the Image component, img works as well, I had some problems with showing portrait mode images properly (without having them filling the whole canvas). Only `<Image>` solved this issue for me. If you're a skilled CSS/React person, you can solve this with some additional styling I'm sure.
 
 That's it already for ordering the images! Congrats on reaching this far. If you don't need deletion and rotation then you can stop at this point!
 
 ## Deletion
 
-Delete is quite simple and I was lazy and only implemented the client side :)
+Delete is quite simple and I was lazy and only implemented the client side 😅
 
 After the closing div after `<Image>`, add this code:
 
@@ -259,7 +259,7 @@ After the closing div after `<Image>`, add this code:
 </div>
 ```
 
-The `TrashIcon` is taken from heroicons.
+The `TrashIcon` is taken from heroicons (`npm i @heroicons/react`).
 
 The deletion handler:
 
@@ -270,15 +270,15 @@ const handleDelete = (e) => {
 }
 ```
 
-That's it :) Super sneaky lazy, but I don't bother doing the deletion on s3. I'll handle this separately as I'll need to handle aborted form submissions anyway and will run daily "delete orphaned images" job on the backend.
+That's it 😇. Super sneaky lazy, but I don't bother doing the deletion on s3. I'll handle this separately as I'll need to handle aborted form submissions anyway and will run a daily "delete orphaned images" job on the backend.
 
 ## Rotation
 
-This is somehow a nice-to-have feature because you could argue that users can do this on their laptop. Thing is, many have no idea how to do this and handling image rotation in python is fun, so…
+This is somehow a nice-to-have feature, because you could argue that users can do this on their laptop. Thing is, many have no idea how to do this and handling image rotation in python is fun, so…
 
-First, add the rotate-left and rotate-right icons, I used inline svg for this. This is a bit ugly, but by now you probably guess how I roll: If it works, it works :)
+First, add the rotate-left and rotate-right icons, I used inline svg for this. This is ugly but straightforward. And by now you probably guess how I roll: If it works, it works 😎.
 
-Copy-paste [this gist](https://gist.github.com/philippkeller/0705772f92fbae585ae1bc0dee773b26) into the `<!-- rotation icons -->` from the code above. This has a click handler into `handleRotateLeft` and `handleRotateRight`. Here's the code for both functions:
+Copy-paste [this gist](https://gist.github.com/philippkeller/0705772f92fbae585ae1bc0dee773b26) where the `<!-- rotation icons -->` is in the code above. This has a click handler into `handleRotateLeft` and `handleRotateRight`. Here's the code for both functions:
 
 ```javascript
 const handleRotate = async (path, direction) => {
@@ -308,6 +308,63 @@ const handleRotateLeft = (e) => {
 Again some explanations:
 
 - Line 1: `direction` is a string, either `left` or `right`, an enum would have been cleaner but let's stay brief here
-- Line 2,12: as the image rotation takes about 1s I'm showing a little loading animation under the image which is rotating. I'm leaving the html part as an exercise for the reader :)
-- Line 7: I forgot sending the content-type first, which causes [strange exceptions in the python backend](https://stackoverflow.com/a/20001283/119861)
-- Line 10: The backend will rotate the image and will respond with a new image path. It was easier to change the path as this way I'm sure the client fetches the image afresh. Replacing the image would create lots of caching issues which was not worth to deal with.
+- Line 2,12: as the image rotation takes about 1s, I'm showing a little loading animation under the image which is rotating. I'm leaving the html part as an exercise for the reader 👨‍🏫.
+- Line 7: If you omit sending the content-type, it will cause [strange exceptions in the python backend](https://stackoverflow.com/a/20001283/119861)
+- Line 10: The backend will rotate the image and will respond with a new image path. It was easier to change the path, as this way I'm sure the client fetches the image afresh. Replacing the image without changing the path/filename would create lots of caching issues which was not worth to deal with.
+
+And finally the backend code in python.
+
+You'd need to `pip install Pillow` which we need to rotate the image.
+
+```python
+
+from flask import request
+import boto3
+from io import BytesIO
+from PIL import Image
+
+def _rotate(orig, rotation):
+    s3 = boto3.client('s3')
+    s3_response_object = s3.get_object(Bucket='my-s3-bucket', Key=orig)
+    object_content = s3_response_object['Body'].read()
+    b = BytesIO(object_content)
+    img = Image.open(b)
+    img2 = img.transpose(rotation)
+    output = BytesIO()
+    img2.save(output, format=img.format)
+    output.seek(0)
+    ending = orig.split('.')[-1]
+    if ending in ['jpg', 'jpeg']:
+        content_type = 'image/jpeg'
+    else:
+        content_type = f'image/{ending}'
+    fileid = id_generator.random(length=10)
+    path = f'upload'
+    filename = f'{path}/{fileid}.{ending}'
+    s3.upload_fileobj(output, 'my-s3-bucket', filename, 
+                      ExtraArgs={"ContentType": content_type})
+
+    return jsonify(dict(filename=filename))
+
+
+@app.route('/api/rotate/right', methods=['POST'])
+def rotate_right():
+    data = request.get_json()
+    orig = data['path']
+    return _rotate(orig, Image.ROTATE_90)
+
+@app.route('/api/rotate/left', methods=['POST'])
+def rotate_left():
+    data = request.get_json()
+    orig = data['path']
+    return _rotate(orig, Image.ROTATE_270)
+
+```
+
+Again, some explanations:
+
+- Lines 9-12: `BytesIO` and `get_object` avoids messing around with temp files. Temp files are always a hassle as they produce clutter and need to be removed and stuff
+- Lines 13-16: the rotation also happens in memory. `seek(0)` is needed to put the file pointer to the beginning of the file, otherwise `upload_fileobj` will upload an empty file.
+- Lines 17-26: see the notes on the backend code for uploading further up of this howto
+
+And that's it. I hope I didn't forget anything! If I did, as always: leave a comment, I hope to follow up quickly.
