@@ -17,7 +17,6 @@ css:
 ---
 <img class="caption" alt="What we'll be building today" src="/images/upload.gif"  />
 
-
 This howto covers:
 
 - image upload with `<input type="file" multiple />` component
