@@ -62,7 +62,7 @@ The easiest way to show the setup is with a a minimal `app/__index__.py` file:
 
 ```python
 from flask import Flask
-from .socket import socketio
+from .mysocket import socketio
 
 app = Flask(__name__)
 socketio.init_app(app)
@@ -72,12 +72,12 @@ if __name__ == "__main__":
 ```
 
 <div style="border: dashed 1px #888; padding: 1em; margin: 2em 0">
-ℹ️ You might not yet work with <code>__init__.py</code> and have all in <code>application.py</code>. In this case you would not omit the import in line 2. It's kindof best practice to split the application into <code>app/__index__.py</code> and separate modules for not having all application logic in one place. All socketIO stuff lives in <code>app/socket.py</code>.
+ℹ️ You might not yet work with <code>__init__.py</code> and have all in <code>application.py</code>. In this case you would not omit the import in line 2. It's kindof best practice to split the application into <code>app/__index__.py</code> and separate modules for not having all application logic in one place. All socketIO stuff lives in <code>app/mysocket.py</code>.
 </div>
 
 For the SocketIO part we first need an API key from OpenAI. Go to [User -> API Keys](https://platform.openai.com/account/api-keys) and create one. If you didn't activate payments yet you need to do so first.
 
-Then, put the following code into `app/socket.py`:
+Then, put the following code into `app/mysocket.py`:
 
 ```python
 from flask_socketio import SocketIO, emit
