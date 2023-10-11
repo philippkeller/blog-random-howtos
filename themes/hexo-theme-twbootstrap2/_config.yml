@@ -1,0 +1,142 @@
+menu:
+  Home: /
+  Archives: /archives
+
+widgets:
+- search # shows a search bar which uses google to search on your site
+- recommended_links # needs noteworthy section below
+
+recommended_links_title: You'll also find me on…
+recommended_links:
+  - url: https://twitter.com/philkellr
+    title: Twitter
+  - url: https://stackoverflow.com/users/119861/hansaplast
+    title: Stackoverflow
+  - url: https://gist.github.com/philippkeller/
+    title: Github
+  - url: https://www.linkedin.com/in/phkeller/
+    title: LinkedIn
+
+google_analytics: UA-53694-6
+
+# Mailchimp:
+# 
+# to set up mailing over Mailchimp create a campaign based on RSS
+#
+# to get those ids, go to Mailchimp and go to
+# lists -> embedded -> naked
+# see copy/paste onto site:
+
+twitter_id:
+facebook_id:
+linkedin_id:
+github_id:
+google_plus_id: 
+disqus_shortname: 
+
+highlight:
+  enable: false
+
+highlightjs: foundation
+
+# shows a loading animation if image takes some moments to load
+# see https://imagesloaded.desandro.com/
+imagesloaded_js: true
+
+
+# highlight.js is the code highlighter in this theme
+# choose a highlight.js theme here or delete all to disable
+# - for demos see: http://softwaremaniacs.org/media/soft/highlight/test.html
+
+# highlightjs: github # << default
+# highlightjs: agate
+# highlightjs: androidstudio
+# highlightjs: arduino-light
+# highlightjs: arta
+# highlightjs: ascetic
+# highlightjs: atelier-cave-dark
+# highlightjs: atelier-cave-light
+# highlightjs: atelier-dune-dark
+# highlightjs: atelier-dune-light
+# highlightjs: atelier-estuary-dark
+# highlightjs: atelier-estuary-light
+# highlightjs: atelier-forest-dark
+# highlightjs: atelier-forest-light
+# highlightjs: atelier-heath-dark
+# highlightjs: atelier-heath-light
+# highlightjs: atelier-lakeside-dark
+# highlightjs: atelier-lakeside-light
+# highlightjs: atelier-plateau-dark
+# highlightjs: atelier-plateau-light
+# highlightjs: atelier-savanna-dark
+# highlightjs: atelier-savanna-light
+# highlightjs: atelier-seaside-dark
+# highlightjs: atelier-seaside-light
+# highlightjs: atelier-sulphurpool-dark
+# highlightjs: atelier-sulphurpool-light
+# highlightjs: atom-one-dark
+# highlightjs: atom-one-light
+# highlightjs: brown_paper
+# highlightjs: brown-paper
+# highlightjs: brown_papersq.png            
+# highlightjs: brown-papersq.png            
+# highlightjs: codepen-embed
+# highlightjs: color-brewer
+# highlightjs: darcula
+# highlightjs: dark
+# highlightjs: darkula
+# highlightjs: default
+# highlightjs: docco
+# highlightjs: dracula
+# highlightjs: far
+# highlightjs: foundation
+# highlightjs: github-gist
+# highlightjs: googlecode
+# highlightjs: grayscale
+# highlightjs: gruvbox-dark
+# highlightjs: gruvbox-light
+# highlightjs: hopscotch
+# highlightjs: hybrid
+# highlightjs: idea
+# highlightjs: ir_black
+# highlightjs: ir-black
+# highlightjs: kimbie.dark
+# highlightjs: kimbie.light
+# highlightjs: magula
+# highlightjs: mono-blue
+# highlightjs: monokai
+# highlightjs: monokai_sublime
+# highlightjs: monokai-sublime
+# highlightjs: obsidian
+# highlightjs: ocean
+# highlightjs: paraiso-dark
+# highlightjs: paraiso-light
+# highlightjs: pojoaque
+# highlightjs: pojoaque.jpg
+# highlightjs: purebasic
+# highlightjs: qtcreator_dark
+# highlightjs: qtcreator_light
+# highlightjs: railscasts
+# highlightjs: rainbow
+# highlightjs: routeros
+# highlightjs: school_book
+# highlightjs: school-book
+# highlightjs: school_book.png
+# highlightjs: school-book.png
+# highlightjs: solarized_dark
+# highlightjs: solarized-dark
+# highlightjs: solarized_dark_old
+# highlightjs: solarized_light
+# highlightjs: solarized-light
+# highlightjs: sunburst
+# highlightjs: tomorrow
+# highlightjs: tomorrow-night-blue
+# highlightjs: tomorrow-night-bright
+# highlightjs: tomorrow-night
+# highlightjs: tomorrow-night-eighties
+# highlightjs: vs2015
+# highlightjs: vs
+# highlightjs: xcode
+# highlightjs: xt256
+# highlightjs: zenburn
+

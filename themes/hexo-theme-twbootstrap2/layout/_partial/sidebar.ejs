@@ -1,0 +1,8 @@
+<div class="sidebar-nav">
+<% if (theme.widgets) { 
+  theme.widgets.forEach(function(widget){ %>
+    <div class="widget">
+  	<%- partial('../_widget/' + widget) %>
+    </div>
+<% })}; %>
+</div>
