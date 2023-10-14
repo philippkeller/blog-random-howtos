@@ -1,5 +1,5 @@
 ---
-title: How to stream chatGPT from Flask to react (simpler method)
+title: How to stream chatGPT from Flask to react (using only HTTP)
 date: 2023-10-14 12:56:53
 tags:
 - flask
