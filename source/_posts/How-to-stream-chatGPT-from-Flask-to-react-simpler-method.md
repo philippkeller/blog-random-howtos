@@ -23,15 +23,23 @@ ChatGPT's UI (and most of the 3rd party tools) have streaming output. This is no
 
 So you usually also want to output to the user: word for word.
 
-Turns out this is very simple to achieve. [My first attempt was using web sockets](http://howto.philippkeller.com/2023/04/03/ChatGPT-streaming-from-python-backend-to-react-frontend/) - which turned out to be unstable and needs lots of overhead.
+Turns out this is very simple to achieve. 
 
-This method uses *zero* additional dependencies.
+[My first attempt was using web sockets](http://howto.philippkeller.com/2023/04/03/ChatGPT-streaming-from-python-backend-to-react-frontend/) - which turned out to be unstable and needs lots of overhead. In came [Ilias](https://typefully.com/illyism), who created a [ChatGPT to Telegram Bot](https://magicbuddy.chat/) that streams responses to users. He was like: »man, why are you using sockets for this!?« And enlightened me that the same thing is possible with good ol' http requests.
 
-**Idea**: Frontend `POST`s a JSON, backend "streams" the data by outputting line by line, leaving the HTTP connection open until all is done.
+Plus: This method uses *zero* additional dependencies.
+
+Hope that I've wet your appetite.
+
+So enough of those introductory bubbles, let's talk tech.
+
+The whole idea is that the frontend (react) `POST`s a JSON to backend (flask) which then "streams" the data back by outputting line by line, leaving the HTTP connection open until all is done.
 
 <!-- more -->
 
 ## Backend: Flask
+
+Because I hate those "step by step" tutorial blog posts which make me scroll down to copy-paste their final code let's start with the final code right away and I explain you what's happening **under** it. Of course you're fine to just copy-paste and leave, like you would do anyway when asking chatGPT.
 
 ```python
 from flask import request, Flask
