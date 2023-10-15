@@ -27,7 +27,9 @@ To use Brightdata's service you need a daemon which runs locally. Scrapy will co
 - isp
 - residential, mobile, … (for these you need to go through a compliance process to prove that your use case is not fraudulent)
 
-There is an official [installation guide to install luminati-proxy](https://help.brightdata.com/hc/en-us/articles/4413300553745-Install-Proxy-Manager). Go sure you double check the node and npm version. I advice to first install on your laptop to get it running first before installing it on your server:
+There is an official [installation guide to install luminati-proxy](https://github.com/luminati-io/luminati-proxy#linuxmacos---manual-install) (I chose manual install, their automated bash script didn't work and is too scary anyway as it installs node versions on its own - something I'd rather want to do myself).
+
+Go sure you double check the node and npm version. I advice to first install on your laptop to get it running first before installing it on your server:
 
 1. double check your node version (`node --version`) and npm version (`npm --version`) match [the requirements](https://help.brightdata.com/hc/en-us/articles/4413300553745-Install-Proxy-Manager)
 2. if you need to upgrade/downgrade best use `n` (install with `npm install -g n`). Note: the npm version up/downgrades with the node version.
