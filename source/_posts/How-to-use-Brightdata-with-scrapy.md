@@ -31,8 +31,8 @@ There is an official [installation guide to install luminati-proxy](https://gith
 
 Go sure you double check the node and npm version. I advice to first install on your laptop to get it running first before installing it on your server:
 
-1. double check your node version (`node --version`) and npm version (`npm --version`) match [the requirements](https://help.brightdata.com/hc/en-us/articles/4413300553745-Install-Proxy-Manager)
-2. if you need to upgrade/downgrade best use `n` (install with `npm install -g n`). Note: the npm version up/downgrades with the node version.
+1. double check your node version (`node --version`) and npm version (`npm --version`) match [the requirements](https://github.com/luminati-io/luminati-proxy#linuxmacos---manual-install)
+2. if you need to upgrade/downgrade best use `n` (install with `npm install -g n`). Note: the npm version somehow up/downgrades with the node version. If it doesn't, use `sudo npm install -g npm@8.1.3`
 3. you might need to start a new shell
 4. finally, install with `sudo npm install -g @luminati-io/luminati-proxy`<br />Go sure you have no error message (I **did** run into the error message `error: no matching function for call to ‘v8::FunctionTemplate::GetFunction()` which - although the proxy daemon started - then made all requests hanging in a pending state)
 
