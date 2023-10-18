@@ -80,7 +80,10 @@ To reduce memory consumption: Change `/etc/my.cnf` and add the following lines:
 performance_schema_max_table_instances=150
 table_definition_cache=150
 table_open_cache=64
+secure-file-priv=
 ```
+
+The last line is needed for the archive command to work.
 
 Restart: `sudo systemctl restart mysqld.service`
 
@@ -157,5 +160,11 @@ pm.start_servers = 1
 Now, https://matomo.mydomain.com/ should show a running matomo! If all goes well… 🤞 
 
 Now, before you start that setup process, go sure to create a mysql database and user for matomo, see [this official documentation](https://matomo.org/faq/how-to-install/faq_23484/). Please not that you need `mysql -u root -p` to start the mysql shell.
+
+## Crontab for log archival
+
+Finally you need this cronjob to archive the logs:
+
+5 * * * * nginx /usr/bin/php /opt/matomo/console core:archive --url=https://matomo.myserver.com/ >> /var/tmp/matomo-archive.log
 
 I hope I covered everything. The installation was not super straight forward for me (that's why I created this howto!), if I forgot something, please put a comment.
