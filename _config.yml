@@ -100,6 +100,16 @@ recommended_links:
   - url: https://www.linkedin.com/in/phkeller/
     title: LinkedIn
 
+nofollow:
+	enable: true
+	exclude:
+    - backl.io
+    - irenehilft.ch
+    - weegee.ch
+    - typefully.com
+    - magicbuddy.chat
+    - howto.philippkeller.com
+    - climate.stripe.com
 
 menu:
   Home: /
