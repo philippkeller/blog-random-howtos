@@ -1,0 +1,7 @@
+---
+title: Affiliate program backl.io
+date: 2026-01-03 22:43:53
+tags:
+---
+
+If you're fan of my [SEO Kickstarter](https://backl.io) (I just did a silent release of V2) you might be interested in my [Affiliate program](https://backlio.tolt.io/) - I share 40% of all I make with you. Why? Because I think marketing is a big part of the job and with your help I can reach many more potential buyers!
