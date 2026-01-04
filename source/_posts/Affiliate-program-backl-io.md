@@ -5,3 +5,5 @@ tags:
 ---
 
 If you're fan of my [SEO Kickstarter](https://backl.io) (I just did a silent release of V2) you might be interested in my [Affiliate program](https://backlio.tolt.io/) - I share 40% of all I make with you. Why? Because I think marketing is a big part of the job and with your help I can reach many more potential buyers!
+
+On top of this I'm [giving 1% of my revenue to carbon removal](https://climate.stripe.com/nnEzuF)
