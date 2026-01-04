@@ -9,3 +9,4 @@ If you're fan of my [SEO Kickstarter](https://backl.io) (I just did a silent rel
 On top of this I'm [giving 1% of my revenue to carbon removal](https://climate.stripe.com/nnEzuF)
 
 If you have any questions about the launch feel free to [book a 30m session with me](https://cal.com/philkellr/seo-kickstarter-v2-onboarding?user=philkellr&overlayCalendar=true)
+I also [tried figma make](https://www.figma.com/community/file/1587486574389920821) to redesign the products page but it didn't come out quite right :))
