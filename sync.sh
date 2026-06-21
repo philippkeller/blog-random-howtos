@@ -1,3 +1,3 @@
 #!/bin/sh
 cd "$(dirname "$0")"
-aws s3 sync public s3://howto.philippkeller.com/ --profile private
+rsync -avz --delete public/ backl:/var/www/howto.philippkeller.com/
