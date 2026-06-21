@@ -88,13 +88,11 @@
     <% }) %>
   </style>
   <% } %>
-
-<% if (page.permalink) { %>
-  <link rel="canonical" href="<%- page.permalink %>">
-<% } else { %>
-  <link rel="canonical" href="<%- config.url %><%- url_for(page.path || '') %>">
-<% } %>
-
+<%
+  var canonical = config.url + '/' + page.path.replace(/index\.html$/, '');
+  canonical = canonical.replace(/\/+$/, '/');
+%>
+<link rel="canonical" href="<%- canonical %>">
 
 <% if (theme.addthis && theme.addthis.pubid) { %>
   <script type="text/javascript">var addthis_config = {"data_track_addressbar":false, "data_track_clickback":false};</script>
