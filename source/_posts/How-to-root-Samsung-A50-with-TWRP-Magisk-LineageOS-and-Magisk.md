@@ -3,7 +3,7 @@ title: 'How to root Samsung A50 with TWRP, Magisk, LineageOS and Magisk'
 date: 2021-03-13 10:57:33
 ---
 
-<img src="http://howto.philippkeller.com/images/lineage.jpg" />
+<img src="https://howto.philippkeller.com/images/lineage.jpg" />
 
 I've rooted many smartphones before. Probably about 6. But I never had so much problems as with Samsung A50. To spare you the frustrations I went through, I did a little writeup.
 

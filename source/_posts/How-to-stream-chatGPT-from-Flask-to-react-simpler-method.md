@@ -25,7 +25,7 @@ So you usually also want to output to the user: word for word.
 
 Turns out this is very simple to achieve. 
 
-[My first attempt was using web sockets](http://howto.philippkeller.com/2023/04/03/ChatGPT-streaming-from-python-backend-to-react-frontend/) - which turned out to be unstable and needs lots of overhead. In came [Ilias](https://typefully.com/illyism), who created a [ChatGPT to Telegram Bot](https://magicbuddy.chat/) that streams responses to users. He was like: »man, why are you using sockets for this!?« And enlightened me that the same thing is possible with good ol' http requests.
+[My first attempt was using web sockets](https://howto.philippkeller.com/2023/04/03/ChatGPT-streaming-from-python-backend-to-react-frontend/) - which turned out to be unstable and needs lots of overhead. In came [Ilias](https://typefully.com/illyism), who created a [ChatGPT to Telegram Bot](https://magicbuddy.chat/) that streams responses to users. He was like: »man, why are you using sockets for this!?« And enlightened me that the same thing is possible with good ol' http requests.
 
 Plus: This method uses *zero* additional dependencies.
 

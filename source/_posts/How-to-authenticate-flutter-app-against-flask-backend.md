@@ -53,7 +53,7 @@ Wow, that sounds complicated when written out like this, but in code it's fairly
 
 ## Preparation step 2: Flask and firebase
 
-As this is not well documented, I created a [separate blog post](http://howto.philippkeller.com/2022/06/16/How-to-use-Firebase-Auth-in-Flask/) for it. Trust me, it's worth it. Before I switched to firebase I used [flask-dance](https://flask-dance.readthedocs.io/). This was already quite efficient but still it needs quite a lot of boilerplate code around it. After I switched to firebase I could delete about 40% of all my python code and around 20% of template code.
+As this is not well documented, I created a [separate blog post](https://howto.philippkeller.com/2022/06/16/How-to-use-Firebase-Auth-in-Flask/) for it. Trust me, it's worth it. Before I switched to firebase I used [flask-dance](https://flask-dance.readthedocs.io/). This was already quite efficient but still it needs quite a lot of boilerplate code around it. After I switched to firebase I could delete about 40% of all my python code and around 20% of template code.
 
 ## Marry flutter and flask so they can live happily ever after
 

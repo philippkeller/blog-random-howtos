@@ -23,7 +23,7 @@ I thought: »I might be able to stream the chatGPT api response in realtime. Thi
 
 And - lo and behold - this is possible!
 
-**Update 2023-10**: Turns out there is a much simpler way to achieve the same without websockets, without needing to run gunicorn with only one worker, patching openai etc: [read here](http://howto.philippkeller.com/2023/10/14/How-to-stream-chatGPT-from-Flask-to-react-simpler-method/).
+**Update 2023-10**: Turns out there is a much simpler way to achieve the same without websockets, without needing to run gunicorn with only one worker, patching openai etc: [read here](https://howto.philippkeller.com/2023/10/14/How-to-stream-chatGPT-from-Flask-to-react-simpler-method/).
 
 **What we're building today**:
 

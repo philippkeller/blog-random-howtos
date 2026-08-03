@@ -24,7 +24,7 @@ then install package.json into e.g. ~/bin/:
 
 ```
 mkdir ~/bin/cloud9
-wget http://howto.philippkeller.com/images/cloud9.png
+wget https://howto.philippkeller.com/images/cloud9.png
 vim ~/bin/cloud9/package.json
 ```
 

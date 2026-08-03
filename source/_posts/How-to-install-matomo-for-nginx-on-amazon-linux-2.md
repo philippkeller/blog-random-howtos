@@ -104,7 +104,7 @@ Matomo has [an official github project](https://github.com/matomo-org/matomo-ngi
 
 1. takes their nginx conf as a base
 2. tweaks it to our setup
-3. runs letsencrypt to secure it behind SSL. I assume that you already have letsencrypt running, otherwise head over to [my howto](http://howto.philippkeller.com/2022/05/04/How-to-install-letsencrypt-for-nginx-on-Amazon-Linux-2/) and install it first
+3. runs letsencrypt to secure it behind SSL. I assume that you already have letsencrypt running, otherwise head over to [my howto](https://howto.philippkeller.com/2022/05/04/How-to-install-letsencrypt-for-nginx-on-Amazon-Linux-2/) and install it first
 
 `cd` into the directory where you have your nginx config files. Mine are at `/etc/nginx/conf.d`
 
