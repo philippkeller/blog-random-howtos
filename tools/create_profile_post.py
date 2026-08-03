@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a Hexo profile-footprint post from founder, website, and links."""
+"""Create a short Hexo post from a website and related links."""
 
 from __future__ import annotations
 
@@ -168,7 +168,7 @@ def yaml_string(value: str) -> str:
 def slugify(value: str) -> str:
     normalized = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
     slug = re.sub(r"[^A-Za-z0-9]+", "-", normalized).strip("-")
-    return slug or "profile-footprint"
+    return slug or "profile-links"
 
 
 def hostname(url: str) -> str:
@@ -227,45 +227,6 @@ def sentence_list(items: list[str]) -> str:
     return ", ".join(items[:-1]) + f", and {items[-1]}"
 
 
-def render_link_paragraphs(founder_name: str, product_name: str, links: list[str]) -> list[str]:
-    groups = split_links(links)
-    paragraphs = []
-
-    showcase_links = [markdown_link(link_label(link, founder_name), link) for link in groups["showcase"]]
-    if showcase_links:
-        verb = "give" if len(showcase_links) > 1 else "gives"
-        paragraphs.append(
-            f"The {sentence_list(showcase_links)} {verb} another angle on the product work: "
-            "how it is presented, designed, or packaged outside the main homepage."
-        )
-
-    contact_links = [markdown_link_with_article(link_label(link, founder_name), link) for link in groups["contact"]]
-    if contact_links:
-        verb = "give" if len(contact_links) > 1 else "gives"
-        paragraphs.append(
-            f"For direct contact, scheduling and expert-profile pages are still surprisingly practical. "
-            f"{product_name} has {sentence_list(contact_links)}, which {verb} someone a lightweight path "
-            f"to reach out or learn more from the founder."
-        )
-
-    hub_links = [markdown_link(link_label(link, founder_name), link) for link in groups["hub"]]
-    if hub_links:
-        paragraphs.append(
-            f"The compact version of this is a link hub. {sentence_list(hub_links)} gathers the important "
-            "public links in one place, which is often enough when someone just wants the shortest path "
-            "to the relevant profiles."
-        )
-
-    other_links = [markdown_link(link_label(link, founder_name), link) for link in groups["other"]]
-    if other_links:
-        paragraphs.append(
-            f"I also found {sentence_list(other_links)} while following the public footprint around "
-            f"{product_name}."
-        )
-
-    return paragraphs
-
-
 def render_post(
     founder_name: str,
     product_name: str,
@@ -275,18 +236,11 @@ def render_post(
     offering: str | None,
     now: dt.datetime,
 ) -> tuple[str, str]:
-    title = f"{founder_name} and the public footprint around {product_name}"
+    title = product_name
+    related_links = [markdown_link(link_label(link, founder_name), link) for link in links]
     paragraphs = [
-        "I like looking at the small public trail around indie products. The homepage tells you the main story, "
-        "but the surrounding profile pages often show how the founder thinks about the product, which communities "
-        "they care about, and where someone can actually reach them.",
-        f"One example I came across is {founder_name} and {markdown_link(product_name, website)}. "
-        f"{offering_sentence(product_name, context, offering)} "
-        "That is the kind of product surface area where the public profile pages around it become useful context.",
-        *render_link_paragraphs(founder_name, product_name, links),
-        f"None of this replaces a real homepage, of course. But when I research small products, I usually check "
-        f"these secondary pages as well. For a product like {product_name}, the surrounding footprint helps me "
-        "understand how the founder packages the same idea across different places.",
+        f"I came across {markdown_link(product_name, website)}. {offering_sentence(product_name, context, offering)}",
+        f"I also found {sentence_list(related_links)}.",
     ]
 
     frontmatter = "\n".join([

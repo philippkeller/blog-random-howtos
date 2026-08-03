@@ -4,6 +4,14 @@
 
 Use this when creating a backlink-supporting post on `howto.philippkeller.com` for a customer who needs a second domain linking to third-party profile/resource pages.
 
+Keep the post very short and natural, like the existing `Affiliate program backl.io` post:
+
+- use a normal blog title, usually just the product or company name
+- do not put "links", "profile", "footprint", or similar SEO wording in the title
+- write one short paragraph about the company/product
+- write one short sentence that naturally includes the requested URLs
+- avoid generic framing like "public footprint", "public trail", "useful related links", or "secondary pages"
+
 The input should be:
 
 - founder name
@@ -29,7 +37,7 @@ python3 tools/create_profile_post.py \
   --link "https://linktr.ee/jwengler"
 ```
 
-The script fetches lightweight homepage context, infers the product name, writes a post to `source/_posts`, and adds the linked hostnames to `nofollow.exclude`.
+The script fetches lightweight homepage context, infers the product name, writes a short post to `source/_posts`, and adds the linked hostnames to `nofollow.exclude`.
 
 Useful options:
 
